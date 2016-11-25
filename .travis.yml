@@ -7,13 +7,13 @@ python:
   - "3.5"
 
 env:
-  - DJANGO="1.9"
-  - DJANGO="1.10"
+  - DJANGO=1.9
+  - DJANGO=1.10
 
 matrix:
   fast_finish: true
   allow_failures:
-  - env: DJANGO="1.10"
+  - env: DJANGO=1.10
 
 before_install: pip install codecov
 install: pip install tox-travis
