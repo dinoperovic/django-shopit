@@ -9,13 +9,16 @@ python:
 env:
   - DJANGO=1.9
   - DJANGO=1.10
-  - TOXENV=flake8
-  - TOXENV=docs
 
 matrix:
   fast_finish: true
   allow_failures:
   - env: DJANGO=1.10
+  include:
+  - python: "3.5"
+    env: TOXENV=flake8
+  - python: "3.5"
+    env: TOXENV=docs
 
 before_install: pip install codecov
 install: pip install tox
