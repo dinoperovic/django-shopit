@@ -1,0 +1,29 @@
+{% extends "shopit/base.html" %}
+{% load i18n shopit_tags %}
+
+{% block title %}{% trans "Watch" %}{% endblock %}
+
+{% block content %}
+  {% if watch_items %}
+    <table>
+      <thead>
+        <tr>
+          <th>{% trans "Product" %}</th>
+          <th>{% trans "Price" %}</th>
+          <th>{% trans "Add to cart" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for item in watch_items %}
+            <tr>
+              <td><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
+              <td>{{ item.product.price }}</td>
+              <td>{% add_to_cart item.product %}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>{% trans "You're not watching any items." %}</p>
+  {% endif %}
+{% endblock %}

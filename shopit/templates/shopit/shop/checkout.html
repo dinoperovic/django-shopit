@@ -1,0 +1,142 @@
+{% extends "shopit/base.html" %}
+{% load i18n sekizai_tags shopit_tags %}
+
+{% block title %}{% trans "Checkout" %}{% endblock %}
+
+{% block content %}
+  <form id="checkout" action="{% url 'shopit-checkout' %}" method="POST">
+    {% csrf_token %}
+
+    <fieldset>
+      <legend>{% if customer.is_registered %}{% trans "Customer" %}{% else %}{% trans "Guest" %}{% endif %}</legend>
+      {{ customer_form.as_p }}
+    </fieldset>
+
+    <fieldset id="shipping-address">
+      <legend>{% trans "Shipping address" %}</legend>
+      {% for hidden in shipping_form.hidden_fields %}{{ hidden }}{% endfor %}
+      {{ shipping_form.as_p }}
+    </fieldset>
+
+    <fieldset id="billing-address">
+      <legend>{% trans "Billing address" %}</legend>
+      {% for hidden in billing_form.hidden_fields %}{{ hidden }}{% endfor %}
+      {{ billing_form.as_p }}
+    </fieldset>
+
+    <fieldset>
+      <legend>{% trans "Payment method" %}</legend>
+      {{ payment_form.as_p }}
+    </fieldset>
+
+    <fieldset>
+      <legend>{% trans "Delivery method" %}</legend>
+      {{ delivery_form.as_p }}
+    </fieldset>
+
+    <fieldset>
+      <legend>{% trans "Extra annotation" %}</legend>
+      {{ extra_form.as_p }}
+    </fieldset>
+
+    <fieldset>
+      <legend>{% trans "Accept condition" %}</legend>
+      {{ accept_form.as_p }}
+    </fieldset>
+
+    <button>{% trans "Submit" %}</button>
+  </form>
+
+  {% url 'shopit-account-detail' as account_url %}
+
+  {% addtoblock "js" %}
+    <script>
+      (function ($) {
+        'use strict';
+
+        // If a customer account is present, handle populating the address
+        // fields when an existant address is selected.
+        var handleExistantAddresses = function () {
+          var account;
+          var accountUrl = "{{ account_url }}" || undefined;
+          if (!accountUrl) return;
+          var $existants = $('#id_shipping-existant,#id_billing-existant');
+
+          $.ajax({
+            url: accountUrl,
+            method: 'GET',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+              account = data;
+              // In case address selection was triggered before getting the account data.
+              $existants.trigger('change');
+            },
+          });
+
+          var selectAddress = function (event) {
+            if (account === undefined) return;
+            var $select = $(event.target);
+            var selectValue = parseInt($select.val(), 10);
+            var addressType = event.target.name.split('-').shift();
+            var $fieldset = $('#'+ addressType +'-address');
+
+            if (isNaN(selectValue)) return;
+
+            $.each(account[addressType +'_addresses'], function (key, address) {
+              if (address.id === selectValue) {
+                $.each(address, function (field, value) { $fieldset.find('#id_'+ addressType +'-'+ field).val(value); });
+                return false;
+              }
+            });
+          };
+
+          $existants.on('change', selectAddress);
+        };
+
+        // Handle submiting the checkout form via ajax. Show errors if invalid,
+        // or proccess the payment and make the purchase happen if valid.
+        var handleCheckout = function () {
+          var $checkout = $('#checkout');
+          var $checkoutButton = $checkout.find('button');
+
+          $checkout.on('submit', function (event) {
+            event.preventDefault();
+            $checkoutButton.prop('disabled', true);
+
+            $.ajax({
+              url: $checkout.attr('action'),
+              method: $checkout.attr('method'),
+              data: $checkout.serialize(),
+              dataType: 'json',
+              cache: false,
+              success: function (data) {
+                $checkout.find('.non-field-errors,.errorlist').remove();
+                $checkout.off('submit');
+                // Evaluate the expression from the payment provider's `get_payment_request` method.
+                try { eval(data.expression); }  // jshint ignore:line
+                catch (e) { alert(e.message);  }
+              },
+              error: function (jqXHR) {
+                $checkout.find('.non-field-errors,.errorlist').remove();
+                $checkoutButton.prop('disabled', false);
+                $.each(jqXHR.responseJSON, function (name, errorlist) {
+                  if (name === 'non_field_errors') { $checkout.prepend('<ul class="non-field-errors"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
+                  else { $checkout.find('#id_'+ name).after('<ul class="errorlist"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
+                });
+              },
+            });
+
+          });
+        };
+
+        // Call the functions when ready.
+        $(document).ready(function () {
+          handleExistantAddresses();
+          handleCheckout();
+        });
+
+      })(jQuery);
+    </script>
+  {% endaddtoblock %}
+{% endblock %}

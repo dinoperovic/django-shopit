@@ -1,0 +1,16 @@
+{% extends "shopit/base.html" %}
+{% load i18n shopit_tags %}
+
+{% block title %}{% trans "Thank you for your purchase" %}{% endblock %}
+
+{% block content %}
+  {% order order %}
+
+  {% if customer.is_registered %}
+    {% url 'shopit-account-order-list' as account_order_list_url %}
+    <p>{% blocktrans with link=account_order_list_url|default:"#" %}Keep track of your orders <a href="{{ account_order_list_url }}">here</a>.{% endblocktrans %}</p>
+  {% else %}
+    {% url 'shopit-account-login' as login_url %}
+    <p>{% blocktrans with link=login_url|default:"#" %}<a href="{{ link }}">Login</a> to keep track of your orders.{% endblocktrans %}</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{# This template is best included using the 'order' templatetag from `shopit_tags`. #}
+{% load i18n shopit_tags %}
+
+{% if order %}
+  <table>
+    <h3>{% trans "Order" %} #{{ order }}</h3>
+    <thead>
+      <tr><td colspan="2"><strong>{% trans "Order date" %}</strong></td> <td colspan="2">{{ order.created_at|date }}</td></tr>
+      <tr><td colspan="2"><strong>{% trans "Status" %}</strong></td> <td colspan="2">{{ order.status_name }}</td></tr>
+      <tr><td colspan="2"><strong>{% trans "Shipping address" %}</strong></td><td colspan="2"><strong>{% trans "Billing address" %}</strong></td></tr>
+      <tr><td colspan="2">{{ order.shipping_address_text|linebreaksbr }}</td><td colspan="2">{{ order.billing_address_text|linebreaksbr }}</td></tr>
+      <tr>
+        <th>{% trans "Product" %}</th>
+        <th>{% trans "Price" %}</th>
+        <th>{% trans "Quantity" %}</th>
+        <th>{% trans "Total" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order_items %}
+        <tr>
+          <td><a href="{{ item.product.get_absolute_url }}">{{ item.product_name }}</a></td>
+          <td>{{ item.unit_price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{% widthratio item.unit_price 1 item.quantity as line_subtotal %}{{ line_subtotal|moneyformat }}</td>
+        </tr>
+        {% for key, extra in item.extra.rows %}
+          <tr><td colspan="1"></td><td colspan="2">{{ extra.label }}{% if extra.code %} ({{ extra.code }}){% endif %}</td><td>{{ extra.amount }}</td></tr>
+          {% if forloop.last %}<tr><td colspan="3"></td><td><strong>{{ item.line_total }}</strong></td></tr>{% endif %}
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2"></td><td><strong>{% trans "Subtotal" %}</strong></td><td><strong>{{ order.subtotal }}</strong></td></tr>
+      {% for key, extra in order.extra.rows %}
+        <tr><td colspan="2"></td><td>{{ extra.label }}{% if extra.code %} ({{ extra.code }}){% endif %}</td><td>{{ extra.amount }}</td></tr>
+      {% endfor %}
+      <tr><td colspan="2"></td><td><strong>{% trans "Total" %}</strong></td><td><strong>{{ order.total }}</strong></td></tr>
+      <tr><td colspan="2"></td><td>{% trans "Amount paid" %}</td><td>{{ order.amount_paid }}</td></tr>
+      <tr><td colspan="2"></td><td>{% trans "Outstanding amount" %}</td><td>{{ order.outstanding_amount }}</td></tr>
+    </tfoot>
+  </table>
+{% else %}
+  <p>{% trans "No order." %}</p>
+{% endif %}

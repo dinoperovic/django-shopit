@@ -1,0 +1,13 @@
+{% extends "shopit/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Account login" %}{% endblock %}
+
+{% block content %}
+  <form action="{% url 'shopit-account-login' %}" method="POST" data-ajax-success="{% url 'shopit-account-detail' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><a href="{% url 'shopit-account-reset' %}">{% trans "Forgot password?" %}</a></p>
+    <button>{% trans "Login" %}</button>
+  </form>
+{% endblock %}

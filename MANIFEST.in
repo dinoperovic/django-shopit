@@ -1,0 +1,9 @@
+include AUTHORS
+include LICENSE.txt
+include README.md
+include setup.py
+recursive-include shopit *.py
+recursive-include shopit/locale *
+recursive-include shopit/static *
+recursive-include shopit/templates *
+recursive-exclude * *.pyc

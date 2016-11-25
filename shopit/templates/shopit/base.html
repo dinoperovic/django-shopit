@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load sekizai_tags %}
+
+{% block base_content %}
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h1>{% block title %}{% endblock %}</h1>
+  {% block content %}{% endblock %}
+
+  {% addtoblock "js" %}
+    <script>
+      (function ($) {
+        'use strict';
+
+        $(document).ready(function () {
+
+          // Handle ajax forms.
+          $('form[data-ajax-success]').each(function () {
+            var $form = $(this);
+            var $formButton = $form.find('button');
+            var $formSuccess = $form.attr('data-ajax-success');
+
+            $form.on('submit', function (event) {
+              event.preventDefault();
+              $formButton.prop('disabled', true);
+
+              $.ajax({
+                url: $form.attr('action'),
+                method: $form.attr('method'),
+                data: $form.serialize(),
+                dataType: 'json',
+                cache: false,
+                success: function (data) { window.location.href = $formSuccess; },
+                error: function (jqXHR) {
+                  $form.find('.non-field-errors,.errorlist').remove();
+                  $formButton.prop('disabled', false);
+                  $.each(jqXHR.responseJSON, function (name, errorlist) {
+                    if (name === 'non_field_errors') { $form.prepend('<ul class="non-field-errors"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
+                    else { $form.find('#id_'+ name).after('<ul class="errorlist"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
+                  });
+                },
+              });
+            });
+          });
+
+        });
+      })(jQuery);
+    </script>
+  {% endaddtoblock %}
+{% endblock %}

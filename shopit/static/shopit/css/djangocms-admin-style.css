@@ -1,0 +1,35 @@
+/* Fixes for `djangocms-admin-style`. */
+
+/* Hide `original` field from tabular inlines. */
+.djangocms-admin-style .inline-group .tabular tr td.original {
+    padding: 0 !important;
+}
+.djangocms-admin-style .inline-group .tabular tr td.original p {
+    display: none;
+}
+
+
+/* Fix verical disalignemet of certain icons in tabular inline. */
+.djangocms-admin-style .tabular table tbody td a.inline-deletelink::before,
+.djangocms-admin-style .tabular table tbody td a.related-lookup::before {
+    line-height: 1 !important;
+}
+
+
+/* Fix tabular padding and white space to handle long texts. */
+.djangocms-admin-style .inline-group .tabular table td {
+    white-space: normal;
+    padding: inherit !important;
+}
+.djangocms-admin-style .inline-group .tabular table td p {
+    line-height: inherit;
+}
+
+
+/* Fix styles for `django-wysiwyg-redactor`. */
+.djangocms-admin-style .redactor-box {
+    max-width: 100% !important;
+}
+.djangocms-admin-style .redactor-toolbar li {
+    border-top: 0 !important;
+}

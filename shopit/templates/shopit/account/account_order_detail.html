@@ -1,0 +1,8 @@
+{% extends "shopit/account/account_detail.html" %}
+{% load i18n shopit_tags %}
+
+{% block title %}{{ block.super }} &bull; {% trans "Order" %} #{{ order }}{% endblock %}
+
+{% block body %}
+  {% order order %}
+{% endblock %}

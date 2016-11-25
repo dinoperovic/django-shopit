@@ -1,0 +1,12 @@
+*.egg-info/
+*.orig
+*.pyc
+*.sw[op]
+.cache
+.coverage
+.DS_Store
+.eggs
+.tox
+build/
+dist/
+docs/_build

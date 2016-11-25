@@ -1,0 +1,43 @@
+{# This template is best included using the 'cart' templatetag from `shopit_tags`. #}
+{% load i18n shopit_tags %}
+
+<form{% if editable %} action="{% url 'shopit-cart' %}" method="POST"{% endif %} class="cart">
+  {% if editable %}{% csrf_token %}{% endif %}
+  <table>
+    <thead>
+      <tr>
+        <th>{% trans "Product" %}</th>
+        <th>{% trans "Price" %}</th>
+        <th>{% trans "Quantity" %}</th>
+        <th>{% trans "Total" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+          <tr>
+            <td><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
+            <td>{{ item.unit_price }}</td>
+            <td><input type="number" name="quantity-{{ item.pk }}" value="{{ item.quantity }}"{% if not editable %} disabled{% endif %}></td>
+            <td>{% widthratio item.unit_price 1 item.quantity as line_subtotal %}{{ line_subtotal|moneyformat }}</td>
+          </tr>
+          {% for extra in item.extra_rows.values %}
+            <tr><td colspan="1"></td><td colspan="2">{{ extra.label.value }}{% if extra.code.value %} ({{ extra.code.value }}){% endif %}</td><td>{{ extra.amount.value }}</td></tr>
+            {% if forloop.last %}<tr><td colspan="3"></td><td><strong>{{ item.line_total }}</strong></td></tr>{% endif %}
+          {% endfor %}
+        {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2"></td><td><strong>{% trans "Subtotal" %}</strong></td><td><strong>{{ cart.subtotal }}</strong></td></tr>
+      {% for extra in cart.extra_rows.values %}
+        <tr><td colspan="2"></td><td>{{ extra.label.value }}{% if extra.code.value %} ({{ extra.code.value }}){% endif %}</td><td>{{ extra.amount.value }}</td></tr>
+      {% endfor %}
+      <tr><td colspan="2"></td><td><strong>{% trans "Total" %}</strong></td><td><strong>{{ cart.total }}</strong></td></tr>
+    </tfoot>
+  </table>
+
+  {% if editable %}
+    {# Discount code form. #}
+    {{ form.as_p }}
+    <button>{% trans "Update the cart" %}</button>
+  {% endif %}
+</form>

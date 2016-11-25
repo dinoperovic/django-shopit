@@ -1,0 +1,19 @@
+{% extends "shopit/account/account_detail.html" %}
+{% load i18n %}
+
+{% block title %}{{ block.super }} &bull; {% trans "Settings" %}{% endblock %}
+
+{% block body %}
+  <ul>
+    <li><a href="{% url 'shopit-account-settings-details' %}">{% trans "Update info" %}</a></li>
+    <li><a href="{% url 'shopit-account-settings-password' %}">{% trans "Change password" %}</a></li>
+  </ul>
+
+  {% if action %}
+    <form action="{% url 'shopit-account-settings-'|add:action %}" method="POST" data-ajax-success="{% url 'shopit-account-settings' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button>{% trans "Submit" %}</button>
+    </form>
+  {% endif %}
+{% endblock %}

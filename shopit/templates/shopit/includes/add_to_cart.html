@@ -1,0 +1,86 @@
+{# This template is best included using the 'add_to_cart' templatetag from `shopit_tags`. #}
+{% load i18n cache sekizai_tags %}
+
+{% if product %}
+  {% cache 0 add_to_cart %}
+    <form action="{{ request.scheme }}://{{ request.get_host }}{% url 'shopit-add-to-cart' product.slug %}" method="POST" class="add-to-cart">
+      {% csrf_token %}
+      <input type="hidden" name="quantity" value="1">
+      {% if product.is_available.0 or product.is_group %}<button class="add-button">{% trans "Add to cart" %}</button>
+      {% else %}<button class="add-button" disabled>{% trans "Not available" %}</button>{% endif %}
+      {% if watch %}<button class="watch-button">{% trans "Watch" %}</button>{% endif %}
+    </form>
+  {% endcache %}
+{% endif %}
+
+{% addtoblock "js" %}
+  <script>
+    (function ($) {
+      'use strict';
+
+      $(document).ready(function () {
+        $('.add-to-cart').each(function () {
+          var $addToCart = $(this);
+          var $buttons = $addToCart.find('button');
+          var $addButton = $addToCart.find('.add-button');
+          var $watchButton = $addToCart.find('.watch-button');
+
+          // Handle adding product to cart.
+          $addToCart.on('submit', function (event) {
+            event.preventDefault();
+            var formData = $addToCart.serializeArray();
+
+            $buttons.trigger('disable', [false]);
+            if ($addToCart.find('button:focus').hasClass('watch-button')) {
+              $.each(formData, function (index, obj) { if (obj.name === 'quantity') obj.value = 0; });
+              $watchButton.trigger('adding');
+            } else { $addButton.trigger('adding'); }
+
+            $.ajax({
+              url: $addToCart.attr('action'),
+              method: $addToCart.attr('method'),
+              data: formData,
+              dataType: 'json',
+              cache: false,
+              success: function (data) {
+                if (data.quantity === 0) { window.location.href = "{% url 'shopit-watch' %}"; }
+                else { window.location.href = "{% url 'shopit-cart' %}"; }
+              },
+              error: function (jqXHR) {
+                alert(jqXHR.responseText);
+                $buttons.trigger('enable');
+              },
+            });
+          });
+
+          // Handle setting active product and availablity to the cart.
+          $addToCart.on('setProduct', function (event, product) {
+            $addToCart.attr('action', product.add_to_cart_url);
+            if (product.is_group) { $buttons.trigger('disable'); return; }
+
+            $.ajax({
+              url: product.add_to_cart_url,
+              method: 'GET',
+              dataType: 'json',
+              cache: false,
+              success: function (data) {
+                $watchButton.trigger('enable');
+                if (data.is_available[0]) { $addButton.trigger('enable'); }
+                else { $addButton.trigger('disable'); }
+              },
+            });
+          });
+
+          // Custom events for buttons.
+          $addButton.on('enable', function (event, text) { $addButton.prop('disabled', false); if (text !== false) $addButton.text('{% trans "Add to cart" %}'); });
+          $addButton.on('disable', function (event, text) { $addButton.prop('disabled', true); if (text !== false) $addButton.text('{% trans "Not available" %}'); });
+          $addButton.on('adding', function (event) { $addButton.prop('disabled', true).text('{% trans "Adding" %}'); });
+          $watchButton.on('enable', function (event, text) { $watchButton.prop('disabled', false); if (text !== false) $watchButton.text('{% trans "Watch" %}'); });
+          $watchButton.on('disable', function (event, text) { $watchButton.prop('disabled', true); if (text !== false) $watchButton.text('{% trans "Watch" %}'); });
+          $watchButton.on('adding', function (event) { $watchButton.prop('disabled', true).text('{% trans "Adding" %}'); });
+        });
+      });
+
+    })(jQuery);
+  </script>
+{% endaddtoblock %}

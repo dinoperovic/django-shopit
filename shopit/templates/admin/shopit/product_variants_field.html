@@ -1,0 +1,102 @@
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+
+<span id="variants"></span>
+
+{% if product.get_combinations %}
+  {% trans "Variant products and their attributes for a group" %} <a href="{% url "admin:shopit_product_change" product.pk %}">{{ product }}</a>.
+  <div style="margin-bottom: 16px;"></div>
+
+  <table>
+    {% for combo in product.get_combinations %}
+      {% if forloop.first %}
+      <tr>
+        <th>{% trans "Name" %}</th>
+        {% for attr in combo.attributes.values %}
+          <th>{{ attr.name }}</th>
+        {% endfor %}
+        <th>{% trans "Price" %}</th>
+        <th>{% trans "Code" %}</th>
+        <th>{% trans "Quantity" %}</th>
+        <th>{% trans "Languages" %}</th>
+        <th>{% trans "Actions" %}</th>
+      </tr>
+      {% endif %}
+
+      <tr{% if combo.pk and combo.pk == variant.pk %} style="background-color: #f6f6f6;"{% endif %}>
+        <td style="padding: 8px;">
+          <a>{{ combo.name }}</a>
+        </td>
+        {% for attr in combo.attributes.values %}
+          <td style="padding: 8px;">{{ attr.label|default:"-" }}</td>
+        {% endfor %}
+        <td style="padding: 8px;">{{ combo.price|default:"-" }}</td>
+        <td style="padding: 8px;">{{ combo.code|default:"-" }}</td>
+        <td style="padding: 8px;">{% if combo.quantity != None %}{{ combo.quantity }}{% else %}~{% endif %}</td>
+        <td style="padding: 8px;">
+          {% for lang in LANGUAGES %}
+            {% if lang.0 in combo.languages %}
+              <a href="{% url "admin:shopit_product_change" combo.pk %}?language={{ lang.0 }}" class="lang-code active{% if LANGUAGE_CODE == lang.0 %} current{% endif %}">{{ lang.0 }}</a>
+            {% else %}
+              <a class="lang-code">{{ lang.0 }}</a>
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td style="padding: 8px;">
+          {% if combo.pk %}
+            {% if LANGUAGE_CODE not in combo.languages %}
+              <a href="{% url "admin:shopit_product_create_variant" product.pk forloop.counter0 %}" class="addlink" onclick="return confirm('{% trans "Translate variant" %}: {{ combo.name }}?')">{% trans "Translate" %}</a>
+            {% endif %}
+            <a href="{% url "admin:shopit_product_change" combo.pk %}?language={{ combo.languages.0 }}" class="changelink">{% trans "Change" %}</a>
+            <a href="{% url "admin:shopit_product_delete_variant" product.pk combo.pk %}" class="deletelink" onclick="return confirm('{% trans "Delete variant" %}: {{ combo.name }}?')">{% trans "Delete" %}</a>
+          {% else %}
+            <a href="{% url "admin:shopit_product_create_variant" product.pk forloop.counter0 %}" class="addlink" onclick="return confirm('{% trans "Create variant" %}: {{ combo.name }}?')">{% trans "Create" %}</a>
+          {% endif %}
+        </td>
+      </tr>
+
+      {% if forloop.last %}
+        <tr>
+          <td colspan="{{ combo.attributes|length|add:5 }}" style="padding: 16px 0;">
+            <a href="{% url "admin:shopit_product_create_all_variants" product.pk %}" class="addlink" onclick="return confirm('{% trans "Create all varaints?" %}')">{% trans "Create all" %}</a>
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </table>
+
+{% else %}{% trans "No variants." %}{% endif %}
+
+{% if product.get_invalid_variants %}
+  <p>{% trans "There are invalid variants that exist (Their attributes don't match Available attributes)." %}</p>
+  <table>
+    {% for invalid in product.get_invalid_variants %}
+      {% if forloop.first %}
+        <tr>
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Attributes" %}</th>
+          <th>{% trans "Actions" %}</th>
+        </tr>
+      {% endif %}
+
+      <tr{% if invalid.pk == variant.pk %} style="background-color: #f6f6f6;"{% endif %}>
+        <td style="padding: 8px;"><a>{{ invalid.name }}</a></td>
+        <td style="padding: 8px;">{% for x in invalid.get_attributes.values %}{{ x.name }}: {{ x.label }}{% if not forloop.last %} | {% endif %}{% endfor %}</td>
+        <td style="padding: 8px;">
+          <a href="{% url "admin:shopit_product_change" invalid.pk %}" class="changelink">{% trans "Change" %}</a>
+          <a href="{% url "admin:shopit_product_delete" invalid.pk %}" class="deletelink">{% trans "Delete" %}</a>
+        </td>
+      </tr>
+
+      {% if forloop.last %}
+        <tr>
+          <td colspan="3" style="padding: 16px 0;">
+            <a href="{% url "admin:shopit_product_delete_invalid_variants" product.pk %}" class="deletelink" onclick="return confirm('{% trans "Delete invalid variants?" %}')">{% trans "Delete all" %}</a>
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </table>
+{% endif %}

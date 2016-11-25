@@ -1,0 +1,14 @@
+{% extends "shopit/account/account_detail.html" %}
+{% load i18n %}
+
+{% block title %}{{ block.super }} &bull; {% trans "Orders" %}{% endblock %}
+
+{% block body %}
+  <ul>
+    {% for order in order_list %}
+      <li><a href="{{ order.get_absolute_url }}">{{ order }}</a></li>
+    {% empty %}
+      <li>{% trans "No orders." %}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

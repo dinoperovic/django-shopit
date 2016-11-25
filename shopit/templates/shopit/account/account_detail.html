@@ -1,0 +1,17 @@
+{% extends "shopit/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Account" %}{% endblock %}
+
+{% block content %}
+  <ul>
+    <li><a href="{% url 'shopit-account-detail' %}">{% trans "Dashboard" %}</a></li>
+    <li><a href="{% url 'shopit-account-order-list' %}">{% trans "Orders" %}</a></li>
+    <li><a href="{% url 'shopit-account-settings' %}">{% trans "Settings" %}</a></li>
+    <li><a href="{% url 'shopit-account-logout' %}">{% trans "Logout" %}</a></li>
+  </ul>
+
+  {% block body %}
+    <p>{% trans "Welcome" %}, {{ customer.get_full_name }}.</p>
+  {% endblock %}
+{% endblock %}

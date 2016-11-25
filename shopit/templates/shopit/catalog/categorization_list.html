@@ -1,0 +1,17 @@
+{% extends "shopit/base.html" %}
+{% load i18n mptt_tags %}
+
+{% block title %}{% trans "Categorization" %}{% endblock %}
+
+{% block content %}
+  <ul>
+    {% recursetree categorization_list %}
+      <li>
+        <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        {% if not node.is_leaf_node %}
+          <ul>{{ children }}</ul>
+        {% endif %}
+      </li>
+    {% endrecursetree %}
+  </ul>
+{% endblock %}
