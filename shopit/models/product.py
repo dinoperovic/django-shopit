@@ -307,7 +307,7 @@ class Product(BaseProduct, TranslatableModel):
 
     @weight.setter
     def weight(self, value):
-        self._width = value if isinstance(value, Mass) else Mass(g=value)
+        self._weight = value if isinstance(value, Mass) else Mass(g=value)
 
     @property
     def price(self):
