@@ -6,7 +6,7 @@ Release logic:
  1. Remove ".devX" from __version__ (below)
  2. git add shopit/__init__.py
  3. git commit -m 'Bump to <version>'
- 4. git tag <version>
+ 4. git tag v<version>
  5. git push && git push --tags
  6. python setup.py sdist upload
  7. bump the __version__, append ".dev0"
