@@ -892,7 +892,7 @@ class Attachment(models.Model):
             'url': self.value,
             'order': self.order,
         }
-        if EASY_THUMBNAILS and self.kind == self.IMAGE:
+        if EASY_THUMBNAILS and self.kind == self.IMAGE and self.file is not None:
             thumbnailer = get_thumbnailer(self.file)
             for alias, options in aliases.all(target='shopit.Attachment').items():
                 attachment['url_%s' % alias] = thumbnailer.get_thumbnail(options).url
