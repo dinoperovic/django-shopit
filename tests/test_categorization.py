@@ -1,31 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
-from django.utils.text import slugify
-
-from shopit.models.categorization import Brand, Category, Manufacturer
+from .utils import ShopitTestCase
 
 
-def create_categorization(model, name, depth=1, **kwargs):
-    attrs = {
-        'name': name,
-        'slug': slugify(name),
-    }
-    attrs.update(kwargs)
-    return model.objects.language().create(**attrs)
-
-
-class TestCategorization(TestCase):
+class CategorizationTest(ShopitTestCase):
     def setUp(self):
-        self.c1 = create_categorization(Category, 'C1')
-        self.b1 = create_categorization(Brand, 'B1')
-        self.m1 = create_categorization(Manufacturer, 'M1')
+        self.phones = self.create_categorization('category', 'Phones')
+        self.apple = self.create_categorization('brand', 'Apple')
+        self.china = self.create_categorization('manufacturer', 'Made in China')
 
     def test__str__(self):
-        self.assertEquals(str(self.c1), 'C1')
+        self.assertEquals(str(self.phones), 'Phones')
 
     def test_get_absolute_url(self):
-        self.assertEquals(self.c1.get_absolute_url(), '/en/shopit/categories/c1/')
-        self.assertEquals(self.b1.get_absolute_url(), '/en/shopit/brands/b1/')
-        self.assertEquals(self.m1.get_absolute_url(), '/en/shopit/manufacturers/m1/')
+        self.assertEquals(self.phones.get_absolute_url(), '/en/shopit/categories/phones/')
+        self.assertEquals(self.apple.get_absolute_url(), '/en/shopit/brands/apple/')
+        self.assertEquals(self.china.get_absolute_url(), '/en/shopit/manufacturers/made-in-china/')

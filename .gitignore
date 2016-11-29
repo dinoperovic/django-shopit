@@ -6,7 +6,9 @@
 .coverage
 .DS_Store
 .eggs
+.python-version
 .tox
 build/
 dist/
 docs/_build
+htmlcov/
