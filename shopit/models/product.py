@@ -875,9 +875,7 @@ class Attachment(models.Model):
 
     @property
     def label(self):
-        if self.value:
-            return self.file.label if self.file else basename(self.value)
-        return str(self.pk)
+        return self.file.label if self.file else basename(self.value)
 
     @property
     def value(self):
