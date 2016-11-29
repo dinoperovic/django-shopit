@@ -569,8 +569,6 @@ class Product(BaseProduct, TranslatableModel):
                 'videos': [x.as_dict for x in self.videos] or None,
                 'files': [x.as_dict for x in self.files] or None,
             }
-            if self.is_variant and not [x for x in attachments.values() if x]:
-                attachments = self.group.get_attachments()
             self.cache('_attachments', attachments)
         return attachments
 
