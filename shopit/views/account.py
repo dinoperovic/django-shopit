@@ -108,7 +108,7 @@ class AccountResetConfirmView(LoginRegisterMixin, PasswordResetConfirm):
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def post(self, request, uidb64=None, token=None):
-        data = dict(request.data.items(), uid=uidb64, token=token)
+        data = dict(list(request.data.items()), uid=uidb64, token=token)
         serializer = self.get_serializer(data=data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

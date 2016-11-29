@@ -832,7 +832,8 @@ class AttributeValue(models.Model):
             'value': self.value,
             'file': self.file,
         }
-        return dict(self.attribute.as_dict.items() + data.items())
+        data.update(self.attribute.as_dict)
+        return data
 
 
 @python_2_unicode_compatible

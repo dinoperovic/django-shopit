@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.1
 =====
 
+* Fix error when mergin dictionaries in python3.
 * Remove redundant code.
 * Fix trying to generate image thumbnail on attachment when `file` is None.
 * Fix weight setter setting width instead of weight.
