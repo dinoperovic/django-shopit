@@ -128,18 +128,17 @@ html_theme = 'alabaster'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'github_user': 'dinoperovic',
+    'github_repo': 'djangoshop-shopit',
+    'github_button': True,
+    'travis_button': True,
+    'codecov_button': True,
+    'fixed_sidebar': True,
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
-
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
 
