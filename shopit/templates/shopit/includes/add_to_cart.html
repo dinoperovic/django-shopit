@@ -56,7 +56,7 @@
           // Handle setting active product and availablity to the cart.
           $addToCart.on('setProduct', function (event, product) {
             $addToCart.attr('action', product.add_to_cart_url);
-            if (product.is_group) { $buttons.trigger('disable'); return; }
+            if (product.variants) { $buttons.trigger('disable'); return; }
 
             $.ajax({
               url: product.add_to_cart_url,

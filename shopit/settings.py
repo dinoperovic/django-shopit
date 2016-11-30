@@ -36,6 +36,15 @@ ERROR_MESSAGES = getattr(settings, 'SHOPIT_ERROR_MESSAGES', {
 # used from ``shop.models.address.ISO_3166_CODES``.
 ADDRESS_COUNTRIES = getattr(settings, 'SHOPIT_ADDRESS_COUNTRIES', ())
 
+# A list of base serializer fields for a common product.
+PRODUCT_SERIALIZER_FIELDS = getattr(settings, 'SHOPIT_PRODUCT_SERIALIZER_FIELDS', [
+    'id', 'name', 'slug', 'caption', 'code', 'kind', 'url', 'add_to_cart_url', 'price', 'is_available',
+])
+
+# A list of serializer fields for a product detail.
+PRODUCT_DETAIL_SERIALIZER_FIELDS = getattr(
+    settings, 'SHOPIT_PRODUCT_DETAIL_SERIALIZER_FIELDS', PRODUCT_SERIALIZER_FIELDS + ['variants', 'attributes'])
+
 # Template choices used when rendering an attribute.
 ATTRIBUTE_TEMPLATES = getattr(settings, 'SHOPIT_ATTRIBUTE_TEMPLATES', ())
 

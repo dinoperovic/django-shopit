@@ -52,6 +52,31 @@ Country choices used in checkout address forms. If empty all countries are used 
 Product
 =======
 
+A list of base serializer fields for a common product.
+
+.. code:: python
+
+    SHOPIT_PRODUCT_SERIALIZER_FIELDS = [
+        'id', 'name', 'slug', 'caption', 'code', 'kind', 'url', 'add_to_cart_url', 'price', 'is_available',
+    ]
+
+Above is the default config, here's a list of all available fields:
+
+.. code:: python
+
+    ['id', 'name', 'slug', 'caption', 'code', 'kind', 'url', 'add_to_cart_url', 'price', 'is_available',
+     'description', 'unit_price', 'discount', 'tax', 'availability', 'category', 'brand', 'manufacturer',
+     'discountable', 'modifiers', 'flags', 'width', 'height', 'depth', 'weight', 'available_attributes',
+     'group',  'attributes', 'published', 'quantity', 'order', 'active', 'created_at', 'updated_at',
+     'is_single', 'is_group', 'is_variant', 'is_discounted', 'is_taxed',  'discount_percent', 'tax_percent',
+     'discount_amount', 'tax_amount', 'variants', 'variations', 'attachments', 'relations', 'reviews']
+
+A list of serializer fields for a product detail.
+
+.. code:: python
+
+    SHOPIT_PRODUCT_DETAIL_SERIALIZER_FIELDS = SHOPIT_PRODUCT_SERIALIZER_FIELDS + ['variants', 'attributes']
+
 Template choices used when rendering an attribute.
 
 .. code:: python

@@ -16,7 +16,7 @@ from shop.views.catalog import ProductRetrieveView
 from shopit.models.cart import Cart, CartItem
 from shopit.models.product import Attribute, Product
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
-                                ProductListSerializer, WatchItemSerializer)
+                                ProductSummarySerializer, WatchItemSerializer)
 from shopit.settings import FILTER_ATTRIBUTES_INCLUDES_VARIANTS
 
 
@@ -77,7 +77,7 @@ class FilterProductsMixin(object):
 
 
 class ProductListView(FilterProductsMixin, BaseProductListView):
-    serializer_class = ProductListSerializer
+    serializer_class = ProductSummarySerializer
     renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
 
     def get_queryset(self):

@@ -24,6 +24,7 @@ from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.product import Product, Relation, Review
 from shopit.models.tax import Tax
+from shopit.settings import PRODUCT_SERIALIZER_FIELDS, PRODUCT_DETAIL_SERIALIZER_FIELDS
 
 
 class AccountSerializer(CustomerSerializer):
@@ -188,24 +189,26 @@ class ProductSerializer(ProductCommonSerializer):
     """
     Base product serializer.
     """
+    FIELDS = PRODUCT_SERIALIZER_FIELDS
+
     url = serializers.SerializerMethodField(read_only=True)
     add_to_cart_url = serializers.SerializerMethodField(read_only=True)
     unit_price = MoneyField()
-    is_available = serializers.SerializerMethodField(read_only=True)
     tax = TaxSerializer()
+    is_available = serializers.SerializerMethodField(read_only=True)
     category = CategorySerializer()
     brand = BrandSerializer()
     manufacturer = ManufacturerSerializer()
+    modifiers = ModifierSerializer(source='get_modifiers', many=True)
+    flags = FlagSerializer(source='get_flags', many=True)
     width = MeasureField(measure=Distance)
     height = MeasureField(measure=Distance)
     depth = MeasureField(measure=Distance)
     weight = MeasureField(measure=Mass)
+    attributes = serializers.DictField(source='get_attributes', read_only=True)
     discount_amount = MoneyField(read_only=True)
     tax_amount = MoneyField(read_only=True)
-    modifiers = ModifierSerializer(source='get_modifiers', many=True)
-    flags = FlagSerializer(source='get_flags', many=True)
     variants = serializers.SerializerMethodField()
-    attributes = serializers.DictField(source='get_attributes', read_only=True)
     variations = serializers.ListField(source='get_variations', read_only=True)
     attachments = serializers.SerializerMethodField()
     relations = RelationSerializer(source='get_relations', many=True)
@@ -213,12 +216,24 @@ class ProductSerializer(ProductCommonSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'kind', 'code', 'name', 'slug', 'url', 'add_to_cart_url', 'caption', 'description', 'group',
-                  'unit_price', 'price', 'availability', 'is_available', 'discountable', 'discount', 'tax', 'category',
-                  'brand', 'manufacturer', 'width', 'height', 'depth', 'weight', 'published', 'order', 'active',
-                  'created_at', 'updated_at', 'is_single', 'is_group', 'is_variant', 'is_discounted', 'is_taxed',
-                  'discount_percent', 'tax_percent', 'discount_amount', 'tax_amount', 'flags', 'modifiers', 'variants',
-                  'attributes', 'variations', 'attachments', 'relations', 'reviews']
+        fields = [
+            'id', 'name', 'slug', 'caption', 'code', 'kind', 'url', 'add_to_cart_url', 'price', 'is_available',
+            'description', 'unit_price', 'discount', 'tax', 'availability', 'category', 'brand', 'manufacturer',
+            'discountable', 'modifiers', 'flags', 'width', 'height', 'depth', 'weight', 'available_attributes',
+            'group',  'attributes', 'published', 'quantity', 'order', 'active', 'created_at', 'updated_at',
+            'is_single', 'is_group', 'is_variant', 'is_discounted', 'is_taxed',  'discount_percent', 'tax_percent',
+            'discount_amount', 'tax_amount', 'variants', 'variations', 'attachments', 'relations', 'reviews',
+        ]
+
+    def get_fields(self):
+        fields = super(ProductSerializer, self).get_fields()
+        included = list(set(self.FIELDS + self.get_included_fields()))
+        for excluded in [x for x in fields if x not in included]:
+            del fields[excluded]
+        return fields
+
+    def get_included_fields(self):
+        return [x for x in self.context['request'].GET.get('include', '').split(',') if x in self.Meta.fields]
 
     def get_url(self, obj):
         url = obj.get_absolute_url()
@@ -234,7 +249,7 @@ class ProductSerializer(ProductCommonSerializer):
     def get_variants(self, obj):
         variants = obj.get_variants()
         if variants:
-            return ProductSerializer(variants, context=self.context, many=True).data
+            return ProductDetailSerializer(variants, context=self.context, many=True).data
 
     def get_attachments(self, obj):
         request = self.context['request']
@@ -247,31 +262,21 @@ class ProductSerializer(ProductCommonSerializer):
         return attachments
 
 
-class ProductListSerializer(with_metaclass(SerializerRegistryMetaclass, ProductSerializer)):
+class ProductSummarySerializer(with_metaclass(SerializerRegistryMetaclass, ProductSerializer)):
     """
     Product list serializer is a Product serializer without some fields.
     """
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label', 'catalog')
-        super(ProductListSerializer, self).__init__(*args, **kwargs)
-
-    def get_fields(self):
-        fields = super(ProductListSerializer, self).get_fields()
-        del fields['variants']
-        del fields['variations']
-        del fields['relations']
-        del fields['reviews']
-        return fields
+        super(ProductSummarySerializer, self).__init__(*args, **kwargs)
 
 
 class ProductDetailSerializer(ProductSerializer):
+    FIELDS = PRODUCT_DETAIL_SERIALIZER_FIELDS
+
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label', 'catalog')
         super(ProductDetailSerializer, self).__init__(*args, **kwargs)
-
-    def to_representation(self, obj):
-        product = super(ProductDetailSerializer, self).to_representation(obj)
-        return {'product': dict(product)}
 
 
 class AddToCartSerializer(AddToCartSerializerBase):
