@@ -129,6 +129,8 @@ class AccountRegisterView(LoginRegisterMixin, AuthFormsView):
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
+        if request.customer.is_visitor():
+            request.customer = Customer.objects.get_or_create_from_request(request)
         response = super(AccountRegisterView, self).post(request, *args, **kwargs)
         if response.status_code == 200:
             messages.success(self.request._request, _('You have been successfully registered.'))
