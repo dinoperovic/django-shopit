@@ -138,7 +138,7 @@ class CategorizationAdminBase(TranslatableAdmin, DraggableMPTTAdmin):
     """
     list_display = ['tree_actions', 'get_name', 'slug', 'active', 'language_column']
     list_display_links = ['get_name']
-    filter_horizontal = ['modifiers']
+    filter_horizontal = ['modifiers', 'flags']
     readonly_fields = ['created_at', 'updated_at']
 
     fieldsets = [
@@ -279,7 +279,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
     search_fields = ['code', 'translations__name']
     raw_id_fields = ['group']
     readonly_fields = ['created_at', 'updated_at', 'get_summary_field', 'get_variants_field']
-    filter_horizontal = ['modifiers', 'available_attributes']
+    filter_horizontal = ['modifiers', 'flags', 'available_attributes']
 
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'slug', 'code']}),

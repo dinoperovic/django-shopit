@@ -24,7 +24,6 @@ class ProductModelForm(TranslatableModelForm):
         widgets = {
             'caption': forms.Textarea(attrs={'rows': 2}),
             'description': TextEditor(),
-            'flags': forms.CheckboxSelectMultiple(),
         }
 
     def clean_slug(self):

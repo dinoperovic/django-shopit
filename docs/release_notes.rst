@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Show flags as filter_horizontal instead of CheckboxInput in product admin.
 * Show localized amounts in product admin summary field.
 * Use ``as_decimal`` when displaying price steps in template instead of floatformat.
 
