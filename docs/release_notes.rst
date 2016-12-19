@@ -5,6 +5,12 @@ Release notes for **Shopit**.
 
 ----
 
+0.1.2
+=====
+
+* Use ``as_decimal`` when displaying price steps in template instead of floatformat.
+
+
 0.1.1
 =====
 
