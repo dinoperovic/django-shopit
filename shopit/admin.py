@@ -116,13 +116,15 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 
 @admin.register(Flag)
-class FlagAdmin(SortableAdminMixin, TranslatableAdmin):
-    list_display = ['name', 'code', 'active', 'language_column']
+class FlagAdmin(TranslatableAdmin, DraggableMPTTAdmin):
+    list_display = ['tree_actions', 'get_name', 'code', 'active', 'language_column']
+    list_display_links = ['get_name']
     readonly_fields = ['created_at', 'updated_at']
 
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'code']}),
         (_('Status'), {'fields': [('active', 'created_at', 'updated_at')]}),
+        (_('Settings'), {'fields': ['parent']}),
     ]
 
     class Media:
@@ -130,6 +132,12 @@ class FlagAdmin(SortableAdminMixin, TranslatableAdmin):
 
     def get_prepopulated_fields(self, request, obj=None):
         return {'code': ['name']}
+
+    def get_name(self, obj):
+        return format_html(
+            '<div style="text-indent:{}px">{}</div>',
+            obj.level * self.mptt_level_indent, obj.safe_translation_getter('name', any_language=True))
+    get_name.short_description = _('Name')
 
 
 class CategorizationAdminBase(TranslatableAdmin, DraggableMPTTAdmin):
@@ -157,7 +165,7 @@ class CategorizationAdminBase(TranslatableAdmin, DraggableMPTTAdmin):
     def get_name(self, obj):
         return format_html(
             '<div style="text-indent:{}px">{}</div>',
-            obj.level * self.mptt_level_indent, obj.safe_translation_getter('name', str(obj.pk)))
+            obj.level * self.mptt_level_indent, obj.safe_translation_getter('name', any_language=True))
     get_name.short_description = _('Name')
 
 

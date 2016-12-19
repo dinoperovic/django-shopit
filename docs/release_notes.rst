@@ -8,10 +8,14 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Make `Flag` model an mptt model with a parent field.
 * Show flags as filter_horizontal instead of CheckboxInput in product admin.
 * Show localized amounts in product admin summary field.
 * Use ``as_decimal`` when displaying price steps in template instead of floatformat.
 
+.. attention::
+
+    Requires ``python manage.py migrate shopit`` to create mptt fields on a Flag model.
 
 0.1.1
 =====
