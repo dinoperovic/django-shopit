@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Show localized amounts in product admin summary field.
 * Use ``as_decimal`` when displaying price steps in template instead of floatformat.
 
 

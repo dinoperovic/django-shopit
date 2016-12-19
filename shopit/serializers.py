@@ -24,7 +24,7 @@ from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.product import Product, Relation, Review
 from shopit.models.tax import Tax
-from shopit.settings import PRODUCT_SERIALIZER_FIELDS, PRODUCT_DETAIL_SERIALIZER_FIELDS
+from shopit.settings import PRODUCT_DETAIL_SERIALIZER_FIELDS, PRODUCT_SERIALIZER_FIELDS
 
 
 class AccountSerializer(CustomerSerializer):

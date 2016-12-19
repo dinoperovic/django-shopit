@@ -17,7 +17,7 @@ from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonRespon
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
-from django.utils.formats import date_format
+from django.utils.formats import date_format, localize
 from django.utils.html import format_html
 from django.utils.http import urlencode
 from django.utils.translation import ugettext_lazy as _
@@ -382,10 +382,10 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
     get_published.short_description = _('Published')
 
     def get_summary_field(self, obj):
-        unit_price = '%s: %s' % (_('Unit price'), obj.unit_price)
+        unit_price = '%s: %s' % (_('Unit price'), localize(obj.unit_price))
         discount = '%s: %g%%' % (_('Discount percent'), obj.discount_percent)
         tax = '%s: %g%%' % (_('Tax percent'), obj.tax_percent)
-        price = '<strong>%s: %s</strong>' % (_('Price'), obj.price)
+        price = '<strong>%s: %s</strong>' % (_('Price'), localize(obj.price))
         return format_html('<br>'.join([unit_price, discount, tax, price]))
     get_summary_field.allow_tags = True
     get_summary_field.short_description = _('Summary')
