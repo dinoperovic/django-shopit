@@ -25,7 +25,6 @@
     <p>
       {% for step in price_steps %}
         <a href="?{% query_transform 'price-from' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
-        }
       {% endfor %}
     </p>
     <h4>{% trans "Price to" %}</h4>
