@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Add ``get_flags`` templatetag.
 * Make `Flag` model an mptt model with a parent field.
 * Show flags as filter_horizontal instead of CheckboxInput in product admin.
 * Show localized amounts in product admin summary field.

@@ -77,7 +77,7 @@ def get_categorization(categorization, limit=None, level=None, depth=None, paren
     """
     Returns a categorization list. First argument must be categorization type.
 
-    {% get_categorization 'brand' 3 level=1 depth=2 as brands %}
+    {% get_categorization 'brand' limit=3 level=1 depth=2 as brands %}
     """
     if categorization not in ['category', 'brand', 'manufacturer']:
         raise template.TemplateSyntaxError(
@@ -96,6 +96,33 @@ def get_categorization(categorization, limit=None, level=None, depth=None, paren
         filters['parent'] = parent
 
     return getattr(categorization_models, categorization.capitalize()).objects.active().filter(**filters)[:limit]
+
+
+@register.simple_tag
+def get_flags(code=None, limit=None, level=None, depth=None, parent=None):
+    """
+    Returns flag with the given code. If code is None returns all, in that
+    case limit, level, depth & parent can be passed in to filter the results.
+
+    {% get_flags 'featured' as featured_flag %}
+    {% get_flags level=1 parent='featured' as featured_flags %}
+    """
+    if code is not None:
+        return Flag.objects.filter(code=code).first()
+
+    filters = {}
+
+    if level is not None:
+        if depth is not None:
+            filters['level__gte'] = level
+            filters['level__lt'] = level + depth
+        else:
+            filters['level'] = level
+
+    if parent is not None:
+        filters['parent'] = parent
+
+    return Flag.objects.active().filter(**filters)[:limit]
 
 
 @register.simple_tag

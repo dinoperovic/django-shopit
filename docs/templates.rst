@@ -73,9 +73,13 @@ Simple tags
     {% get_products 3 flag='featured' category=3 brand=3 manufactured=3 as products %}
 
     # Fetch a set of categorization objects.
-    {% get_categorization 'category' 3 level=1 depth=2 as categories %}
-    {% get_categorization 'brand' 3 level=1 depth=2 as brands %}
-    {% get_categorization 'manufacturer' 3 level=1 depth=2 as manufacturers %}
+    {% get_categorization 'category' limit=3 level=1 depth=2 as categories %}
+    {% get_categorization 'brand' limit=3 level=1 depth=2 as brands %}
+    {% get_categorization 'manufacturer' limit=3 level=1 depth=2 as manufacturers %}
+
+    # Fetch a single flag, or a set of flags.
+    {% get_flags 'featured' as featured_flag %}
+    {% get_flags limit=3 level=1 depth=2 parent='featured' as featured_flags %}
 
     # Fetch attributes for the set of products.
     {% get_attributes product as attributes %}
