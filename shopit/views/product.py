@@ -53,7 +53,7 @@ class FilterProductsMixin(object):
 
     def filter_flags(self, queryset):
         flags = self.request.GET.get(FLAGS_VAR, None)
-        return queryset.filter(flags__code__in=flags.split(',')) if flags else queryset
+        return queryset.filter(flags__code__in=flags.split(',')).distinct() if flags else queryset
 
     def filter_price(self, queryset):
         filters = {}
