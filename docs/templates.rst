@@ -79,7 +79,7 @@ Simple tags
 
     # Fetch a single flag, or a set of flags.
     {% get_flags 'featured' as featured_flag %}
-    {% get_flags limit=3 level=1 depth=2 parent='featured' as featured_flags %}
+    {% get_flags products=product_list level=1 parent='featured' as featured_flags %}
 
     # Fetch attributes for the set of products.
     {% get_attributes product as attributes %}

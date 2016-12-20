@@ -99,18 +99,22 @@ def get_categorization(categorization, limit=None, level=None, depth=None, paren
 
 
 @register.simple_tag
-def get_flags(code=None, limit=None, level=None, depth=None, parent=None):
+def get_flags(code=None, products=None, limit=None, level=None, depth=None, parent=None):
     """
     Returns flag with the given code. If code is None returns all, in that
-    case limit, level, depth & parent can be passed in to filter the results.
+    case products, limit, level, depth & parent can be passed in to filter the results.
+    If `products` is passed in only return flags appearing in the given list of products.
 
     {% get_flags 'featured' as featured_flag %}
-    {% get_flags level=1 parent='featured' as featured_flags %}
+    {% get_flags products=product_list level=1 parent='featured' as featured_flags %}
     """
     if code is not None:
         return Flag.objects.filter(code=code).first()
 
     filters = {}
+
+    if products is not None:
+        filters['code__in'] = list(set([x for x in products.values_list('flags__code', flat=True) if x]))
 
     if level is not None:
         if depth is not None:
