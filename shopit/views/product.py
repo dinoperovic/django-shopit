@@ -19,21 +19,46 @@ from shopit.serializers import (AddToCartSerializer, CartItemSerializer, Product
                                 ProductSummarySerializer, WatchItemSerializer)
 from shopit.settings import FILTER_ATTRIBUTES_INCLUDES_VARIANTS
 
+CATEGORIES_VAR = 'c'
+BRANDS_VAR = 'b'
+MANUFACTURERS_VAR = 'm'
+FLAGS_VAR = 'f'
+PRICE_FROM_VAR = 'pf'
+PRICE_TO_VAR = 'pt'
+
 
 class FilterProductsMixin(object):
     """
     A mixin that provides a `filter_queryset` method that can be called
-    with a queryset passed in, to return a filtered queryset by price and
-    attributes.
+    with a queryset passed in, to return a filtered queryset.
     """
+    def filter_categorization(self, queryset):
+        categories = self.request.GET.get(CATEGORIES_VAR, None)
+        brands = self.request.GET.get(BRANDS_VAR, None)
+        manufacturers = self.request.GET.get(MANUFACTURERS_VAR, None)
+        filters = {}
+
+        if categories:
+            filters['_category__translations__slug__in'] = categories.split(',')
+        if brands:
+            filters['_brand__translations__slug__in'] = brands.split(',')
+        if manufacturers:
+            filters['_manufacturer__translations__slug__in'] = manufacturers.split(',')
+
+        return queryset.filter(**filters).distinct() if filters else queryset
+
+    def filter_flags(self, queryset):
+        flags = self.request.GET.get(FLAGS_VAR, None)
+        return queryset.filter(flags__code__in=flags.split(',')) if flags else queryset
+
     def filter_price(self, queryset):
         filters = {}
         try:
-            filters['_unit_price__gte'] = Decimal(self.request.GET.get('price-from', None))
+            filters['_unit_price__gte'] = Decimal(self.request.GET.get(PRICE_FROM_VAR, None))
         except (ValueError, TypeError):
             pass
         try:
-            filters['_unit_price__lte'] = Decimal(self.request.GET.get('price-to', None))
+            filters['_unit_price__lte'] = Decimal(self.request.GET.get(PRICE_TO_VAR, None))
         except (ValueError, TypeError):
             pass
         return queryset.filter(**filters) if filters else queryset
@@ -71,6 +96,8 @@ class FilterProductsMixin(object):
 
     def filter_queryset(self, queryset):
         queryset = super(FilterProductsMixin, self).filter_queryset(queryset)
+        queryset = self.filter_categorization(queryset)
+        queryset = self.filter_flags(queryset)
         queryset = self.filter_price(queryset)
         queryset = self.filter_attributes(queryset)
         return queryset

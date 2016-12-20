@@ -24,13 +24,13 @@
     <h4>{% trans "Price from" %}</h4>
     <p>
       {% for step in price_steps %}
-        <a href="?{% query_transform 'price-from' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
+        <a href="?{% query_transform 'pf' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
       {% endfor %}
     </p>
     <h4>{% trans "Price to" %}</h4>
     <p>
       {% for step in price_steps %}
-        <a href="?{% query_transform 'price-to' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
+        <a href="?{% query_transform 'pt' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
       {% endfor %}
     </p>
   {% endif %}
