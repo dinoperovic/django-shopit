@@ -157,7 +157,7 @@ def get_price_steps(steps=5, products=None):
 
     {% get_price_steps 3 products as price_steps %}
     """
-    queryset = Product.objects.active()
+    queryset = Product.objects.active().top_level()
 
     if products is not None:
         queryset = queryset.filter(id__in=[x.id for x in products])
