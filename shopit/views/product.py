@@ -14,6 +14,7 @@ from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
 from shopit.models.cart import Cart, CartItem
+from shopit.models.categorization import Category, Brand, Manufacturer
 from shopit.models.product import Attribute, Product
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, WatchItemSerializer)
@@ -39,11 +40,14 @@ class FilterProductsMixin(object):
         filters = {}
 
         if categories:
-            filters['_category__translations__slug__in'] = categories.split(',')
+            ids = Category.objects.translated(slug__in=categories.split(',')).values_list('id', flat=True)
+            filters['_category_id__in'] = list(set(ids))
         if brands:
-            filters['_brand__translations__slug__in'] = brands.split(',')
+            ids = Brand.objects.translated(slug__in=brands.split(',')).values_list('id', flat=True)
+            filters['_brand_id__in'] = list(set(ids))
         if manufacturers:
-            filters['_manufacturer__translations__slug__in'] = manufacturers.split(',')
+            ids = Manufacturer.objects.translated(slug__in=manufacturers.split(',')).values_list('id', flat=True)
+            filters['_manufacturer_id__in'] = list(set(ids))
 
         return queryset.filter(**filters).distinct() if filters else queryset
 
