@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Add option to limit ``get_categorization`` templatetag to a set of products.
 * Enable filtering categorization and flags via querystring. Change price range querystrings.
 * Add ``get_flags`` templatetag.
 * Make `Flag` model an mptt model with a parent field.

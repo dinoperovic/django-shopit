@@ -75,7 +75,7 @@ Simple tags
     # Fetch a set of categorization objects.
     {% get_categorization 'category' limit=3 level=1 depth=2 as categories %}
     {% get_categorization 'brand' limit=3 level=1 depth=2 as brands %}
-    {% get_categorization 'manufacturer' limit=3 level=1 depth=2 as manufacturers %}
+    {% get_categorization 'manufacturer' products=product_list limit=3 level=1 depth=2 as manufacturers %}
 
     # Fetch a single flag, or a set of flags.
     {% get_flags 'featured' as featured_flag %}

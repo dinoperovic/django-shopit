@@ -73,17 +73,21 @@ def get_products(limit=None, flag=None, category=0, brand=0, manufacturer=0):
 
 
 @register.simple_tag
-def get_categorization(categorization, limit=None, level=None, depth=None, parent=None):
+def get_categorization(categorization, products=None, limit=None, level=None, depth=None, parent=None):
     """
     Returns a categorization list. First argument must be categorization type.
+    If `products` is passed in only return categorization appearing in the given list of products.
 
-    {% get_categorization 'brand' limit=3 level=1 depth=2 as brands %}
+    {% get_categorization 'brand' products=product_list limit=3 level=1 depth=2 as brands %}
     """
     if categorization not in ['category', 'brand', 'manufacturer']:
         raise template.TemplateSyntaxError(
             "Tag `get_categorization` requires first argument to be either 'category', 'brand' or 'manufacturer'.")
 
     filters = {}
+
+    if products is not None:
+        filters['id__in'] = list(set([x for x in products.values_list('_%s__id' % categorization, flat=True) if x]))
 
     if level is not None:
         if depth is not None:
