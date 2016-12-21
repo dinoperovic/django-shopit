@@ -27,12 +27,13 @@ MANUFACTURERS_VAR = 'm'
 FLAGS_VAR = 'f'
 PRICE_FROM_VAR = 'pf'
 PRICE_TO_VAR = 'pt'
+SORT_VAR = 's'
 
 
 class FilterProductsMixin(object):
     """
     A mixin that provides a `filter_queryset` method that can be called
-    with a queryset passed in, to return a filtered queryset.
+    with a queryset passed in, to return a filtered & sorted queryset.
     """
     def filter_categorization(self, queryset):
         categories = self.request.GET.get(CATEGORIES_VAR, None)
@@ -103,13 +104,25 @@ class FilterProductsMixin(object):
 
         return queryset
 
+    def sort_products(self, queryset):
+        sort = self.request.GET.get(SORT_VAR, None)
+        sort_map = {
+            'name': 'translations__name',
+            '-name': '-translations__name',
+            'price': '_unit_price',
+            '-price': '-_unit_price',
+        }
+        if sort in sort_map:
+            queryset = queryset.order_by(sort_map[sort])
+        return queryset
+
     def filter_queryset(self, queryset):
         queryset = super(FilterProductsMixin, self).filter_queryset(queryset)
         queryset = self.filter_categorization(queryset)
         queryset = self.filter_flags(queryset)
         queryset = self.filter_price(queryset)
         queryset = self.filter_attributes(queryset)
-        return queryset
+        return self.sort_products(queryset)
 
 
 class ProductListView(FilterProductsMixin, BaseProductListView):

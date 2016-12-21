@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Enable sorting the products.
 * Don't fetch flags from categorization on a product. Categorization flags are used separately to mark categorization
   and the don't affect the products.
 * Fix templatetags.
