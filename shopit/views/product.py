@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from decimal import Decimal
 
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,7 +15,7 @@ from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
 from shopit.models.cart import Cart, CartItem
-from shopit.models.categorization import Category, Brand, Manufacturer
+from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.product import Attribute, Product
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, WatchItemSerializer)
@@ -53,7 +54,11 @@ class FilterProductsMixin(object):
 
     def filter_flags(self, queryset):
         flags = self.request.GET.get(FLAGS_VAR, None)
-        return queryset.filter(flags__code__in=flags.split(',')).distinct() if flags else queryset
+        if flags:
+            flags = flags.split(',')
+            queryset = queryset.prefetch_related('flags').filter(flags__code__in=flags)
+            queryset = queryset.annotate(num=Count('flags')).filter(num=len(flags)).distinct()
+        return queryset
 
     def filter_price(self, queryset):
         filters = {}

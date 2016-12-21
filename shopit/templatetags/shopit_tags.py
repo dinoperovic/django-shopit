@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import itertools
 import math
 
 from django import template
@@ -87,7 +88,7 @@ def get_categorization(categorization, products=None, limit=None, level=None, de
     filters = {}
 
     if products is not None:
-        filters['id__in'] = list(set([x for x in products.values_list('_%s__id' % categorization, flat=True) if x]))
+        filters['id__in'] = list(set([getattr(x, '_%s_id' % categorization) for x in products]))
 
     if level is not None:
         if depth is not None:
@@ -118,7 +119,8 @@ def get_flags(code=None, products=None, limit=None, level=None, depth=None, pare
     filters = {}
 
     if products is not None:
-        filters['code__in'] = list(set([x for x in products.values_list('flags__code', flat=True) if x]))
+        product_flags = [x.get_flags().values_list('code', flat=True) for x in products]
+        filters['code__in'] = list(set(itertools.chain.from_iterable(product_flags)))
 
     if level is not None:
         if depth is not None:
