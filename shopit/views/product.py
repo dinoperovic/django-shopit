@@ -57,8 +57,9 @@ class FilterProductsMixin(object):
         flags = self.request.GET.get(FLAGS_VAR, None)
         if flags:
             flags = flags.split(',')
-            queryset = queryset.prefetch_related('flags').filter(flags__code__in=flags)
-            queryset = queryset.annotate(num=Count('flags')).filter(num=len(flags)).distinct()
+            flagged = queryset.prefetch_related('flags').filter(flags__code__in=flags)
+            flagged = flagged.annotate(num_flags=Count('flags')).filter(num_flags=len(flags)).distinct()
+            queryset = queryset.filter(id__in=flagged.values_list('id', flat=True))
         return queryset
 
     def filter_price(self, queryset):
