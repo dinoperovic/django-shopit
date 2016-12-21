@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Optimize attribute filtering with `prefetch_related`.
 * Enable sorting the products.
 * Don't fetch flags from categorization on a product. Categorization flags are used separately to mark categorization
   and the don't affect the products.

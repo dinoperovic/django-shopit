@@ -85,7 +85,8 @@ class FilterProductsMixin(object):
 
         if attr_filters:
             ids = queryset.values_list('id', flat=True)
-            variants = Product.objects.filter(group_id__in=ids)
+            variants = Product.objects.filter(group_id__in=ids).prefetch_related(
+                'attribute_values', 'attribute_values__attribute', 'attribute_values__choice')
 
             if variants:
                 for code, value in attr_filters:
