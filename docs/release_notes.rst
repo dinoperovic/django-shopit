@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Fix templatetags.
 * Add option to limit ``get_categorization`` templatetag to a set of products.
 * Enable filtering categorization and flags via querystring. Change price range querystrings.
 * Add ``get_flags`` templatetag.

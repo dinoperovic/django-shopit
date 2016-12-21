@@ -55,11 +55,11 @@ def get_products(limit=None, flag=None, category=0, brand=0, manufacturer=0):
     filters = {}
 
     if category != 0:
-        filters['category'] = category
+        filters['_category'] = category
     if brand != 0:
-        filters['brand'] = brand
+        filters['_brand'] = brand
     if manufacturer != 0:
-        filters['manufacturer'] = manufacturer
+        filters['_manufacturer'] = manufacturer
 
     products = Product.objects.active()
 
