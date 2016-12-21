@@ -8,6 +8,8 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Don't fetch flags from categorization on a product. Categorization flags are used separately to mark categorization
+  and the don't affect the products.
 * Fix templatetags.
 * Add option to limit ``get_categorization`` templatetag to a set of products.
 * Enable filtering categorization and flags via querystring. Change price range querystrings.

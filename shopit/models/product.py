@@ -420,13 +420,6 @@ class Product(BaseProduct, TranslatableModel):
             flags = self.flags.active()
             if self.is_variant:
                 flags = flags | self.group.get_flags(distinct=False)
-            else:
-                if self.category:
-                    flags = flags | self.category.get_flags(distinct=False)
-                if self.brand:
-                    flags = flags | self.brand.get_flags(distinct=False)
-                if self.manufacturer:
-                    flags = flags | self.manufacturer.get_flags(distinct=False)
             self.cache('_flags', flags)
         return flags.distinct() if distinct else flags
 
