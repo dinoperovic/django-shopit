@@ -64,8 +64,5 @@ class Flag(TranslatableModelMixin, MPTTModel):
         products = getattr(self, '_products', None)
         if products is None:
             products = self.product_set.active()
-            for model in ['category', 'brand', 'manufacturer']:
-                for cat in getattr(self, '%s_set' % model).active():
-                    products = products | cat.get_products()
-            setattr(self, '_products', products.distinct())
+            setattr(self, '_products', products)
         return products
