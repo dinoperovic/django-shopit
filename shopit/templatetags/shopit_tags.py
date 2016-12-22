@@ -82,8 +82,11 @@ def get_products(limit=None, flags=None, categories=0, brands=0, manufacturers=0
         else:
             filters['_manufacturer'] = categories
 
-    products = products.filter_flags(flags)
-    products = products.filter_price(price_from, price_to)
+    if flags:
+        products = products.filter_flags(flags.split(','))
+
+    if price_from or price_to:
+        products = products.filter_price(price_from, price_to)
 
     return products.top_level().filter(**filters)[:limit]
 
