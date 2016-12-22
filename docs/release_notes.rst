@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Add price range filtering in ``get_products`` templatetag.
 * Move product filtering to a manager.
 * Allow mutiple flags to be passed to the ``get_products`` templatetag.
 * Optimize attribute filtering with `prefetch_related`.

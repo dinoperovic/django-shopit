@@ -47,7 +47,7 @@ def query_transform(context, *args, **kwargs):
 
 
 @register.simple_tag
-def get_products(limit=None, flags=None, categories=0, brands=0, manufacturers=0):
+def get_products(limit=None, flags=None, categories=0, brands=0, manufacturers=0, price_from=None, price_to=None):
     """
     Returns product queryset. Categorization si marked as `0` by default so
     that products with `None` categorizations can be queried. A comma
@@ -83,6 +83,7 @@ def get_products(limit=None, flags=None, categories=0, brands=0, manufacturers=0
             filters['_manufacturer'] = categories
 
     products = products.filter_flags(flags)
+    products = products.filter_price(price_from, price_to)
 
     return products.top_level().filter(**filters)[:limit]
 
