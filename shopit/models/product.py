@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import NoReverseMatch, reverse
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import Count
 from django.template.defaultfilters import truncatewords
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
@@ -37,7 +38,7 @@ from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.tax import Tax
 from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import ATTRIBUTE_TEMPLATES, RELATION_KINDS, REVIEW_RATINGS
+from shopit.settings import ATTRIBUTE_TEMPLATES, FILTER_ATTRIBUTES_INCLUDES_VARIANTS, RELATION_KINDS, REVIEW_RATINGS
 
 try:
     from easy_thumbnails.files import get_thumbnailer
@@ -54,6 +55,73 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
     def top_level(self):
         return self.filter(kind__in=[Product.SINGLE, Product.GROUP])
 
+    def filter_categorization(self, categories=None, brands=None, manufacturers=None):
+        """
+        Filters a queryset by the given categorization. A comma separated list
+        of slug should be passed in.
+        """
+        filters = {}
+        if categories:
+            ids = Category.objects.translated(slug__in=categories.split(',')).values_list('id', flat=True)
+            filters['_category_id__in'] = list(set(ids))
+        if brands:
+            ids = Brand.objects.translated(slug__in=brands.split(',')).values_list('id', flat=True)
+            filters['_brand_id__in'] = list(set(ids))
+        if manufacturers:
+            ids = Manufacturer.objects.translated(slug__in=manufacturers.split(',')).values_list('id', flat=True)
+            filters['_manufacturer_id__in'] = list(set(ids))
+        return self.filter(**filters) if filters else self
+
+    def filter_flags(self, flags=None):
+        """
+        Filters a queryset by the given flags. A comma separated list of codes
+        should be passed in.
+        """
+        filters = {}
+        if flags:
+            flags = flags.split(',')
+            flagged = self.prefetch_related('flags').filter(flags__code__in=flags)
+            flagged = flagged.annotate(num_flags=Count('flags')).filter(num_flags=len(flags)).distinct()
+            filters['id__in'] = flagged.values_list('id', flat=True)
+        return self.filter(**filters) if filters else self
+
+    def filter_price(self, price_from=None, price_to=None):
+        """
+        Filters a queryset by a price range.
+        """
+        filters = {}
+        if price_from:
+            filters['_unit_price__gte'] = Decimal(price_from)
+        if price_to:
+            filters['_unit_price__lte'] = Decimal(price_to)
+        return self.filter(**filters) if filters else self
+
+    def filter_attributes(self, attributes=None):
+        """
+        Filters a queryset by attributes. A list of tuples containing attribute
+        code, name should be passed in as `attributes`.
+        """
+        if attributes:
+            ids = self.values_list('id', flat=True)
+            variants = Product.objects.filter(group_id__in=ids).prefetch_related(
+                'attribute_values', 'attribute_values__attribute', 'attribute_values__choice')
+
+            if variants:
+                for code, value in attributes:
+                    filters = {'attribute_values__attribute__code__iexact': code}
+                    if value:
+                        filters['attribute_values__choice__value__iexact'] = value
+                    else:
+                        filters['attribute_values__choice__isnull'] = True
+                    variants = variants.filter(**filters)
+
+                group_ids = list(set(variants.values_list('group_id', flat=True)))
+                self = self.filter(id__in=group_ids)
+
+                if FILTER_ATTRIBUTES_INCLUDES_VARIANTS:
+                    self = (self | variants).order_by('-order', 'kind', 'published')
+        return self
+
 
 class ProductManager(BaseProductManager, TranslatableManager):
     queryset_class = ProductQuerySet
@@ -63,6 +131,18 @@ class ProductManager(BaseProductManager, TranslatableManager):
 
     def top_level(self):
         return self.get_queryset().top_level()
+
+    def filter_categorization(self, categories=None, brands=None, manufacturers=None):
+        return self.get_queryset().filter_categorization(categories, brands, manufacturers)
+
+    def filter_flags(self, flags=None):
+        return self.get_queryset().filter_flags(flags)
+
+    def filter_price(self, price_from=None, price_to=None):
+        return self.get_queryset().filter_price(price_from, price_to)
+
+    def filter_attributes(self, attributes=None):
+        return self.get_queryset().filter_attributes(attributes)
 
 
 @python_2_unicode_compatible

@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from decimal import Decimal
-
 from django.core.urlresolvers import reverse
-from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import status
 from rest_framework.response import Response
@@ -15,11 +12,9 @@ from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
 from shopit.models.cart import Cart, CartItem
-from shopit.models.categorization import Brand, Category, Manufacturer
-from shopit.models.product import Attribute, Product
+from shopit.models.product import Attribute
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, WatchItemSerializer)
-from shopit.settings import FILTER_ATTRIBUTES_INCLUDES_VARIANTS
 
 CATEGORIES_VAR = 'c'
 BRANDS_VAR = 'b'
@@ -30,51 +25,23 @@ PRICE_TO_VAR = 'pt'
 SORT_VAR = 's'
 
 
-class FilterProductsMixin(object):
-    """
-    A mixin that provides a `filter_queryset` method that can be called
-    with a queryset passed in, to return a filtered & sorted queryset.
-    """
-    def filter_categorization(self, queryset):
+class ProductListView(BaseProductListView):
+    serializer_class = ProductSummarySerializer
+    renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
+
+    def get_queryset(self):
+        return super(ProductListView, self).get_queryset().active().top_level()
+
+    def filter_queryset(self, queryset):
+        queryset = super(ProductListView, self).filter_queryset(queryset)
+
         categories = self.request.GET.get(CATEGORIES_VAR, None)
         brands = self.request.GET.get(BRANDS_VAR, None)
         manufacturers = self.request.GET.get(MANUFACTURERS_VAR, None)
-        filters = {}
-
-        if categories:
-            ids = Category.objects.translated(slug__in=categories.split(',')).values_list('id', flat=True)
-            filters['_category_id__in'] = list(set(ids))
-        if brands:
-            ids = Brand.objects.translated(slug__in=brands.split(',')).values_list('id', flat=True)
-            filters['_brand_id__in'] = list(set(ids))
-        if manufacturers:
-            ids = Manufacturer.objects.translated(slug__in=manufacturers.split(',')).values_list('id', flat=True)
-            filters['_manufacturer_id__in'] = list(set(ids))
-
-        return queryset.filter(**filters).distinct() if filters else queryset
-
-    def filter_flags(self, queryset):
         flags = self.request.GET.get(FLAGS_VAR, None)
-        if flags:
-            flags = flags.split(',')
-            flagged = queryset.prefetch_related('flags').filter(flags__code__in=flags)
-            flagged = flagged.annotate(num_flags=Count('flags')).filter(num_flags=len(flags)).distinct()
-            queryset = queryset.filter(id__in=flagged.values_list('id', flat=True))
-        return queryset
+        price_from = self.request.GET.get(PRICE_FROM_VAR, None)
+        price_to = self.request.GET.get(PRICE_TO_VAR, None)
 
-    def filter_price(self, queryset):
-        filters = {}
-        try:
-            filters['_unit_price__gte'] = Decimal(self.request.GET.get(PRICE_FROM_VAR, None))
-        except (ValueError, TypeError):
-            pass
-        try:
-            filters['_unit_price__lte'] = Decimal(self.request.GET.get(PRICE_TO_VAR, None))
-        except (ValueError, TypeError):
-            pass
-        return queryset.filter(**filters) if filters else queryset
-
-    def filter_attributes(self, queryset):
         attrs = Attribute.objects.active()
         attr_codes = attrs.values_list('code', flat=True)
         attr_filters = [(x[0], x[1]) for x in self.request.GET.items() if x[0] in attr_codes]
@@ -84,29 +51,11 @@ class FilterProductsMixin(object):
             if not attrs.get(code=f[0]).nullable:
                 attr_filters.remove(f)
 
-        if attr_filters:
-            ids = queryset.values_list('id', flat=True)
-            variants = Product.objects.filter(group_id__in=ids).prefetch_related(
-                'attribute_values', 'attribute_values__attribute', 'attribute_values__choice')
+        queryset = queryset.filter_categorization(categories, brands, manufacturers)
+        queryset = queryset.filter_flags(flags)
+        queryset = queryset.filter_price(price_from, price_to)
+        queryset = queryset.filter_attributes(attr_filters)
 
-            if variants:
-                for code, value in attr_filters:
-                    filters = {'attribute_values__attribute__code__iexact': code}
-                    if value:
-                        filters['attribute_values__choice__value__iexact'] = value
-                    else:
-                        filters['attribute_values__choice__isnull'] = True
-                    variants = variants.filter(**filters)
-
-                group_ids = list(set(variants.values_list('group_id', flat=True)))
-                queryset = queryset.filter(id__in=group_ids)
-
-                if FILTER_ATTRIBUTES_INCLUDES_VARIANTS:
-                    queryset = (queryset | variants).order_by('-order', 'kind', 'published')
-
-        return queryset
-
-    def sort_products(self, queryset):
         sort = self.request.GET.get(SORT_VAR, None)
         sort_map = {
             'name': 'translations__name',
@@ -116,23 +65,8 @@ class FilterProductsMixin(object):
         }
         if sort in sort_map:
             queryset = queryset.order_by(sort_map[sort])
+
         return queryset
-
-    def filter_queryset(self, queryset):
-        queryset = super(FilterProductsMixin, self).filter_queryset(queryset)
-        queryset = self.filter_categorization(queryset)
-        queryset = self.filter_flags(queryset)
-        queryset = self.filter_price(queryset)
-        queryset = self.filter_attributes(queryset)
-        return self.sort_products(queryset)
-
-
-class ProductListView(FilterProductsMixin, BaseProductListView):
-    serializer_class = ProductSummarySerializer
-    renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
-
-    def get_queryset(self):
-        return super(ProductListView, self).get_queryset().active().top_level()
 
     def get_template_names(self):
         return ['shopit/catalog/product_list.html']

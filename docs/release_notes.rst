@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Move product filtering to a manager.
 * Allow mutiple flags to be passed to the ``get_products`` templatetag.
 * Optimize attribute filtering with `prefetch_related`.
 * Enable sorting the products.

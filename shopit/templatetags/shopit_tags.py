@@ -4,8 +4,8 @@ from __future__ import absolute_import, unicode_literals
 import itertools
 import math
 
-from django.db.models import Count
 from django import template
+from django.db.models import Count
 from django.utils import six
 from shop.money import Money
 from shop.money.money_maker import MoneyMaker
