@@ -70,7 +70,7 @@ Simple tags
     {% query_transform color 'black' size='XL' %}
 
     # Fetch a set of products.
-    {% get_products 3 flag='featured' category=3 brand=3 manufactured=3 as products %}
+    {% get_products 3 flags='featured,awesome' category=3 brand=3 manufactured=3 as products %}
 
     # Fetch a set of categorization objects.
     {% get_categorization 'category' limit=3 level=1 depth=2 as categories %}

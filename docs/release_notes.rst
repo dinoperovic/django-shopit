@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.2
 =====
 
+* Allow mutiple flags to be passed to the ``get_products`` templatetag.
 * Optimize attribute filtering with `prefetch_related`.
 * Enable sorting the products.
 * Don't fetch flags from categorization on a product. Categorization flags are used separately to mark categorization

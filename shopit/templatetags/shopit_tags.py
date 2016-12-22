@@ -4,7 +4,9 @@ from __future__ import absolute_import, unicode_literals
 import itertools
 import math
 
+from django.db.models import Count
 from django import template
+from django.utils import six
 from shop.money import Money
 from shop.money.money_maker import MoneyMaker
 
@@ -45,12 +47,12 @@ def query_transform(context, *args, **kwargs):
 
 
 @register.simple_tag
-def get_products(limit=None, flag=None, category=0, brand=0, manufacturer=0):
+def get_products(limit=None, flags=None, category=0, brand=0, manufacturer=0):
     """
     Returns product queryset. Categorization si marked as `0` by default so
     that products with `None` categorizations can be queried.
 
-    {% get_products 3 flag='featured' category=3 as featured_products %}
+    {% get_products 3 flags='featured,awesome' category=3 as featured_products %}
     """
     filters = {}
 
@@ -63,12 +65,13 @@ def get_products(limit=None, flag=None, category=0, brand=0, manufacturer=0):
 
     products = Product.objects.active()
 
-    if flag:
-        try:
-            flag = Flag.objects.active().filter(code=flag)[0]
-            products = flag.get_products()
-        except IndexError:
-            pass
+    if flags:
+        if not isinstance(flags, six.string_types):
+            flags = [x.code for x in list(flags)]
+        flags = flags.split(',')
+        flagged = Product.objects.filter(flags__code__in=flags)
+        flagged = flagged.annotate(num_flags=Count('flags')).filter(num_flags=len(flags)).distinct()
+        filters['id__in'] = flagged.values_list('id', flat=True)
 
     return products.top_level().filter(**filters)[:limit]
 
