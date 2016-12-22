@@ -72,7 +72,7 @@ def get_products(limit=None, flags=None, categories=0, brands=0, manufacturers=0
         elif isinstance(brands, QuerySet):
             filters['_brand_id__in'] = brands.values_list('id', flat=True)
         else:
-            filters['_brand'] = categories
+            filters['_brand'] = brands
 
     if manufacturers != 0:
         if isinstance(manufacturers, six.string_types):
@@ -80,14 +80,10 @@ def get_products(limit=None, flags=None, categories=0, brands=0, manufacturers=0
         elif isinstance(manufacturers, QuerySet):
             filters['_manufacturer_id__in'] = manufacturers.values_list('id', flat=True)
         else:
-            filters['_manufacturer'] = categories
+            filters['_manufacturer'] = manufacturers
 
-    if flags:
-        products = products.filter_flags(flags.split(','))
-
-    if price_from or price_to:
-        products = products.filter_price(price_from, price_to)
-
+    products = products.filter_flags(flags.split(',') if flags else None)
+    products = products.filter_price(price_from, price_to)
     return products.top_level().filter(**filters)[:limit]
 
 
