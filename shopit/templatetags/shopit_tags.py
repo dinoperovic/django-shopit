@@ -5,7 +5,7 @@ import itertools
 import math
 
 from django import template
-from django.db.models import Count
+from django.db.models.query import QuerySet
 from django.utils import six
 from shop.money import Money
 from shop.money.money_maker import MoneyMaker
@@ -47,31 +47,42 @@ def query_transform(context, *args, **kwargs):
 
 
 @register.simple_tag
-def get_products(limit=None, flags=None, category=0, brand=0, manufacturer=0):
+def get_products(limit=None, flags=None, categories=0, brands=0, manufacturers=0):
     """
     Returns product queryset. Categorization si marked as `0` by default so
-    that products with `None` categorizations can be queried.
+    that products with `None` categorizations can be queried. A comma
+    separated list of categorization slugs can be passed in.
 
-    {% get_products 3 flags='featured,awesome' category=3 as featured_products %}
+    {% get_products 3 categories=3 brands='apple' flags='featured,awesome' as featured_products %}
     """
     filters = {}
-
-    if category != 0:
-        filters['_category'] = category
-    if brand != 0:
-        filters['_brand'] = brand
-    if manufacturer != 0:
-        filters['_manufacturer'] = manufacturer
-
     products = Product.objects.active()
 
-    if flags:
-        if not isinstance(flags, six.string_types):
-            flags = [x.code for x in list(flags)]
-        flags = flags.split(',')
-        flagged = Product.objects.filter(flags__code__in=flags)
-        flagged = flagged.annotate(num_flags=Count('flags')).filter(num_flags=len(flags)).distinct()
-        filters['id__in'] = flagged.values_list('id', flat=True)
+    if categories != 0:
+        if isinstance(categories, six.string_types):
+            products = products.filter_categorization(categories=categories.split(','))
+        elif isinstance(categories, QuerySet):
+            filters['_category_id__in'] = categories.values_list('id', flat=True)
+        else:
+            filters['_category'] = categories
+
+    if brands != 0:
+        if isinstance(brands, six.string_types):
+            products = products.filter_categorization(brands=brands.split(','))
+        elif isinstance(brands, QuerySet):
+            filters['_brand_id__in'] = brands.values_list('id', flat=True)
+        else:
+            filters['_brand'] = categories
+
+    if manufacturers != 0:
+        if isinstance(manufacturers, six.string_types):
+            products = products.filter_categorization(manufacturers=manufacturers.split(','))
+        elif isinstance(manufacturers, QuerySet):
+            filters['_manufacturer_id__in'] = manufacturers.values_list('id', flat=True)
+        else:
+            filters['_manufacturer'] = categories
+
+    products = products.filter_flags(flags)
 
     return products.top_level().filter(**filters)[:limit]
 

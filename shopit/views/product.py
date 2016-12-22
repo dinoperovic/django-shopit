@@ -35,12 +35,17 @@ class ProductListView(BaseProductListView):
     def filter_queryset(self, queryset):
         queryset = super(ProductListView, self).filter_queryset(queryset)
 
-        categories = self.request.GET.get(CATEGORIES_VAR, None)
-        brands = self.request.GET.get(BRANDS_VAR, None)
-        manufacturers = self.request.GET.get(MANUFACTURERS_VAR, None)
-        flags = self.request.GET.get(FLAGS_VAR, None)
+        categories = list(filter(None, self.request.GET.get(CATEGORIES_VAR, '').split(','))) or None
+        brands = list(filter(None, self.request.GET.get(BRANDS_VAR, '').split(','))) or None
+        manufacturers = list(filter(None, self.request.GET.get(MANUFACTURERS_VAR, '').split(','))) or None
+        queryset = queryset.filter_categorization(categories, brands, manufacturers)
+
+        flags = list(filter(None, self.request.GET.get(FLAGS_VAR, '').split(','))) or None
+        queryset = queryset.filter_flags(flags)
+
         price_from = self.request.GET.get(PRICE_FROM_VAR, None)
         price_to = self.request.GET.get(PRICE_TO_VAR, None)
+        queryset = queryset.filter_price(price_from, price_to)
 
         attrs = Attribute.objects.active()
         attr_codes = attrs.values_list('code', flat=True)
@@ -51,9 +56,6 @@ class ProductListView(BaseProductListView):
             if not attrs.get(code=f[0]).nullable:
                 attr_filters.remove(f)
 
-        queryset = queryset.filter_categorization(categories, brands, manufacturers)
-        queryset = queryset.filter_flags(flags)
-        queryset = queryset.filter_price(price_from, price_to)
         queryset = queryset.filter_attributes(attr_filters)
 
         sort = self.request.GET.get(SORT_VAR, None)

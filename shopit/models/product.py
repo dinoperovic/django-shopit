@@ -57,29 +57,28 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
 
     def filter_categorization(self, categories=None, brands=None, manufacturers=None):
         """
-        Filters a queryset by the given categorization. A comma separated list
-        of slug should be passed in.
+        Filters a queryset by the given categorization. A list of slugs should
+        be passed in.
         """
         filters = {}
         if categories:
-            ids = Category.objects.translated(slug__in=categories.split(',')).values_list('id', flat=True)
+            ids = Category.objects.translated(slug__in=categories).values_list('id', flat=True)
             filters['_category_id__in'] = list(set(ids))
         if brands:
-            ids = Brand.objects.translated(slug__in=brands.split(',')).values_list('id', flat=True)
+            ids = Brand.objects.translated(slug__in=brands).values_list('id', flat=True)
             filters['_brand_id__in'] = list(set(ids))
         if manufacturers:
-            ids = Manufacturer.objects.translated(slug__in=manufacturers.split(',')).values_list('id', flat=True)
+            ids = Manufacturer.objects.translated(slug__in=manufacturers).values_list('id', flat=True)
             filters['_manufacturer_id__in'] = list(set(ids))
         return self.filter(**filters) if filters else self
 
     def filter_flags(self, flags=None):
         """
-        Filters a queryset by the given flags. A comma separated list of codes
-        should be passed in.
+        Filters a queryset by the given flags. A list of codes should be
+        passed in.
         """
         filters = {}
         if flags:
-            flags = flags.split(',')
             flagged = self.prefetch_related('flags').filter(flags__code__in=flags)
             flagged = flagged.annotate(num_flags=Count('flags')).filter(num_flags=len(flags)).distinct()
             filters['id__in'] = flagged.values_list('id', flat=True)
