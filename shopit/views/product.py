@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from parler.views import ViewUrlMixin
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -84,7 +85,7 @@ class ProductListView(BaseProductListView):
         return context
 
 
-class ProductDetailView(ProductRetrieveView):
+class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
     serializer_class = ProductDetailSerializer
     renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
     lookup_field = 'translations__slug'
@@ -103,6 +104,12 @@ class ProductDetailView(ProductRetrieveView):
 
     def get_template_names(self):
         return ['shopit/catalog/product_detail.html']
+
+    def get_view_url(self):
+        """
+        Return object view url. Used in `get_translated_url` templatetag from parler.
+        """
+        return self.get_object().get_absolute_url()
 
 
 class AddToCartView(AddToCartViewBase):

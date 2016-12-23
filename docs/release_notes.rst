@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.1.3
+=====
+
+* Add ``get_view_url`` to product detail view to return correct translated url.
+
 0.1.2
 =====
 
