@@ -15,6 +15,6 @@ Release logic:
 10. git commit -m 'Start with <version>'
 11. git push
 """
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 default_app_config = 'shopit.apps.ShopitConfig'
