@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.1.3
 =====
 
+* Bugfixes.
 * Fix ``get_object`` and ``get_queryset`` in product views returning inconsistant results.
 * Add ``get_view_url`` to product detail view to return correct translated url.
 
