@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import get_object_or_404
 from parler.views import ViewUrlMixin
 from rest_framework import status
 from rest_framework.response import Response
@@ -13,7 +14,7 @@ from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
 from shopit.models.cart import Cart, CartItem
-from shopit.models.product import Attribute
+from shopit.models.product import Attribute, Product
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, WatchItemSerializer)
 
@@ -31,7 +32,7 @@ class ProductListView(BaseProductListView):
     renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
 
     def get_queryset(self):
-        return super(ProductListView, self).get_queryset().active().top_level()
+        return Product.objects.translated().active().top_level()
 
     def filter_queryset(self, queryset):
         queryset = super(ProductListView, self).filter_queryset(queryset)
@@ -88,7 +89,6 @@ class ProductListView(BaseProductListView):
 class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
     serializer_class = ProductDetailSerializer
     renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
-    lookup_field = 'translations__slug'
 
     def get(self, request, *args, **kwargs):
         response = super(ProductDetailView, self).get(request, *args, **kwargs)
@@ -99,8 +99,10 @@ class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
         menu.add_sideframe_item(_('Delete Product'), url=reverse('admin:shopit_product_delete', args=[product_id]))
         return response
 
-    def get_queryset(self):
-        return super(ProductListView, self).get_queryset().active()
+    def get_object(self):
+        if not hasattr(self, '_product'):
+            self._product = get_object_or_404(Product.objects.translated(slug=self.kwargs['slug']))
+        return self._product
 
     def get_template_names(self):
         return ['shopit/catalog/product_detail.html']
