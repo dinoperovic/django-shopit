@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.1.4
+=====
+
+* Update add to cart ``get_context`` to ensure correct product translation is returned.
+
 0.1.3
 =====
 

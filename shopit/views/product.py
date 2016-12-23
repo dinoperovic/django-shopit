@@ -117,10 +117,10 @@ class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
 class AddToCartView(AddToCartViewBase):
     serializer_class = AddToCartSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
-    lookup_field = 'translations__slug'
 
-    def get_queryset(self):
-        return super(ProductListView, self).get_queryset().active()
+    def get_context(self, request, **kwargs):
+        product = get_object_or_404(Product.objects.translated(slug=self.kwargs['slug']))
+        return {'product': product, 'request': request}
 
     def post(self, request, *args, **kwargs):
         """
