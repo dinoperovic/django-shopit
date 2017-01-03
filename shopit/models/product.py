@@ -12,10 +12,11 @@ from cms.utils.i18n import get_current_language
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import NoReverseMatch, reverse
 from django.core.validators import MinValueValidator
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Count
 from django.template.defaultfilters import truncatewords
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.text import slugify
@@ -703,6 +704,51 @@ class Product(BaseProduct, TranslatableModel):
                         break
                 if valid:
                     variants.append(variant)
+            return variants
+
+    def create_variant(self, combo, language=None):
+        """
+        Create a variant with the given `combo` object from
+        the `get_combinations` method.
+        """
+        if self.is_group:
+            if not language:
+                language = get_current_language()
+            slug = combo['slug']
+            code = combo['code'] or Product.objects.latest('pk').pk + 1
+            num = 0
+            while Product.objects.translated(slug=slug).exists():
+                num = num + 1
+                slug = '%s-%d' % (combo['slug'], num)
+            while Product.objects.filter(code=code, translations__language_code=language).exists():
+                code = int(code) + 1
+            variant, created = Product.objects.get_or_create(code=code, kind=Product.VARIANT, group=self)
+            variant.set_current_language(language)
+            variant.name = combo['name']
+            variant.slug = slug
+            variant.save()
+            if created:
+                for attr_value in combo['attributes'].values():
+                    attr = Attribute.objects.get(code=attr_value['code'])
+                    if attr_value['value'] == '' and attr.nullable:
+                        choice = None
+                    else:
+                        choice = attr.choices.get(pk=attr_value['choice'])
+                    AttributeValue.objects.create(attribute=attr, product=variant, choice=choice)
+            return variant
+
+    @method_decorator(transaction.atomic)
+    def create_all_variants(self, language=None):
+        """
+        Creates all missing variants for the group.
+        """
+        if self.is_group:
+            variants = []
+            if not language:
+                language = get_current_language()
+            for combo in self.get_combinations():
+                if not combo['pk'] or language not in combo['languages']:
+                    variants.append(self.create_variant(combo, language=language))
             return variants
 
     def get_attr(self, name, case=None):

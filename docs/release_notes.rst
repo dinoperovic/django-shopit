@@ -8,6 +8,8 @@ Release notes for **Shopit**.
 0.1.4
 =====
 
+* Move variant generator methods from admin to the model. Now ``create_all_variants`` and ``create_variant`` are
+  available on the model.
 * Update add to cart ``get_context`` to ensure correct product translation is returned.
 
 0.1.3

@@ -424,38 +424,17 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
         """
         product = product or get_object_or_404(Product, pk=pk)
         product = product.group or product
-        combinations = product.get_combinations()
         if not language:
             language = get_current_language()
         try:
-            combo = combinations[int(combo)]
-            slug = combo['slug']
-            code = combo['code'] or Product.objects.latest('pk').pk + 1
-            num = 0
-            while Product.objects.translated(slug=slug).exists():
-                num = num + 1
-                slug = '%s-%d' % (combo['slug'], num)
-            while Product.objects.filter(code=code, translations__language_code=language).exists():
-                code = int(code) + 1
-            variant, created = Product.objects.get_or_create(code=code, kind=Product.VARIANT, group=product)
-            variant.set_current_language(language)
-            variant.name = combo['name']
-            variant.slug = slug
-            variant.save()
-            for attr_value in combo['attributes'].values():
-                attr = Attribute.objects.get(code=attr_value['code'])
-                if attr_value['value'] == '' and attr.nullable:
-                    choice = None
-                else:
-                    choice = attr.choices.get(pk=attr_value['choice'])
-                if created:
-                    AttributeValue.objects.create(attribute=attr, product=variant, choice=choice)
-            if message:
-                messages.success(request, _('Variant successfully created.'))
-            return HttpResponseRedirect(
-                reverse('admin:shopit_product_change', args=[variant.pk]) + '?language=%s' % language)
+            combo = product.get_combinations()[int(combo)]
+            variant = product.create_variant(combo, language=language)
         except (IndexError, ObjectDoesNotExist, IntegrityError):
             return HttpResponseBadRequest()
+        if message:
+            messages.success(request, _('Variant successfully created.'))
+        return HttpResponseRedirect(
+            reverse('admin:shopit_product_change', args=[variant.pk]) + '?language=%s' % language)
 
     def delete_variant(self, request, pk, variant, message=True, product=None):
         product = product or get_object_or_404(Product, pk=pk)
@@ -466,16 +445,10 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
             messages.success(request, _('Variant successfully deleted.'))
         return HttpResponseRedirect(reverse('admin:shopit_product_change', args=[product.pk]))
 
-    @method_decorator(transaction.atomic)
     def create_all_variants(self, request, pk, language=None):
         product = get_object_or_404(Product, pk=pk)
         product = product.group or product
-        combinations = product.get_combinations()
-        if not language:
-            language = get_current_language()
-        for x in range(len(combinations)):
-            if not combinations[x]['pk'] or language not in combinations[x]['languages']:
-                self.create_variant(request, pk, x, False, product, language)
+        product.create_all_variants(language=language)
         messages.success(request, _('Variants successfully created.'))
         return HttpResponseRedirect(reverse('admin:shopit_product_change', args=[product.pk]))
 

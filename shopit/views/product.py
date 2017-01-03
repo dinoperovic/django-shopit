@@ -2,8 +2,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 from parler.views import ViewUrlMixin
 from rest_framework import status
 from rest_framework.response import Response
