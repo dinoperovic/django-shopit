@@ -39,6 +39,8 @@ def _categorization_translated_fields():
     return TranslatedFields(
         name=models.CharField(_('Name'), max_length=128),
         slug=models.SlugField(_('Slug'), db_index=True),
+        description=models.TextField(_('Description'), blank=True, help_text=_(
+            "Description of a categorization, usually used as lead text in categorization's detail view.")),
         meta={'unique_together': [('language_code', 'slug')]},
     )
 

@@ -3,7 +3,7 @@ clean:
 	find . -name '*.pyc' -exec rm '{}' ';'
 
 sort:
-	isort -rc shopit tests -s migrations
+	isort -rc shopit tests -s migrations -l 119
 
 coverage:
 	coverage erase

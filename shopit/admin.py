@@ -152,6 +152,7 @@ class CategorizationAdminBase(TranslatableAdmin, DraggableMPTTAdmin):
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'slug']}),
         (_('Status'), {'fields': [('active', 'created_at', 'updated_at')]}),
+        (_('Description'), {'fields': ['description']}),
         (_('Media'), {'fields': ['_featured_image']}),
         (_('Settings'), {'fields': ['parent', 'modifiers', 'flags']}),
     ]
