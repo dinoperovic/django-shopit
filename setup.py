@@ -7,6 +7,15 @@ import shopit
 
 from setuptools import find_packages, setup
 
+try:
+    from pypandoc import convert
+except ImportError:
+    import io
+
+    def convert(filename, fmt):
+        with io.open(filename, encoding='utf-8') as fd:
+            return fd.read()
+
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
@@ -25,7 +34,7 @@ setup(
     name='djangoshop-shopit',
     version=shopit.__version__,
     description='Fully featured shop application built on djangoSHOP framework.',
-    long_description_markdown_filename='README.md',
+    long_description=convert('README.md', 'rst'),
     url='https://github.com/dinoperovic/djangoshop-shopit',
     license='BSD License',
     platforms=['OS Independent'],
@@ -41,6 +50,6 @@ setup(
         'django-mptt>=0.8.6',
         'django-parler>=1.6.5',
     ],
-    setup_requires=['pytest-runner'] if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else ['setuptools-markdown'],
+    setup_requires=['pytest-runner'] if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else [],
     tests_require=['pytest-django'],
 )
