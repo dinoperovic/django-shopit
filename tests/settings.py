@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'treebeard',
     'easy_thumbnails',
     'filer',
+    'djangocms_text_ckeditor',
 
     # django-shop
     'cmsplugin_cascade',

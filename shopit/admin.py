@@ -23,7 +23,7 @@ from django.utils.http import urlencode
 from django.utils.translation import ugettext_lazy as _
 from mptt.admin import DraggableMPTTAdmin, TreeRelatedFieldListFilter
 from parler.admin import TranslatableAdmin, TranslatableTabularInline
-from shop.admin.customer import CustomerAdmin, CustomerProxy
+from shop.admin.customer import CustomerAdminBase, CustomerInlineAdminBase, CustomerProxy
 from shop.admin.delivery import DeliveryOrderAdminMixin
 from shop.admin.order import OrderAdmin as OrderAdminBase
 from shop.admin.order import PrintOrderAdminMixin
@@ -500,4 +500,6 @@ class OrderAdmin(PrintOrderAdminMixin, DeliveryOrderAdminMixin, OrderAdminBase):
         css = {'all': ['shopit/css/djangocms-admin-style.css']}
 
 
-admin.site.register(CustomerProxy, CustomerAdmin)
+@admin.register(CustomerProxy)
+class CustomerAdmin(CustomerAdminBase):
+    inlines = [CustomerInlineAdminBase]

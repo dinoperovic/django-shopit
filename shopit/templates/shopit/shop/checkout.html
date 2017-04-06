@@ -4,7 +4,7 @@
 {% block title %}{% trans "Checkout" %}{% endblock %}
 
 {% block content %}
-  <form id="checkout" action="{% url 'shopit-checkout' %}" method="POST">
+  <form id="checkout" action="{% url 'shopit-checkout' %}" method="POST" novalidate>
     {% csrf_token %}
 
     <fieldset>

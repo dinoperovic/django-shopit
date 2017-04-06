@@ -5,8 +5,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.forms.utils import ErrorDict
 from django.utils.translation import ugettext_lazy as _
+from shop.app_settings import GUEST_IS_ACTIVE_USER
 from shop.modifiers.pool import cart_modifiers_pool
-from shop.settings import GUEST_IS_ACTIVE_USER
 
 from shopit.forms.account import AccountDetailsForm, CleanEmailMixin
 from shopit.models.address import ISO_3166_CODES, BillingAddress, ShippingAddress

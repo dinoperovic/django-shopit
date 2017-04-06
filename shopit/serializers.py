@@ -4,18 +4,18 @@ from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import reverse
 from django.template.loader import select_template
 from django.utils import six
-from django.utils.six import with_metaclass
 from measurement.base import MeasureBase
 from measurement.measures import Distance, Mass
 from rest_auth.serializers import PasswordResetConfirmSerializer, PasswordResetSerializer
 from rest_framework import serializers
 from shop.rest.money import MoneyField
-from shop.rest.serializers import AddToCartSerializer as AddToCartSerializerBase
-from shop.rest.serializers import CartItemSerializer as CartItemSerializerBase
-from shop.rest.serializers import ExtraCartRow as ExtraCartRowBase
-from shop.rest.serializers import OrderListSerializer as OrderListSerializerBase
-from shop.rest.serializers import WatchItemSerializer as WatchItemSerializerBase
-from shop.rest.serializers import CustomerSerializer, ProductCommonSerializer, SerializerRegistryMetaclass
+from shop.serializers.bases import ProductSerializer as BaseProductSerializer
+from shop.serializers.cart import CartItemSerializer as BaseCartItemSerializer
+from shop.serializers.cart import ExtraCartRow as BaseExtraCartRow
+from shop.serializers.cart import WatchItemSerializer as BaseWatchItemSerializer
+from shop.serializers.defaults import AddToCartSerializer as BaseAddToCartSerializer
+from shop.serializers.defaults import CustomerSerializer
+from shop.serializers.order import OrderListSerializer as BaseOrderListSerializer
 
 from shopit.models.address import BillingAddress, ShippingAddress
 from shopit.models.categorization import Brand, Category, Manufacturer
@@ -78,7 +78,7 @@ class AddressSerializerBase(serializers.ModelSerializer):
         exclude = ['customer']
 
 
-class OrderListSerializer(OrderListSerializerBase):
+class OrderListSerializer(BaseOrderListSerializer):
     url = serializers.SerializerMethodField()
 
     def get_url(self, obj):
@@ -185,7 +185,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ['id', 'customer', 'body', 'rating']
 
 
-class ProductSerializer(ProductCommonSerializer):
+class ProductSerializer(BaseProductSerializer):
     """
     Base product serializer.
     """
@@ -262,7 +262,7 @@ class ProductSerializer(ProductCommonSerializer):
         return attachments
 
 
-class ProductSummarySerializer(with_metaclass(SerializerRegistryMetaclass, ProductSerializer)):
+class ProductSummarySerializer(ProductSerializer):
     """
     Product list serializer is a Product serializer without some fields.
     """
@@ -278,30 +278,33 @@ class ProductDetailSerializer(ProductSerializer):
         kwargs.setdefault('label', 'catalog')
         super(ProductDetailSerializer, self).__init__(*args, **kwargs)
 
+    # def to_representation(self, obj):
+    #     product = super(ProductDetailSerializer, self).to_representation(obj)
+    #     return {'product': dict(product)}
 
-class AddToCartSerializer(AddToCartSerializerBase):
+
+class AddToCartSerializer(BaseAddToCartSerializer):
     is_available = serializers.ListField(read_only=True)
 
     def get_instance(self, context, data, extra_args):
+        instance = super(AddToCartSerializer, self).get_instance(context, data, extra_args)
         product = context['product']
         request = context['request']
         quantity = int(request.GET.get('quantity', 1))
-
-        return {
-            'product': product.pk,
-            'unit_price': product.get_price(request),
+        instance.update({
             'quantity': quantity,
             'is_available': product.is_available(quantity, request),
-        }
+        })
+        return instance
 
 
-class CartItemSerializer(CartItemSerializerBase):
+class CartItemSerializer(BaseCartItemSerializer):
     pass
 
 
-class WatchItemSerializer(WatchItemSerializerBase):
+class WatchItemSerializer(BaseWatchItemSerializer):
     pass
 
 
-class ExtraCartRow(ExtraCartRowBase):
+class ExtraCartRow(BaseExtraCartRow):
     code = serializers.CharField(read_only=True, help_text="A code that's applied to the cart")

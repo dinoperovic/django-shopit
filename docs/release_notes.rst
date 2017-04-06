@@ -5,6 +5,16 @@ Release notes for **Shopit**.
 
 ----
 
+0.2.0
+=====
+
+* Add support for `Django 1.10` & `DjangoSHOP 0.10.0`.
+
+.. attention::
+
+    Requires ``python manage.py migrate shopit`` to add a product code to the CartItem.
+    Requires adding additional setting ``SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'``.
+
 0.1.4
 =====
 

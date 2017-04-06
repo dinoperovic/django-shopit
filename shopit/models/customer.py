@@ -9,14 +9,10 @@ from shop.models.customer import BaseCustomer
 
 @python_2_unicode_compatible
 class Customer(BaseCustomer):
-    number = models.PositiveIntegerField(_('Customer Number'), null=True, default=None, unique=True)
+    SALUTATION = [('mrs', _("Mrs.")), ('mr', _("Mr.")), ('na', _("(n/a)"))]
 
-    def get_or_assign_number(self):
-        if self.number is None:
-            aggr = Customer.objects.filter(number__isnull=False).aggregate(models.Max('number'))
-            self.number = (aggr['number__max'] or 0) + 1
-            self.save()
-        return self.get_number()
+    number = models.PositiveIntegerField(_('Customer Number'), null=True, default=None, unique=True)
+    salutation = models.CharField(_('Salutation'), max_length=5, choices=SALUTATION)
 
     class Meta:
         db_table = 'shopit_customers'
@@ -25,6 +21,16 @@ class Customer(BaseCustomer):
 
     def __str__(self):
         return self.get_username()
+
+    def get_number(self):
+        return self.number
+
+    def get_or_assign_number(self):
+        if self.number is None:
+            aggr = Customer.objects.filter(number__isnull=False).aggregate(models.Max('number'))
+            self.number = (aggr['number__max'] or 0) + 1
+            self.save()
+        return self.get_number()
 
     def get_discount_codes(self):
         if not hasattr(self, '_discount_codes'):

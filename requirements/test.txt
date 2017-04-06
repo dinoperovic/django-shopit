@@ -1,6 +1,3 @@
 -r base.txt
 pytest-django
 coverage
-
-# Missing dependency in django-shop, remove when 0.9.4 is released.
-bs4

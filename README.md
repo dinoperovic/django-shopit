@@ -27,7 +27,7 @@ Here's what you can expect:
 
 ## Requirements
 
-* [Django] 1.9
+* [Django] 1.10, 1.9
 * [django-shop] as shop framework.
 * [django-cms] for placeholders.
 * [django-admin-sortable2] to sort stuff.
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 SHOP_APP_LABEL = 'shopit'
+SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'
 SHOP_CART_MODIFIERS = (
     'shop.modifiers.DefaultCartModifier',
     'shopit.modifiers.ShopitCartModifier',

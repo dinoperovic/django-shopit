@@ -8,7 +8,7 @@ Get started with installing and configuring **Shopit**.
 Requirements
 ============
 
-* Django_ 1.9
+* Django_ 1.10, 1.9
 * django-shop_ as shop framework.
 * django-cms_ for placeholders.
 * django-admin-sortable2_ to sort stuff.
@@ -38,6 +38,7 @@ You should follow django-cms_ & django-shop_ installation guide first, and then 
     ]
 
     SHOP_APP_LABEL = 'shopit'
+    SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'
     SHOP_CART_MODIFIERS = (
         'shop.modifiers.DefaultCartModifier',
         'shopit.modifiers.ShopitCartModifier',
