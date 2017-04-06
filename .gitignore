@@ -1,13 +1,13 @@
 *.egg-info/
 *.orig
 *.pyc
+*.sqlite3
 *.sw[op]
 .cache
 .coverage
 .DS_Store
 .eggs
 .python-version
-.sqlite3
 .tox
 __pycache__/
 build/
