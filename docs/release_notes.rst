@@ -12,8 +12,8 @@ Release notes for **Shopit**.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to add a product code to the CartItem.
-    Requires adding additional setting ``SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'``.
+    Requires ``python manage.py migrate shopit`` to add a product code to the CartItem, as well as adding an additional
+    setting ``SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'``.
 
 0.1.4
 =====
