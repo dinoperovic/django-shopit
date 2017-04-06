@@ -4,7 +4,7 @@
 {% block title %}{% trans "Account register" %}{% endblock %}
 
 {% block content %}
-  <form action="{% url 'shopit-account-register' %}" method="POST" data-ajax-succes="{% url 'shopit-account-detail' %}">
+  <form action="{% url 'shopit-account-register' %}" method="POST" data-ajax-succes="{% url 'shopit-account-detail' %}" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
     <button>{% trans "Register" %}</button>

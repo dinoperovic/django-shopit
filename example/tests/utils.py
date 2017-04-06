@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from decimal import Decimal as D
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.text import slugify
 from shop.money import Money
 
@@ -14,6 +14,7 @@ from shopit.models.product import Attachment, Attribute, AttributeChoice, Attrib
 from shopit.models.tax import Tax
 
 
+@override_settings(ROOT_URLCONF='tests.urls')
 class ShopitTestCase(TestCase):
     def create_tax(self, name, percent=0, **kwargs):
         attrs = {'name': name, 'percent': D(percent)}

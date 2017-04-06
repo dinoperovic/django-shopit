@@ -7,8 +7,12 @@
 .DS_Store
 .eggs
 .python-version
+.sqlite3
 .tox
+__pycache__/
 build/
 dist/
 docs/_build
+example/media/
+example/static/
 htmlcov/

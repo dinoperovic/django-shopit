@@ -5,7 +5,7 @@
 
 {% block content %}
   {% if validlink %}
-    <form action="{{ request.path }}" method="POST" data-ajax-success="{% url 'shopit-account-login' %}">
+    <form action="{{ request.path }}" method="POST" data-ajax-success="{% url 'shopit-account-login' %}" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
       <button>{% trans "Reset password" %}</button>

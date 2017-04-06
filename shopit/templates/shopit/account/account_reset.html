@@ -4,7 +4,7 @@
 {% block title %}{% trans "Password reset" %}{% endblock %}
 
 {% block content %}
-  <form action="{% url 'shopit-account-reset' %}" method="POST" data-ajax-success="{% url 'shopit-account-login' %}">
+  <form action="{% url 'shopit-account-reset' %}" method="POST" data-ajax-success="{% url 'shopit-account-login' %}" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
     <button>{% trans "Reset password" %}</button>

@@ -1,0 +1,981 @@
+[
+{
+  "model": "email_auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$30000$ni3IR40QCQ7N$+v72v8DuK5Z5E+6HGIOKn9iNQ7rYLl49f+RcUoNcz2g=",
+    "last_login": "2017-04-06T13:44:56.289Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "Admin",
+    "last_name": "Istrator",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2017-04-06T12:02:30.071Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "cms.usersettings",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "admin@example.com"
+    ],
+    "language": "en",
+    "clipboard": 1
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 1,
+  "fields": {
+    "path": "0001",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:21:23.071Z",
+    "changed_date": "2017-04-06T12:23:14.659Z",
+    "publication_date": "2017-04-06T12:21:23.097Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": null,
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": true,
+    "application_urls": null,
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 2,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      2
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 2,
+  "fields": {
+    "path": "0002",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:21:23.099Z",
+    "changed_date": "2017-04-06T12:23:14.703Z",
+    "publication_date": "2017-04-06T12:21:23.097Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": null,
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": true,
+    "application_urls": null,
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 1,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      3
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 3,
+  "fields": {
+    "path": "0003",
+    "depth": 1,
+    "numchild": 3,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:21:32.525Z",
+    "changed_date": "2017-04-06T12:21:45.033Z",
+    "publication_date": "2017-04-06T12:21:44.984Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitProductsApphook",
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 4,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      4
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 4,
+  "fields": {
+    "path": "0004",
+    "depth": 1,
+    "numchild": 3,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:21:44.987Z",
+    "changed_date": "2017-04-06T12:21:45.020Z",
+    "publication_date": "2017-04-06T12:21:44.984Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitProductsApphook",
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 3,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      5
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 5,
+  "fields": {
+    "path": "00030001",
+    "depth": 2,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": 3,
+    "creation_date": "2017-04-06T12:21:50.193Z",
+    "changed_date": "2017-04-06T12:22:34.592Z",
+    "publication_date": "2017-04-06T12:22:34.553Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitCategoriesApphook",
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 8,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      6
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 6,
+  "fields": {
+    "path": "00030002",
+    "depth": 2,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": 3,
+    "creation_date": "2017-04-06T12:22:05.120Z",
+    "changed_date": "2017-04-06T12:22:36.715Z",
+    "publication_date": "2017-04-06T12:22:36.670Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitBrandsApphook",
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 9,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      7
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 7,
+  "fields": {
+    "path": "00030003",
+    "depth": 2,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": 3,
+    "creation_date": "2017-04-06T12:22:18.510Z",
+    "changed_date": "2017-04-06T12:22:38.586Z",
+    "publication_date": "2017-04-06T12:22:38.543Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitManufacturersApphook",
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 10,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      8
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 8,
+  "fields": {
+    "path": "00040001",
+    "depth": 2,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": 4,
+    "creation_date": "2017-04-06T12:22:34.556Z",
+    "changed_date": "2017-04-06T12:22:34.586Z",
+    "publication_date": "2017-04-06T12:22:34.553Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitCategoriesApphook",
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 5,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      9
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 9,
+  "fields": {
+    "path": "00040002",
+    "depth": 2,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": 4,
+    "creation_date": "2017-04-06T12:22:36.674Z",
+    "changed_date": "2017-04-06T12:22:36.709Z",
+    "publication_date": "2017-04-06T12:22:36.670Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitBrandsApphook",
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 6,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      10
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 10,
+  "fields": {
+    "path": "00040003",
+    "depth": 2,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": 4,
+    "creation_date": "2017-04-06T12:22:38.547Z",
+    "changed_date": "2017-04-06T12:22:38.580Z",
+    "publication_date": "2017-04-06T12:22:38.543Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitManufacturersApphook",
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 7,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      11
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 11,
+  "fields": {
+    "path": "0007",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:22:45.529Z",
+    "changed_date": "2017-04-06T12:23:07.377Z",
+    "publication_date": "2017-04-06T12:23:07.324Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitApphook",
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 13,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      12
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 12,
+  "fields": {
+    "path": "0005",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:22:57.177Z",
+    "changed_date": "2017-04-06T12:23:14.627Z",
+    "publication_date": "2017-04-06T12:23:09.376Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "default.html",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitAccountApphook",
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 14,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      13
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 13,
+  "fields": {
+    "path": "0008",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:23:07.327Z",
+    "changed_date": "2017-04-06T12:23:07.363Z",
+    "publication_date": "2017-04-06T12:23:07.324Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitApphook",
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 11,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      14
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 14,
+  "fields": {
+    "path": "0006",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-06T12:23:09.380Z",
+    "changed_date": "2017-04-06T12:23:14.679Z",
+    "publication_date": "2017-04-06T12:23:09.376Z",
+    "publication_end_date": null,
+    "in_navigation": true,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": "",
+    "template": "INHERIT",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": false,
+    "application_urls": "ShopitAccountApphook",
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 12,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      15
+    ]
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 1,
+  "fields": {
+    "slot": "clipboard",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 2,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 3,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 4,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 5,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 6,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 7,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 8,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 9,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 10,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 11,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 12,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 13,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 14,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 15,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 1,
+  "fields": {
+    "language": "en",
+    "title": "Home",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "home",
+    "path": "",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 1,
+    "creation_date": "2017-04-06T12:21:23.094Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 2,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 2,
+  "fields": {
+    "language": "en",
+    "title": "Home",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "home",
+    "path": "",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 2,
+    "creation_date": "2017-04-06T12:21:23.094Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 1,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 3,
+  "fields": {
+    "language": "en",
+    "title": "Catalog",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "catalog",
+    "path": "catalog",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 3,
+    "creation_date": "2017-04-06T12:21:32.545Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 4,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 4,
+  "fields": {
+    "language": "en",
+    "title": "Catalog",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "catalog",
+    "path": "catalog",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 4,
+    "creation_date": "2017-04-06T12:21:32.545Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 3,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 5,
+  "fields": {
+    "language": "en",
+    "title": "Categories",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "categories",
+    "path": "catalog/categories",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 5,
+    "creation_date": "2017-04-06T12:21:50.214Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 8,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 6,
+  "fields": {
+    "language": "en",
+    "title": "Brands",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "brands",
+    "path": "catalog/brands",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 6,
+    "creation_date": "2017-04-06T12:22:05.143Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 9,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 7,
+  "fields": {
+    "language": "en",
+    "title": "Manufacturers",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "manufacturers",
+    "path": "catalog/manufacturers",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 7,
+    "creation_date": "2017-04-06T12:22:18.532Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 10,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 8,
+  "fields": {
+    "language": "en",
+    "title": "Categories",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "categories",
+    "path": "catalog/categories",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 8,
+    "creation_date": "2017-04-06T12:21:50.214Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 5,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 9,
+  "fields": {
+    "language": "en",
+    "title": "Brands",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "brands",
+    "path": "catalog/brands",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 9,
+    "creation_date": "2017-04-06T12:22:05.143Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 6,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 10,
+  "fields": {
+    "language": "en",
+    "title": "Manufacturers",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "manufacturers",
+    "path": "catalog/manufacturers",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 10,
+    "creation_date": "2017-04-06T12:22:18.532Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 7,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 11,
+  "fields": {
+    "language": "en",
+    "title": "Shop",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "shop",
+    "path": "shop",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 11,
+    "creation_date": "2017-04-06T12:22:45.549Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 13,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 12,
+  "fields": {
+    "language": "en",
+    "title": "Account",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "account",
+    "path": "account",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 12,
+    "creation_date": "2017-04-06T12:22:57.200Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 14,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 13,
+  "fields": {
+    "language": "en",
+    "title": "Shop",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "shop",
+    "path": "shop",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 13,
+    "creation_date": "2017-04-06T12:22:45.549Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 11,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 14,
+  "fields": {
+    "language": "en",
+    "title": "Account",
+    "page_title": "",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "account",
+    "path": "account",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 14,
+    "creation_date": "2017-04-06T12:22:57.200Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 12,
+    "publisher_state": 0
+  }
+},
+{
+  "model": "cms.urlconfrevision",
+  "pk": 1,
+  "fields": {
+    "revision": "8f3069aa-dc03-4652-a616-445efda25322"
+  }
+},
+{
+  "model": "shopit.customer",
+  "pk": 1,
+  "fields": {
+    "recognized": "REGISTERED",
+    "last_access": "2017-04-06T13:44:56.611Z",
+    "extra": "{}",
+    "number": null,
+    "salutation": "mr"
+  }
+}
+]
