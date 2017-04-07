@@ -2,7 +2,7 @@
 {% load i18n shopit_tags %}
 
 {% if order %}
-  <table>
+  <table class="table table-bordered">
     <h3>{% trans "Order" %} #{{ order }}</h3>
     <thead>
       <tr><td colspan="2"><strong>{% trans "Order date" %}</strong></td> <td colspan="2">{{ order.created_at|date }}</td></tr>

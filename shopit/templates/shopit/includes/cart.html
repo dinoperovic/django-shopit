@@ -3,7 +3,7 @@
 
 <form{% if editable %} action="{% url 'shopit-cart' %}" method="POST"{% endif %} class="cart">
   {% if editable %}{% csrf_token %}{% endif %}
-  <table>
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>{% trans "Product" %}</th>
@@ -17,7 +17,7 @@
           <tr>
             <td><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
             <td>{{ item.unit_price }}</td>
-            <td><input type="number" name="quantity-{{ item.pk }}" value="{{ item.quantity }}"{% if not editable %} disabled{% endif %}></td>
+            <td><input type="number" class="form-control" name="quantity-{{ item.pk }}" value="{{ item.quantity }}"{% if not editable %} disabled{% endif %}></td>
             <td>{% widthratio item.unit_price 1 item.quantity as line_subtotal %}{{ line_subtotal|moneyformat }}</td>
           </tr>
           {% for extra in item.extra_rows.values %}
@@ -38,6 +38,6 @@
   {% if editable %}
     {# Discount code form. #}
     {{ form.as_p }}
-    <button>{% trans "Update the cart" %}</button>
+    <button class="btn btn-secondary">{% trans "Update the cart" %}</button>
   {% endif %}
 </form>

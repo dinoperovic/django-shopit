@@ -1,13 +1,15 @@
 {% extends "shopit/base.html" %}
 {% load i18n shopit_tags %}
 
-{% block title %}{% trans "Cart" %}{% endblock %}
+{% block page_title %}{% trans "Cart" %}{% endblock %}
 
 {% block content %}
   {% if cart_items %}
     {% cart %}
-    <a href="{% url 'shopit-cart-empty' %}">{% trans "Empty the cart" %}</a>
-    <a href="{% url 'shopit-checkout' %}">{% trans "Proceed to checkout" %}</a>
+    <div class="mt-2 float-right">
+      <a href="{% url 'shopit-cart-empty' %}" class="btn btn-danger">{% trans "Empty the cart" %}</a>
+      <a href="{% url 'shopit-checkout' %}" class="btn btn-success">{% trans "Proceed to checkout" %}</a>
+    </div>
   {% else %}
     <p>{% trans "Cart is empty." %}</p>
   {% endif %}

@@ -1,7 +1,7 @@
 {% extends "shopit/base.html" %}
 {% load i18n %}
 
-{% block title %}{% if validlink %}{% blocktrans %}New password for '{{ user_name }}'{% endblocktrans %}{% else %}{% trans "Link is invalid" %}{% endif %}{% endblock %}
+{% block page_title %}{% if validlink %}{% blocktrans %}New password for '{{ user_name }}'{% endblocktrans %}{% else %}{% trans "Link is invalid" %}{% endif %}{% endblock %}
 
 {% block content %}
   {% if validlink %}

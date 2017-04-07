@@ -1,45 +1,61 @@
 {% extends "shopit/base.html" %}
 {% load i18n shopit_tags %}
 
-{% block title %}{% trans "Products" %}{% endblock %}
+{% block page_title %}{% trans "Products" %}{% endblock %}
 
 {% block content %}
-  {# Filter by attributes #}
-  {% get_attributes as attributes %}
-  {% if attributes %}
-    {% for attr in attributes %}
-      <h4>{{ attr }}</h4>
-      <p>
-        {% for choice in attr.get_choices %}
-          <a href="?{% query_transform attr.code choice.value %}">{{ choice }}</a>{% if not forloop.last %} | {% endif %}
+  <div class="row">
+    <div class="col-md-3">
+      {# Filter by attributes #}
+      {% get_attributes as attributes %}
+      {% if attributes %}
+        <div class="btn-group-vertical">
+          <h5>{% trans "Attributes" %}</h5>
+          {% for attr in attributes %}
+            <div class="btn-group">
+              <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">{{ attr }}</button>
+              <div class="dropdown-menu">
+                {% for choice in attr.get_choices %}
+                  <a href="?{% query_transform attr.code choice.value %}" class="dropdown-item">{{ choice }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {# Filter by price #}
+      {% get_price_steps 3 as price_steps %}
+      {% if price_steps %}
+        <h4>{% trans "Price from" %}</h4>
+        <p>
+          {% for step in price_steps %}
+            <a href="?{% query_transform 'pf' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
+          {% endfor %}
+        </p>
+        <h4>{% trans "Price to" %}</h4>
+        <p>
+          {% for step in price_steps %}
+            <a href="?{% query_transform 'pt' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
+          {% endfor %}
+        </p>
+      {% endif %}
+    </div>
+
+    <section class="col-md-9">
+      <div class="card-group">
+        {% for product in product_list %}
+          <div class="card">
+            <div class="card-block">
+              <h4 class="card-title">{{ product }}</h4>
+              <p class="card-text">{{ product.caption|linebreaksbr }}</p>
+              <a href="{{ product.get_absolute_url }}" class="btn btn-primary">{% trans "Details" %}</a>
+            </div>
+          </div>
+        {% empty %}
+          <p>{% trans "No products." %}</p>
         {% endfor %}
-      </p>
-    {% endfor %}
-  {% endif %}
-
-  {# Filter by price #}
-  {% get_price_steps 3 as price_steps %}
-
-  {% if price_steps %}
-    <h4>{% trans "Price from" %}</h4>
-    <p>
-      {% for step in price_steps %}
-        <a href="?{% query_transform 'pf' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
-      {% endfor %}
-    </p>
-    <h4>{% trans "Price to" %}</h4>
-    <p>
-      {% for step in price_steps %}
-        <a href="?{% query_transform 'pt' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
-      {% endfor %}
-    </p>
-  {% endif %}
-
-  <ul>
-    {% for product in product_list %}
-      <li><a href="{{ product.get_absolute_url }}">{{ product }}</a></li>
-    {% empty %}
-      <p>{% trans "No products." %}</p>
-    {% endfor %}
-  </ul>
+      </div>
+    </section>
+  </div>
 {% endblock %}

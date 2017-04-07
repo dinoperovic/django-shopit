@@ -1,7 +1,7 @@
 {% extends "shopit/base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Account login" %}{% endblock %}
+{% block page_title %}{% trans "Account login" %}{% endblock %}
 
 {% block content %}
   <form action="{% url 'shopit-account-login' %}" method="POST" data-ajax-success="{% url 'shopit-account-detail' %}" novalidate>

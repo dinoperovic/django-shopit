@@ -181,6 +181,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CMS_TEMPLATES = [
     ('default.html', 'Default'),
 ]
+CMS_PLACEHOLDER_CONF = {
+    'content': {
+        'plugins': ['TextPlugin'],
+        'name': 'Content',
+    }
+}
 
 
 # filer

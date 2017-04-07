@@ -1,7 +1,7 @@
 {% extends "shopit/base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Account register" %}{% endblock %}
+{% block page_title %}{% trans "Account register" %}{% endblock %}
 
 {% block content %}
   <form action="{% url 'shopit-account-register' %}" method="POST" data-ajax-succes="{% url 'shopit-account-detail' %}" novalidate>

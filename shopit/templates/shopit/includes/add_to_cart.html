@@ -6,9 +6,9 @@
     <form action="{{ request.scheme }}://{{ request.get_host }}{% url 'shopit-add-to-cart' product.slug %}" method="POST" class="add-to-cart">
       {% csrf_token %}
       <input type="hidden" name="quantity" value="1">
-      {% if product.is_available.0 or product.is_group %}<button class="add-button">{% trans "Add to cart" %}</button>
-      {% else %}<button class="add-button" disabled>{% trans "Not available" %}</button>{% endif %}
-      {% if watch %}<button class="watch-button">{% trans "Watch" %}</button>{% endif %}
+      {% if product.is_available.0 or product.is_group %}<button class="add-button btn btn-primary">{% trans "Add to cart" %}</button>
+      {% else %}<button class="add-button btn btn-primary" disabled>{% trans "Not available" %}</button>{% endif %}
+      {% if watch %}<button class="watch-button btn btn-primary">{% trans "Watch" %}</button>{% endif %}
     </form>
   {% endcache %}
 {% endif %}

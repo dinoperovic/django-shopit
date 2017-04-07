@@ -1,7 +1,7 @@
 {% extends "shopit/base.html" %}
 {% load i18n cms_tags sekizai_tags shop_tags shopit_tags %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block page_title %}{{ product.name }}{% endblock %}
 
 {% block content %}
   <p>{{ product.price }}</p>

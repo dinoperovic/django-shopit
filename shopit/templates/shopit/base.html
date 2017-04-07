@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load sekizai_tags %}
+{% load sekizai_tags i18n %}
 
 {% block base_content %}
   {% if messages %}
@@ -10,8 +10,13 @@
     </ul>
   {% endif %}
 
-  <h1>{% block title %}{% endblock %}</h1>
-  {% block content %}{% endblock %}
+  <div class="jumbotron">
+    <h1 class="display-3 text-center">{% block page_title %}{% endblock %}</h1>
+  </div>
+
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
 
   {% addtoblock "js" %}
     <script>

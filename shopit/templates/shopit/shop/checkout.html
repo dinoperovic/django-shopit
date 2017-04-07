@@ -1,13 +1,13 @@
 {% extends "shopit/base.html" %}
 {% load i18n sekizai_tags shopit_tags %}
 
-{% block title %}{% trans "Checkout" %}{% endblock %}
+{% block page_title %}{% trans "Checkout" %}{% endblock %}
 
 {% block content %}
   <form id="checkout" action="{% url 'shopit-checkout' %}" method="POST" novalidate>
     {% csrf_token %}
 
-    <fieldset>
+    <fieldset class="form-group">
       <legend>{% if customer.is_registered %}{% trans "Customer" %}{% else %}{% trans "Guest" %}{% endif %}</legend>
       {{ customer_form.as_p }}
     </fieldset>
@@ -24,27 +24,27 @@
       {{ billing_form.as_p }}
     </fieldset>
 
-    <fieldset>
+    <fieldset class="form-group">
       <legend>{% trans "Payment method" %}</legend>
       {{ payment_form.as_p }}
     </fieldset>
 
-    <fieldset>
+    <fieldset class="form-group">
       <legend>{% trans "Delivery method" %}</legend>
       {{ delivery_form.as_p }}
     </fieldset>
 
-    <fieldset>
+    <fieldset class="form-group">
       <legend>{% trans "Extra annotation" %}</legend>
       {{ extra_form.as_p }}
     </fieldset>
 
-    <fieldset>
+    <fieldset class="form-group">
       <legend>{% trans "Accept condition" %}</legend>
       {{ accept_form.as_p }}
     </fieldset>
 
-    <button>{% trans "Submit" %}</button>
+    <button class="btn btn-primary">{% trans "Submit" %}</button>
   </form>
 
   {% url 'shopit-account-detail' as account_url %}
