@@ -38,7 +38,6 @@ class CategorizationListViewBase(CategorizationViewMixin, ListAPIView):
     Base categorization list view.
     """
     serializers_class = None
-    pagination_class = None
     renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
     template_name = 'shopit/catalog/categorization_list.html'
 
