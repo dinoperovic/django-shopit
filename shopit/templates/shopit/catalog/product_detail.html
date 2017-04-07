@@ -33,7 +33,7 @@
       (function ($) {
         'use strict';
 
-        var PRODUCT = $.parseJSON('{{ data|rest_json|escapejs }}');
+        var PRODUCT = {};
 
         $(document).ready(function () {
           var $addToCart = $('.add-to-cart');
@@ -66,10 +66,14 @@
             }
           };
 
-          if (PRODUCT.variants) {
-            selectVariant();
-            $attributes.find('select').on('change', selectVariant);
-          } else { $addToCart.trigger('setProduct', [PRODUCT]); }
+          $.get('?format=json').then(function (data) {
+            PRODUCT = data;
+
+            if (PRODUCT.variants) {
+              selectVariant();
+              $attributes.find('select').on('change', selectVariant);
+            } else { $addToCart.trigger('setProduct', [PRODUCT]); }
+          })
         });
 
       })(jQuery);

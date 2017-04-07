@@ -25,16 +25,22 @@
           var $addButton = $addToCart.find('.add-button');
           var $watchButton = $addToCart.find('.watch-button');
 
+          // Set action type.
+          $addButton.on('click', function () { $addToCart.data('action', 'add') });
+          $watchButton.on('click', function () { $addToCart.data('action', 'watch') });
+
           // Handle adding product to cart.
           $addToCart.on('submit', function (event) {
             event.preventDefault();
             var formData = $addToCart.serializeArray();
 
             $buttons.trigger('disable', [false]);
-            if ($addToCart.find('button:focus').hasClass('watch-button')) {
+            if ($addToCart.data('action') === 'watch') {
               $.each(formData, function (index, obj) { if (obj.name === 'quantity') obj.value = 0; });
               $watchButton.trigger('adding');
-            } else { $addButton.trigger('adding'); }
+            } else {
+              $addButton.trigger('adding');
+            }
 
             $.ajax({
               url: $addToCart.attr('action'),
