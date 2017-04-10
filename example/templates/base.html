@@ -8,6 +8,11 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   {% render_block "css" %}
+
+  <style>
+    /* Hide forms initially, use jquery to transform them into bootstrap format. */
+    form { display: none; }
+  </style>
 </head>
 <body>
   {% cms_toolbar %}
@@ -35,10 +40,37 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
   {% render_block "js" %}
 
-  {# Dirty fix to get form fields to look nicer for now. #}
+  {% comment %}
+  Dirty fix to get form fields to look nicer for now.
+  This is only to display the example project with bootstrap forms without
+  requiring an extra lib in Shopit. If you want to use bootstrap in your
+  project beyond this example, you should replace all instances
+  of '{{ form.as_p }}' in Shopit's default templates.
+  {% endcomment %}
   <script>
     $(document).ready(function () {
-      $('input,textarea,select').addClass('form-control');
+      $('textarea,select').addClass('form-control');
+      $('label').addClass('form-control-label');
+
+      $('input').each(function () {
+        var $input = $(this);
+        var type = $input.attr('type');
+
+        if (type === 'checkbox') {
+          var $label = $input.prev();
+          $label.addClass('form-check-label');
+          $label.text($label.text().slice(0, -1));
+          $input.detach().addClass('form-check-input').css('position', 'absolute').prependTo($label);
+        } else if (type === 'radio') {
+          var $label = $input.parent();
+          $input.addClass('form-check-input');
+          $label.addClass('form-check-label');
+        } else if (type !== 'hidden') {
+          $input.addClass('form-control');
+        }
+      });
+
+      $('form').show();
     });
   </script>
 </body>

@@ -8,7 +8,7 @@
     <form action="{{ request.path }}" method="POST" data-ajax-success="{% url 'shopit-account-login' %}" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
-      <button>{% trans "Reset password" %}</button>
+      <button class="btn btn-primary">{% trans "Reset password" %}</button>
     </form>
   {% else %}
     <p>{% trans "Please try again." %}</p>

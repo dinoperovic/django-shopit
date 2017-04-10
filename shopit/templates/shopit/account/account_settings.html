@@ -13,7 +13,7 @@
     <form action="{% url 'shopit-account-settings-'|add:action %}" method="POST" data-ajax-success="{% url 'shopit-account-settings' %}" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
-      <button>{% trans "Submit" %}</button>
+      <button class="btn btn-primary">{% trans "Submit" %}</button>
     </form>
   {% endif %}
 {% endblock %}

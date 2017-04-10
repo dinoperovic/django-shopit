@@ -9,11 +9,11 @@
       {# Filter by attributes #}
       {% get_attributes as attributes %}
       {% if attributes %}
-        <div class="btn-group-vertical">
+        <div class="btn-group-vertical mb-3 w-100">
           <h5>{% trans "Attributes" %}</h5>
           {% for attr in attributes %}
             <div class="btn-group">
-              <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">{{ attr }}</button>
+              <button class="btn btn-secondary dropdown-toggle text-left" data-toggle="dropdown">{{ attr }}</button>
               <div class="dropdown-menu">
                 {% for choice in attr.get_choices %}
                   <a href="?{% query_transform attr.code choice.value %}" class="dropdown-item">{{ choice }}</a>
@@ -27,25 +27,37 @@
       {# Filter by price #}
       {% get_price_steps 3 as price_steps %}
       {% if price_steps %}
-        <h4>{% trans "Price from" %}</h4>
-        <p>
-          {% for step in price_steps %}
-            <a href="?{% query_transform 'pf' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
-          {% endfor %}
-        </p>
-        <h4>{% trans "Price to" %}</h4>
-        <p>
-          {% for step in price_steps %}
-            <a href="?{% query_transform 'pt' step.as_decimal %}">{{ step }}</a>{% if not forloop.last %} | {% endif %}
-          {% endfor %}
-        </p>
+        <h5>{% trans "Price from / price to" %}</h5>
+        <div class="btn-group w-100 mb-3">
+          <div class="btn-group w-50">
+            <button class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">
+              {% if request.GET.pf %}{{ request.GET.pf|moneyformat }}{% else %}{{ price_steps|first }}{% endif %}
+            </button>
+            <div class="dropdown-menu">
+              {% for step in price_steps %}
+                <a href="?{% query_transform 'pf' step.as_decimal %}" class="dropdown-item">{{ step }}</a>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="btn-group w-50">
+            <button class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">
+              {% if request.GET.pt %}{{ request.GET.pt|moneyformat }}{% else %}{{ price_steps|last }}{% endif %}
+            </button>
+            <div class="dropdown-menu">
+              {% for step in price_steps %}
+                <a href="?{% query_transform 'pt' step.as_decimal %}" class="dropdown-item">{{ step }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
       {% endif %}
     </div>
 
     <section class="col-md-9">
       <div class="card-group">
         {% for product in product_list %}
-          <div class="card">
+          <div class="card col-md-4">
             <div class="card-block">
               <h4 class="card-title">{{ product }}</h4>
               <p class="card-text">{{ product.caption|linebreaksbr }}</p>

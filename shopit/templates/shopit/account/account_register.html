@@ -7,6 +7,6 @@
   <form action="{% url 'shopit-account-register' %}" method="POST" data-ajax-succes="{% url 'shopit-account-detail' %}" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
-    <button>{% trans "Register" %}</button>
+    <button class="btn btn-primary">{% trans "Register" %}</button>
   </form>
 {% endblock %}

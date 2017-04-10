@@ -20,6 +20,33 @@
 
   {% addtoblock "js" %}
     <script>
+
+      // Helpers to display or remove form errors using jQuery.
+      var removeFormErrors = function ($form) {
+        $form.find('.non-field-errors,.form-control-feedback').remove();
+        $form.find('.has-danger').removeClass('has-danger');
+      }
+
+      var displayFormErrors = function ($form, errors) {
+        removeFormErrors($form);
+
+        $.each(errors, function (name, errorlist) {
+          if (name === 'non_field_errors') {
+            $form.prepend('<ul class="non-field-errors"><li>'+ errorlist.join('</li><li>') +'</li></ul>');
+          } else {
+            var $field = $form.find('#id_'+ name);
+            var type = $field.attr('type');
+
+            if (type === 'checkbox') {
+              $field.parent().parent().addClass('has-danger');
+            } else {
+              $field.parent().addClass('has-danger');
+              $field.after('<div class="form-control-feedback">'+ errorlist.join('<br>') +'</div>');
+            }
+          }
+        });
+      };
+
       (function ($) {
         'use strict';
 
@@ -43,12 +70,8 @@
                 cache: false,
                 success: function (data) { window.location.href = successUrl; },
                 error: function (jqXHR) {
-                  $form.find('.non-field-errors,.errorlist').remove();
                   $formButton.prop('disabled', false);
-                  $.each(jqXHR.responseJSON, function (name, errorlist) {
-                    if (name === 'non_field_errors') { $form.prepend('<ul class="non-field-errors"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
-                    else { $form.find('#id_'+ name).after('<ul class="errorlist"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
-                  });
+                  displayFormErrors($form, jqXHR.responseJSON);
                 },
               });
             });

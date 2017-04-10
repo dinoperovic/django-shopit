@@ -199,6 +199,19 @@ THUMBNAIL_PROCESSORS = (
 )
 
 
+# rest_framework
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'shop.rest.money.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 12,
+}
+SERIALIZATION_MODULES = {'json': 'shop.money.serializers'}
+COERCE_DECIMAL_TO_STRING = True
+
+
 # shop
 SHOP_APP_LABEL = 'shopit'
 SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'
@@ -214,14 +227,5 @@ SHOP_ORDER_WORKFLOWS = [
 ]
 
 
-# rest_framework
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'shop.rest.money.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 12,
-}
-SERIALIZATION_MODULES = {'json': 'shop.money.serializers'}
-COERCE_DECIMAL_TO_STRING = True
+# shopit
+SHOPIT_FILTER_ATTRIBUTES_INCLUDES_VARIANTS = True

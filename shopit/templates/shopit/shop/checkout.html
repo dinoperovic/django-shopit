@@ -12,13 +12,13 @@
       {{ customer_form.as_p }}
     </fieldset>
 
-    <fieldset id="shipping-address">
+    <fieldset id="shipping-address" class="form-group">
       <legend>{% trans "Shipping address" %}</legend>
       {% for hidden in shipping_form.hidden_fields %}{{ hidden }}{% endfor %}
       {{ shipping_form.as_p }}
     </fieldset>
 
-    <fieldset id="billing-address">
+    <fieldset id="billing-address" class="form-group">
       <legend>{% trans "Billing address" %}</legend>
       {% for hidden in billing_form.hidden_fields %}{{ hidden }}{% endfor %}
       {{ billing_form.as_p }}
@@ -111,19 +111,15 @@
               dataType: 'json',
               cache: false,
               success: function (data) {
-                $checkout.find('.non-field-errors,.errorlist').remove();
+                removeFormErrors($checkout);
                 $checkout.off('submit');
                 // Evaluate the expression from the payment provider's `get_payment_request` method.
                 try { eval(data.expression); }  // jshint ignore:line
                 catch (e) { alert(e.message);  }
               },
               error: function (jqXHR) {
-                $checkout.find('.non-field-errors,.errorlist').remove();
                 $checkoutButton.prop('disabled', false);
-                $.each(jqXHR.responseJSON, function (name, errorlist) {
-                  if (name === 'non_field_errors') { $checkout.prepend('<ul class="non-field-errors"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
-                  else { $checkout.find('#id_'+ name).after('<ul class="errorlist"><li>'+ errorlist.join('</li><li>') +'</li></ul>'); }
-                });
+                displayFormErrors($checkout, jqXHR.responseJSON);
               },
             });
 
