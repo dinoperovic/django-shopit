@@ -9,6 +9,8 @@ Release notes for **Shopit**.
 =====
 
 * Add support for `Django 1.10` & `DjangoSHOP 0.10.0`.
+* Alter templates to use Bootstrap 4 by default.
+* Create example project, move tests.
 
 .. attention::
 
