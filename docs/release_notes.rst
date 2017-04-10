@@ -8,7 +8,7 @@ Release notes for **Shopit**.
 0.2.0
 =====
 
-* Add support for `Django 1.10` & `DjangoSHOP 0.10.0`.
+* Add support for `Django 1.10` & `DjangoSHOP 0.10.x`.
 * Alter templates to use Bootstrap 4 by default.
 * Create example project, move tests.
 * Rename description & caption fields to start with underscore.

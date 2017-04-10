@@ -311,7 +311,7 @@ class Product(BaseProduct, TranslatableModel):
 
     @property
     def caption(self):
-        return self.get_attr('_caption', translated=True)
+        return self.get_attr('_caption', '', translated=True)
 
     @caption.setter
     def caption(self, value):
@@ -319,7 +319,7 @@ class Product(BaseProduct, TranslatableModel):
 
     @property
     def description(self):
-        return self.get_attr('_description', translated=True)
+        return self.get_attr('_description', '', translated=True)
 
     @description.setter
     def description(self, value):

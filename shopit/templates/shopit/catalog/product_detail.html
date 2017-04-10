@@ -40,7 +40,7 @@
       (function ($) {
         'use strict';
 
-        var PRODUCT = {};
+        var PRODUCT = $.parseJSON('{{ data|rest_json|escapejs }}');
 
         $(document).ready(function () {
           var $addToCart = $('.add-to-cart');
@@ -74,14 +74,12 @@
             }
           };
 
-          $.get('?format=json').then(function (data) {
-            PRODUCT = data;
-
-            if (PRODUCT.variants) {
-              selectVariant();
-              $attributes.find('select').on('change', selectVariant);
-            } else { $addToCart.trigger('setProduct', [PRODUCT]); }
-          })
+          if (PRODUCT.variants) {
+            selectVariant();
+            $attributes.find('select').on('change', selectVariant);
+          } else {
+            $addToCart.trigger('setProduct', [PRODUCT]);
+          }
         });
 
       })(jQuery);
