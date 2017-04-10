@@ -22,8 +22,8 @@ class ProductModelForm(TranslatableModelForm):
         model = Product
         exclude = []
         widgets = {
-            'caption': forms.Textarea(attrs={'rows': 2}),
-            'description': TextEditor(),
+            '_caption': forms.Textarea(attrs={'rows': 2}),
+            '_description': TextEditor(),
         }
 
     def clean_slug(self):

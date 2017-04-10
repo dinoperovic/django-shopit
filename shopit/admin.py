@@ -293,7 +293,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'slug', 'code']}),
         (_('Status'), {'fields': [('active', 'created_at', 'updated_at'), 'published']}),
-        (_('Description'), {'fields': ['caption', 'description']}),
+        (_('Description'), {'fields': ['_caption', '_description']}),
         (_('Categorization'), {
             'fields': ['_category', '_brand', '_manufacturer'],
             'description': _('This section is ment for Single and Group products. Variants will inherit their '

@@ -11,11 +11,13 @@ Release notes for **Shopit**.
 * Add support for `Django 1.10` & `DjangoSHOP 0.10.0`.
 * Alter templates to use Bootstrap 4 by default.
 * Create example project, move tests.
+* Rename description & caption fields to start with underscore.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to add a product code to the CartItem, as well as adding an additional
-    setting ``SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'``.
+    Requires ``python manage.py migrate shopit`` to add a product code to the CartItem, rename description & caption
+    fields, as well as adding an additional setting
+    ``SHOP_PRODUCT_SUMMARY_SERIALIZER = 'shopit.serializers.ProductSummarySerializer'``.
 
 0.1.4
 =====

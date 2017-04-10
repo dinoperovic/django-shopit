@@ -4,29 +4,36 @@
 {% block page_title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-  <p>{{ product.price }}</p>
-  <p>{{ product.description|safe }}</p>
+  <div class="col-md-8 push-2">
+    {{ product.description|safe }}
+    <h4 id="price" class="text-info">{{ product.price }}</h4>
+    <hr>
 
-  {# Display attribute choices for a group product. #}
-  {% if product.is_group %}
-    <form id="attributes">
-      {% for attr in product.get_attribute_choices.values %}
-        <div>
-          <label for="id_{{ attr.code }}">{{ attr.name }}</label>
-          <select id="id_{{ attr.code }}" name="{{ attr.code }}">
-            {% for option in attr.choices %}
-              <option value="{{ option.file|default:option.value }}">{{ option }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      {% endfor %}
-    </form>
-    <p id="variant">{% trans "Not available." %}</p>
-  {% endif %}
+    {# Display attribute choices for a group product. #}
+    {% if product.is_group %}
+      <form id="attributes" class="mb-3">
+        <h5>{% trans "Choose variation" %}</h5>
+        {% for attr in product.get_attribute_choices.values %}
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="id_{{ attr.code }}">{{ attr.name }}</label>
+              <select id="id_{{ attr.code }}" name="{{ attr.code }}">
+                {% for option in attr.choices %}
+                  <option value="{{ option.file|default:option.value }}">{{ option }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        {% endfor %}
+      </form>
 
-  {% add_to_cart watch=True %}
+      <p id="variant" class="badge badge-default">{% trans "Not available." %}</p>
+    {% endif %}
 
-  <div>{% render_placeholder product.content %}</div>
+    {% add_to_cart watch=True %}
+
+    <div>{% render_placeholder product.content %}</div>
+  </div>
 
   {% addtoblock "js" %}
     <script>
@@ -56,6 +63,7 @@
 
                 // Populate DOM with variant data here.
                 $('#variant').text(variant.name +' ('+ variant.price +')');
+                $('#price').text(variant.price);
                 return false;
               }
             });

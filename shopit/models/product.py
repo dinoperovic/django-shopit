@@ -162,9 +162,9 @@ class Product(BaseProduct, TranslatableModel):
         name=models.CharField(_('Name'), max_length=128),
         slug=models.SlugField(_('Slug'), db_index=True, help_text=_(
             "Part that's used in url to display this product. Needs to be unique.")),
-        caption=models.TextField(_('Caption'), max_length=255, blank=True, help_text=_(
+        _caption=models.TextField(_('Caption'), max_length=255, blank=True, help_text=_(
             "Short product caption, usually used in catalog's list view of products.")),
-        description=models.TextField(_('Description'), blank=True, help_text=_(
+        _description=models.TextField(_('Description'), blank=True, help_text=_(
             "Description of a product, usually used as lead text in product's detail view.")),
         meta={'unique_together': [('language_code', 'slug')]},
     )
@@ -308,6 +308,22 @@ class Product(BaseProduct, TranslatableModel):
     @property
     def is_variant(self):
         return self.kind == self.VARIANT
+
+    @property
+    def caption(self):
+        return self.get_attr('_caption', translated=True)
+
+    @caption.setter
+    def caption(self, value):
+        self._caption = value
+
+    @property
+    def description(self):
+        return self.get_attr('_description', translated=True)
+
+    @description.setter
+    def description(self, value):
+        self._description = value
 
     @property
     def category(self):
@@ -751,15 +767,18 @@ class Product(BaseProduct, TranslatableModel):
                     variants.append(self.create_variant(combo, language=language))
             return variants
 
-    def get_attr(self, name, case=None):
+    def get_attr(self, name, case=None, translated=False):
         """
         Returns groups attribute for variants if case is True.
         Caches the attribute.
         """
         if not hasattr(self, '_%s' % name):
-            attr = getattr(self, name, case)
+            attr = self.safe_translation_getter(name) or case if translated else getattr(self, name, case)
             if self.is_variant and attr == case:
-                attr = getattr(self.group, name, attr)
+                if translated:
+                    attr = self.group.safe_translation_getter(name) or attr
+                else:
+                    attr = getattr(self.group, name, attr)
             self.cache('_%s' % name, attr)
         return getattr(self, '_%s' % name)
 

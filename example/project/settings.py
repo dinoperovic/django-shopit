@@ -219,10 +219,11 @@ SHOP_CART_MODIFIERS = [
     'shop.modifiers.defaults.DefaultCartModifier',
     'shopit.modifiers.ShopitCartModifier',
     'shopit.modifiers.PayInAdvanceModifier',
+    'shop.modifiers.defaults.SelfCollectionModifier',
 ]
 SHOP_ORDER_WORKFLOWS = [
-    'shop.payment.defaults.CancelOrderWorkflowMixin',
     'shop.payment.defaults.PayInAdvanceWorkflowMixin',
+    'shop.payment.defaults.CancelOrderWorkflowMixin',
     'shopit.shipping.ShippingWorkflowMixin',
 ]
 

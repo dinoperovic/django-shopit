@@ -12,27 +12,31 @@
       {{ customer_form.as_p }}
     </fieldset>
 
-    <fieldset id="shipping-address" class="form-group">
-      <legend>{% trans "Shipping address" %}</legend>
-      {% for hidden in shipping_form.hidden_fields %}{{ hidden }}{% endfor %}
-      {{ shipping_form.as_p }}
-    </fieldset>
+    <div class="row">
+      <fieldset id="shipping-address" class="form-group col-md-6">
+        <legend>{% trans "Shipping address" %}</legend>
+        {% for hidden in shipping_form.hidden_fields %}{{ hidden }}{% endfor %}
+        {{ shipping_form.as_p }}
+      </fieldset>
 
-    <fieldset id="billing-address" class="form-group">
-      <legend>{% trans "Billing address" %}</legend>
-      {% for hidden in billing_form.hidden_fields %}{{ hidden }}{% endfor %}
-      {{ billing_form.as_p }}
-    </fieldset>
+      <fieldset id="billing-address" class="form-group col-md-6">
+        <legend>{% trans "Billing address" %}</legend>
+        {% for hidden in billing_form.hidden_fields %}{{ hidden }}{% endfor %}
+        {{ billing_form.as_p }}
+      </fieldset>
+    </div>
 
-    <fieldset class="form-group">
-      <legend>{% trans "Payment method" %}</legend>
-      {{ payment_form.as_p }}
-    </fieldset>
+    <div class="row">
+      <fieldset class="form-group col-md-6">
+        <legend>{% trans "Payment method" %}</legend>
+        {{ payment_form.as_p }}
+      </fieldset>
 
-    <fieldset class="form-group">
-      <legend>{% trans "Delivery method" %}</legend>
-      {{ delivery_form.as_p }}
-    </fieldset>
+      <fieldset class="form-group col-md-6">
+        <legend>{% trans "Delivery method" %}</legend>
+        {{ delivery_form.as_p }}
+      </fieldset>
+    </div>
 
     <fieldset class="form-group">
       <legend>{% trans "Extra annotation" %}</legend>
