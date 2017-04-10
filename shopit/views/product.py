@@ -138,7 +138,8 @@ class AddToCartView(AddToCartViewBase):
             total_quantity = getattr(product.is_in_cart(cart), 'quantity', 0) + quantity
             available, diff = product.is_available(total_quantity)
             if available:
-                item, created = CartItem.objects.get_or_create(cart=cart, product=product, quantity=quantity)
+                item, created = CartItem.objects.get_or_create(
+                    cart=cart, product=product, quantity=quantity, product_code=product.product_code)
                 serializer_class = WatchItemSerializer if total_quantity == 0 else CartItemSerializer
                 serializer = serializer_class(item, context=context)
                 return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
