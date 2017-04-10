@@ -278,10 +278,6 @@ class ProductDetailSerializer(ProductSerializer):
         kwargs.setdefault('label', 'catalog')
         super(ProductDetailSerializer, self).__init__(*args, **kwargs)
 
-    # def to_representation(self, obj):
-    #     product = super(ProductDetailSerializer, self).to_representation(obj)
-    #     return {'product': dict(product)}
-
 
 class AddToCartSerializer(BaseAddToCartSerializer):
     is_available = serializers.ListField(read_only=True)
