@@ -183,14 +183,15 @@ def get_price_steps(steps=5, products=None):
     queryset = queryset.order_by('_unit_price')
     min_price, max_price = math.floor(queryset.first().unit_price), math.ceil(queryset.last().unit_price)
     if max_price == min_price:
-        return []
+        return [Money(min_price)]
 
     price_steps = [Money(min_price)]
     chunk = Money(int(max_price - min_price) / (steps + 1))
     for i in range(steps):
         price_steps.append(price_steps[-1] + chunk)
-    price_steps = list(set(price_steps))
+    price_steps = sorted(list(set(price_steps)))
     price_steps.append(Money(max_price))
+
     return price_steps
 
 
