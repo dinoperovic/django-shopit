@@ -20,4 +20,5 @@
     --exclude shopit.orderitem \
     --exclude shopit.cart \
     --exclude shopit.cartitem \
+    --exclude shopit.cartdiscountcode \
     > fixtures/example.json

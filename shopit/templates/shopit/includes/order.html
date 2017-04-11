@@ -3,7 +3,7 @@
 
 {% if order %}
   <table class="table table-bordered">
-    <h3>{% trans "Order" %} #{{ order }}</h3>
+    <h4 class="mb-3">{% trans "Order" %} #{{ order }}</h4>
     <thead>
       <tr><td colspan="2"><strong>{% trans "Order date" %}</strong></td> <td colspan="2">{{ order.created_at|date }}</td></tr>
       <tr><td colspan="2"><strong>{% trans "Status" %}</strong></td> <td colspan="2">{{ order.status_name }}</td></tr>

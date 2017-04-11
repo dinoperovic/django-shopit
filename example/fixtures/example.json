@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$30000$ni3IR40QCQ7N$+v72v8DuK5Z5E+6HGIOKn9iNQ7rYLl49f+RcUoNcz2g=",
-    "last_login": "2017-04-06T13:44:56.289Z",
+    "last_login": "2017-04-11T08:15:07.922Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "Admin",
@@ -30,90 +30,16 @@
 },
 {
   "model": "cms.page",
-  "pk": 1,
-  "fields": {
-    "path": "0001",
-    "depth": 1,
-    "numchild": 0,
-    "created_by": "admin",
-    "changed_by": "admin",
-    "parent": null,
-    "creation_date": "2017-04-06T12:21:23.071Z",
-    "changed_date": "2017-04-06T12:23:14.659Z",
-    "publication_date": "2017-04-06T12:21:23.097Z",
-    "publication_end_date": null,
-    "in_navigation": true,
-    "soft_root": false,
-    "reverse_id": null,
-    "navigation_extenders": null,
-    "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
-    "login_required": false,
-    "limit_visibility_in_menu": null,
-    "is_home": true,
-    "application_urls": null,
-    "application_namespace": null,
-    "publisher_is_draft": true,
-    "publisher_public": 2,
-    "languages": "en",
-    "revision_id": 0,
-    "xframe_options": 0,
-    "placeholders": [
-      2
-    ]
-  }
-},
-{
-  "model": "cms.page",
-  "pk": 2,
-  "fields": {
-    "path": "0002",
-    "depth": 1,
-    "numchild": 0,
-    "created_by": "admin",
-    "changed_by": "admin",
-    "parent": null,
-    "creation_date": "2017-04-06T12:21:23.099Z",
-    "changed_date": "2017-04-06T12:23:14.703Z",
-    "publication_date": "2017-04-06T12:21:23.097Z",
-    "publication_end_date": null,
-    "in_navigation": true,
-    "soft_root": false,
-    "reverse_id": null,
-    "navigation_extenders": null,
-    "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
-    "login_required": false,
-    "limit_visibility_in_menu": null,
-    "is_home": true,
-    "application_urls": null,
-    "application_namespace": null,
-    "publisher_is_draft": false,
-    "publisher_public": 1,
-    "languages": "en",
-    "revision_id": 0,
-    "xframe_options": 0,
-    "placeholders": [
-      3
-    ]
-  }
-},
-{
-  "model": "cms.page",
   "pk": 3,
   "fields": {
-    "path": "0003",
+    "path": "0006",
     "depth": 1,
     "numchild": 3,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": null,
     "creation_date": "2017-04-06T12:21:32.525Z",
-    "changed_date": "2017-04-06T12:21:45.033Z",
+    "changed_date": "2017-04-07T10:26:12.353Z",
     "publication_date": "2017-04-06T12:21:44.984Z",
     "publication_end_date": null,
     "in_navigation": true,
@@ -143,14 +69,14 @@
   "model": "cms.page",
   "pk": 4,
   "fields": {
-    "path": "0004",
+    "path": "0007",
     "depth": 1,
     "numchild": 3,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": null,
     "creation_date": "2017-04-06T12:21:44.987Z",
-    "changed_date": "2017-04-06T12:21:45.020Z",
+    "changed_date": "2017-04-07T10:26:12.273Z",
     "publication_date": "2017-04-06T12:21:44.984Z",
     "publication_end_date": null,
     "in_navigation": true,
@@ -180,17 +106,17 @@
   "model": "cms.page",
   "pk": 5,
   "fields": {
-    "path": "00030001",
+    "path": "00060001",
     "depth": 2,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": 3,
     "creation_date": "2017-04-06T12:21:50.193Z",
-    "changed_date": "2017-04-06T12:22:34.592Z",
+    "changed_date": "2017-04-07T10:21:32.545Z",
     "publication_date": "2017-04-06T12:22:34.553Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -217,17 +143,17 @@
   "model": "cms.page",
   "pk": 6,
   "fields": {
-    "path": "00030002",
+    "path": "00060002",
     "depth": 2,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": 3,
     "creation_date": "2017-04-06T12:22:05.120Z",
-    "changed_date": "2017-04-06T12:22:36.715Z",
+    "changed_date": "2017-04-07T10:21:30.721Z",
     "publication_date": "2017-04-06T12:22:36.670Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -254,17 +180,17 @@
   "model": "cms.page",
   "pk": 7,
   "fields": {
-    "path": "00030003",
+    "path": "00060003",
     "depth": 2,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": 3,
     "creation_date": "2017-04-06T12:22:18.510Z",
-    "changed_date": "2017-04-06T12:22:38.586Z",
+    "changed_date": "2017-04-07T10:21:28.869Z",
     "publication_date": "2017-04-06T12:22:38.543Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -291,17 +217,17 @@
   "model": "cms.page",
   "pk": 8,
   "fields": {
-    "path": "00040001",
+    "path": "00070001",
     "depth": 2,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": 4,
     "creation_date": "2017-04-06T12:22:34.556Z",
-    "changed_date": "2017-04-06T12:22:34.586Z",
+    "changed_date": "2017-04-07T10:21:32.539Z",
     "publication_date": "2017-04-06T12:22:34.553Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -328,17 +254,17 @@
   "model": "cms.page",
   "pk": 9,
   "fields": {
-    "path": "00040002",
+    "path": "00070002",
     "depth": 2,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": 4,
     "creation_date": "2017-04-06T12:22:36.674Z",
-    "changed_date": "2017-04-06T12:22:36.709Z",
+    "changed_date": "2017-04-07T10:21:30.715Z",
     "publication_date": "2017-04-06T12:22:36.670Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -365,17 +291,17 @@
   "model": "cms.page",
   "pk": 10,
   "fields": {
-    "path": "00040003",
+    "path": "00070003",
     "depth": 2,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": 4,
     "creation_date": "2017-04-06T12:22:38.547Z",
-    "changed_date": "2017-04-06T12:22:38.580Z",
+    "changed_date": "2017-04-07T10:21:28.858Z",
     "publication_date": "2017-04-06T12:22:38.543Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -402,17 +328,17 @@
   "model": "cms.page",
   "pk": 11,
   "fields": {
-    "path": "0007",
+    "path": "000A",
     "depth": 1,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": null,
     "creation_date": "2017-04-06T12:22:45.529Z",
-    "changed_date": "2017-04-06T12:23:07.377Z",
+    "changed_date": "2017-04-07T10:21:27.242Z",
     "publication_date": "2017-04-06T12:23:07.324Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -439,7 +365,7 @@
   "model": "cms.page",
   "pk": 12,
   "fields": {
-    "path": "0005",
+    "path": "0008",
     "depth": 1,
     "numchild": 0,
     "created_by": "admin",
@@ -476,17 +402,17 @@
   "model": "cms.page",
   "pk": 13,
   "fields": {
-    "path": "0008",
+    "path": "000B",
     "depth": 1,
     "numchild": 0,
     "created_by": "admin",
     "changed_by": "admin",
     "parent": null,
     "creation_date": "2017-04-06T12:23:07.327Z",
-    "changed_date": "2017-04-06T12:23:07.363Z",
+    "changed_date": "2017-04-07T10:21:27.227Z",
     "publication_date": "2017-04-06T12:23:07.324Z",
     "publication_end_date": null,
-    "in_navigation": true,
+    "in_navigation": false,
     "soft_root": false,
     "reverse_id": null,
     "navigation_extenders": "",
@@ -513,7 +439,7 @@
   "model": "cms.page",
   "pk": 14,
   "fields": {
-    "path": "0006",
+    "path": "0009",
     "depth": 1,
     "numchild": 0,
     "created_by": "admin",
@@ -547,26 +473,84 @@
   }
 },
 {
+  "model": "cms.page",
+  "pk": 15,
+  "fields": {
+    "path": "0003",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-07T10:26:07.004Z",
+    "changed_date": "2017-04-07T11:30:44.566Z",
+    "publication_date": "2017-04-07T10:26:12.220Z",
+    "publication_end_date": null,
+    "in_navigation": false,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": null,
+    "template": "default.html",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": true,
+    "application_urls": null,
+    "application_namespace": null,
+    "publisher_is_draft": true,
+    "publisher_public": 16,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      37
+    ]
+  }
+},
+{
+  "model": "cms.page",
+  "pk": 16,
+  "fields": {
+    "path": "0004",
+    "depth": 1,
+    "numchild": 0,
+    "created_by": "admin",
+    "changed_by": "admin",
+    "parent": null,
+    "creation_date": "2017-04-07T10:26:12.223Z",
+    "changed_date": "2017-04-07T11:30:44.543Z",
+    "publication_date": "2017-04-07T10:26:12.220Z",
+    "publication_end_date": null,
+    "in_navigation": false,
+    "soft_root": false,
+    "reverse_id": null,
+    "navigation_extenders": null,
+    "template": "default.html",
+    "site": [
+      "example.com"
+    ],
+    "login_required": false,
+    "limit_visibility_in_menu": null,
+    "is_home": true,
+    "application_urls": null,
+    "application_namespace": null,
+    "publisher_is_draft": false,
+    "publisher_public": 15,
+    "languages": "en",
+    "revision_id": 0,
+    "xframe_options": 0,
+    "placeholders": [
+      38
+    ]
+  }
+},
+{
   "model": "cms.placeholder",
   "pk": 1,
   "fields": {
     "slot": "clipboard",
-    "default_width": null
-  }
-},
-{
-  "model": "cms.placeholder",
-  "pk": 2,
-  "fields": {
-    "slot": "content",
-    "default_width": null
-  }
-},
-{
-  "model": "cms.placeholder",
-  "pk": 3,
-  "fields": {
-    "slot": "content",
     "default_width": null
   }
 },
@@ -667,45 +651,219 @@
   }
 },
 {
-  "model": "cms.title",
-  "pk": 1,
+  "model": "cms.placeholder",
+  "pk": 16,
   "fields": {
-    "language": "en",
-    "title": "Home",
-    "page_title": "",
-    "menu_title": "",
-    "meta_description": "",
-    "slug": "home",
-    "path": "",
-    "has_url_overwrite": false,
-    "redirect": null,
-    "page": 1,
-    "creation_date": "2017-04-06T12:21:23.094Z",
-    "published": true,
-    "publisher_is_draft": true,
-    "publisher_public": 2,
-    "publisher_state": 0
+    "slot": "shopit_product_content",
+    "default_width": null
   }
 },
 {
-  "model": "cms.title",
-  "pk": 2,
+  "model": "cms.placeholder",
+  "pk": 17,
   "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 18,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 19,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 20,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 21,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 22,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 23,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 24,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 25,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 26,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 27,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 28,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 29,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 30,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 31,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 32,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 33,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 34,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 35,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 36,
+  "fields": {
+    "slot": "shopit_product_content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 37,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.placeholder",
+  "pk": 38,
+  "fields": {
+    "slot": "content",
+    "default_width": null
+  }
+},
+{
+  "model": "cms.cmsplugin",
+  "pk": 1,
+  "fields": {
+    "path": "0001",
+    "depth": 1,
+    "numchild": 0,
+    "placeholder": 37,
+    "parent": null,
+    "position": 0,
     "language": "en",
-    "title": "Home",
-    "page_title": "",
-    "menu_title": "",
-    "meta_description": "",
-    "slug": "home",
-    "path": "",
-    "has_url_overwrite": false,
-    "redirect": null,
-    "page": 2,
-    "creation_date": "2017-04-06T12:21:23.094Z",
-    "published": true,
-    "publisher_is_draft": false,
-    "publisher_public": 1,
-    "publisher_state": 0
+    "plugin_type": "TextPlugin",
+    "creation_date": "2017-04-07T10:35:17.374Z",
+    "changed_date": "2017-04-07T11:29:14.819Z"
+  }
+},
+{
+  "model": "cms.cmsplugin",
+  "pk": 6,
+  "fields": {
+    "path": "0002",
+    "depth": 1,
+    "numchild": 0,
+    "placeholder": 38,
+    "parent": null,
+    "position": 0,
+    "language": "en",
+    "plugin_type": "TextPlugin",
+    "creation_date": "2017-04-07T10:35:17.374Z",
+    "changed_date": "2017-04-07T11:30:44.524Z"
   }
 },
 {
@@ -713,12 +871,12 @@
   "pk": 3,
   "fields": {
     "language": "en",
-    "title": "Catalog",
+    "title": "Products",
     "page_title": "",
     "menu_title": "",
     "meta_description": "",
-    "slug": "catalog",
-    "path": "catalog",
+    "slug": "products",
+    "path": "products",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 3,
@@ -734,12 +892,12 @@
   "pk": 4,
   "fields": {
     "language": "en",
-    "title": "Catalog",
+    "title": "Products",
     "page_title": "",
     "menu_title": "",
     "meta_description": "",
-    "slug": "catalog",
-    "path": "catalog",
+    "slug": "products",
+    "path": "products",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 4,
@@ -760,7 +918,7 @@
     "menu_title": "",
     "meta_description": "",
     "slug": "categories",
-    "path": "catalog/categories",
+    "path": "products/categories",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 5,
@@ -781,7 +939,7 @@
     "menu_title": "",
     "meta_description": "",
     "slug": "brands",
-    "path": "catalog/brands",
+    "path": "products/brands",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 6,
@@ -802,7 +960,7 @@
     "menu_title": "",
     "meta_description": "",
     "slug": "manufacturers",
-    "path": "catalog/manufacturers",
+    "path": "products/manufacturers",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 7,
@@ -823,7 +981,7 @@
     "menu_title": "",
     "meta_description": "",
     "slug": "categories",
-    "path": "catalog/categories",
+    "path": "products/categories",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 8,
@@ -844,7 +1002,7 @@
     "menu_title": "",
     "meta_description": "",
     "slug": "brands",
-    "path": "catalog/brands",
+    "path": "products/brands",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 9,
@@ -865,7 +1023,7 @@
     "menu_title": "",
     "meta_description": "",
     "slug": "manufacturers",
-    "path": "catalog/manufacturers",
+    "path": "products/manufacturers",
     "has_url_overwrite": false,
     "redirect": null,
     "page": 10,
@@ -961,6 +1119,48 @@
   }
 },
 {
+  "model": "cms.title",
+  "pk": 15,
+  "fields": {
+    "language": "en",
+    "title": "Home",
+    "page_title": "Home",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "home",
+    "path": "",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 15,
+    "creation_date": "2017-04-07T10:26:07.024Z",
+    "published": true,
+    "publisher_is_draft": true,
+    "publisher_public": 16,
+    "publisher_state": 1
+  }
+},
+{
+  "model": "cms.title",
+  "pk": 16,
+  "fields": {
+    "language": "en",
+    "title": "Home",
+    "page_title": "Home",
+    "menu_title": "",
+    "meta_description": "",
+    "slug": "home",
+    "path": "",
+    "has_url_overwrite": false,
+    "redirect": null,
+    "page": 16,
+    "creation_date": "2017-04-07T10:26:07.024Z",
+    "published": true,
+    "publisher_is_draft": false,
+    "publisher_public": 15,
+    "publisher_state": 1
+  }
+},
+{
   "model": "cms.urlconfrevision",
   "pk": 1,
   "fields": {
@@ -968,14 +1168,1773 @@
   }
 },
 {
+  "model": "djangocms_text_ckeditor.text",
+  "pk": 1,
+  "fields": {
+    "body": "<h2>Welcome to Shopit's example shop.</h2>\n\n<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam quis risus eget urna mollis ornare vel eu leo. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\n\n<p><a class=\"btn btn-primary\" href=\"/en/products/\">Go to products</a></p>"
+  }
+},
+{
+  "model": "djangocms_text_ckeditor.text",
+  "pk": 6,
+  "fields": {
+    "body": "<h2>Welcome to Shopit's example shop.</h2>\n\n<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam quis risus eget urna mollis ornare vel eu leo. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\n\n<p><a class=\"btn btn-primary\" href=\"/en/products/\">Go to products</a></p>"
+  }
+},
+{
+  "model": "shopit.shippingaddress",
+  "pk": 1,
+  "fields": {
+    "priority": 1,
+    "name": "Admin Istrator",
+    "address1": "Address 1",
+    "address2": "",
+    "zip_code": "12345",
+    "city": "Amsterdam",
+    "country": "NL",
+    "customer": 1
+  }
+},
+{
   "model": "shopit.customer",
   "pk": 1,
   "fields": {
     "recognized": "REGISTERED",
-    "last_access": "2017-04-06T13:44:56.611Z",
+    "last_access": "2017-04-11T08:15:48.292Z",
     "extra": "{}",
-    "number": null,
+    "number": 1,
     "salutation": "mr"
+  }
+},
+{
+  "model": "shopit.modifiertranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "15\" laptop's 15% discount",
+    "master": 1
+  }
+},
+{
+  "model": "shopit.modifiertranslation",
+  "pk": 2,
+  "fields": {
+    "language_code": "en",
+    "name": "Special discount 30%",
+    "master": 2
+  }
+},
+{
+  "model": "shopit.modifier",
+  "pk": 1,
+  "fields": {
+    "code": "15-laptops-15-discount",
+    "amount": 0.0,
+    "percent": "-15.00",
+    "kind": "discount",
+    "active": true,
+    "created_at": "2017-04-11T06:56:54.700Z",
+    "updated_at": "2017-04-11T06:56:54.700Z",
+    "order": 1
+  }
+},
+{
+  "model": "shopit.modifier",
+  "pk": 2,
+  "fields": {
+    "code": "special-discount",
+    "amount": 0.0,
+    "percent": "-30.00",
+    "kind": "cart",
+    "active": true,
+    "created_at": "2017-04-11T07:00:42.812Z",
+    "updated_at": "2017-04-11T07:27:19.041Z",
+    "order": 2
+  }
+},
+{
+  "model": "shopit.discountcode",
+  "pk": 1,
+  "fields": {
+    "modifier": 2,
+    "code": "special",
+    "customer": null,
+    "active": true,
+    "valid_from": "2017-04-11T06:59:39Z",
+    "valid_until": null,
+    "order": 1
+  }
+},
+{
+  "model": "shopit.categorytranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "Technology",
+    "slug": "technology",
+    "description": "<p>All the products related to technology.</p>",
+    "master": 1
+  }
+},
+{
+  "model": "shopit.categorytranslation",
+  "pk": 2,
+  "fields": {
+    "language_code": "en",
+    "name": "Mobile phones",
+    "slug": "mobile-phones",
+    "description": "",
+    "master": 2
+  }
+},
+{
+  "model": "shopit.categorytranslation",
+  "pk": 3,
+  "fields": {
+    "language_code": "en",
+    "name": "Laptops",
+    "slug": "laptops",
+    "description": "",
+    "master": 3
+  }
+},
+{
+  "model": "shopit.category",
+  "pk": 1,
+  "fields": {
+    "_featured_image": null,
+    "parent": null,
+    "active": true,
+    "created_at": "2017-04-07T07:16:19.980Z",
+    "updated_at": "2017-04-07T07:16:19.980Z",
+    "_tax": null,
+    "lft": 1,
+    "rght": 6,
+    "tree_id": 1,
+    "level": 0,
+    "modifiers": [],
+    "flags": []
+  }
+},
+{
+  "model": "shopit.category",
+  "pk": 2,
+  "fields": {
+    "_featured_image": null,
+    "parent": 1,
+    "active": true,
+    "created_at": "2017-04-07T07:16:59.484Z",
+    "updated_at": "2017-04-07T07:16:59.484Z",
+    "_tax": null,
+    "lft": 2,
+    "rght": 3,
+    "tree_id": 1,
+    "level": 1,
+    "modifiers": [],
+    "flags": []
+  }
+},
+{
+  "model": "shopit.category",
+  "pk": 3,
+  "fields": {
+    "_featured_image": null,
+    "parent": 1,
+    "active": true,
+    "created_at": "2017-04-07T08:20:06.174Z",
+    "updated_at": "2017-04-07T08:20:06.174Z",
+    "_tax": null,
+    "lft": 4,
+    "rght": 5,
+    "tree_id": 1,
+    "level": 1,
+    "modifiers": [],
+    "flags": []
+  }
+},
+{
+  "model": "shopit.brandtranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "Apple",
+    "slug": "apple",
+    "description": "",
+    "master": 1
+  }
+},
+{
+  "model": "shopit.brand",
+  "pk": 1,
+  "fields": {
+    "_featured_image": null,
+    "parent": null,
+    "active": true,
+    "created_at": "2017-04-07T07:17:05.425Z",
+    "updated_at": "2017-04-07T07:17:05.426Z",
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 1,
+    "level": 0,
+    "modifiers": [],
+    "flags": []
+  }
+},
+{
+  "model": "shopit.manufacturertranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "Made in China",
+    "slug": "made-china",
+    "description": "",
+    "master": 1
+  }
+},
+{
+  "model": "shopit.manufacturer",
+  "pk": 1,
+  "fields": {
+    "_featured_image": null,
+    "parent": null,
+    "active": true,
+    "created_at": "2017-04-07T07:18:22.886Z",
+    "updated_at": "2017-04-07T07:18:22.886Z",
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 1,
+    "level": 0,
+    "modifiers": [],
+    "flags": []
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7",
+    "slug": "iphone-7",
+    "_caption": "This is 7.",
+    "_description": "<p>iPhone 7 dramatically improves the most important aspects of the iPhone experience. It introduces advanced new camera systems. The best performance and battery life ever in an iPhone. Immersive stereo speakers. The brightest, most colorful iPhone display. Splash and water resistance.1 And it looks every bit as powerful as it is. This is iPhone 7.</p>",
+    "master": 1
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 2,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Jet Black 32GB",
+    "slug": "iphone-7-jet-black-32gb",
+    "_caption": "",
+    "_description": "",
+    "master": 2
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 3,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Jet Black 128GB",
+    "slug": "iphone-7-jet-black-128gb",
+    "_caption": "",
+    "_description": "",
+    "master": 3
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 4,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Jet Black 256GB",
+    "slug": "iphone-7-jet-black-256gb",
+    "_caption": "",
+    "_description": "",
+    "master": 4
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 5,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Black 32GB",
+    "slug": "iphone-7-black-32gb",
+    "_caption": "",
+    "_description": "",
+    "master": 5
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 6,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Black 128GB",
+    "slug": "iphone-7-black-128gb",
+    "_caption": "",
+    "_description": "",
+    "master": 6
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 7,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Black 256GB",
+    "slug": "iphone-7-black-256gb",
+    "_caption": "",
+    "_description": "",
+    "master": 7
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 8,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Silver 32GB",
+    "slug": "iphone-7-silver-32gb",
+    "_caption": "",
+    "_description": "",
+    "master": 8
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 10,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Silver 256GB",
+    "slug": "iphone-7-silver-256gb",
+    "_caption": "",
+    "_description": "",
+    "master": 10
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 11,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Gold 32GB",
+    "slug": "iphone-7-gold-32gb",
+    "_caption": "",
+    "_description": "",
+    "master": 11
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 12,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Gold 128GB",
+    "slug": "iphone-7-gold-128gb",
+    "_caption": "",
+    "_description": "",
+    "master": 12
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 13,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Gold 256GB",
+    "slug": "iphone-7-gold-256gb",
+    "_caption": "",
+    "_description": "",
+    "master": 13
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 14,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Rose Gold 32GB",
+    "slug": "iphone-7-rose-gold-32gb",
+    "_caption": "",
+    "_description": "",
+    "master": 14
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 15,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Rose Gold 128GB",
+    "slug": "iphone-7-rose-gold-128gb",
+    "_caption": "",
+    "_description": "",
+    "master": 15
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 16,
+  "fields": {
+    "language_code": "en",
+    "name": "iPhone 7 Rose Gold 256GB",
+    "slug": "iphone-7-rose-gold-256gb",
+    "_caption": "",
+    "_description": "",
+    "master": 16
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 17,
+  "fields": {
+    "language_code": "en",
+    "name": "MacBook Pro",
+    "slug": "macbook-pro",
+    "_caption": "A touch of genius.",
+    "_description": "<p>It&rsquo;s faster and more powerful than before, yet remarkably thinner and lighter. It has the brightest, most colorful Mac notebook display ever. And it introduces the Touch Bar &mdash; a Multi-Touch enabled strip of glass built into the keyboard for instant access to the tools you want, right when you want them. The new MacBook Pro is built on groundbreaking ideas. And it&rsquo;s ready for yours.</p>",
+    "master": 17
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 18,
+  "fields": {
+    "language_code": "en",
+    "name": "MacBook Pro Space Gray 13\"",
+    "slug": "macbook-pro-space-gray-13",
+    "_caption": "",
+    "_description": "",
+    "master": 18
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 19,
+  "fields": {
+    "language_code": "en",
+    "name": "MacBook Pro Space Gray 15\"",
+    "slug": "macbook-pro-space-gray-15",
+    "_caption": "",
+    "_description": "",
+    "master": 19
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 20,
+  "fields": {
+    "language_code": "en",
+    "name": "MacBook Pro Silver 13\"",
+    "slug": "macbook-pro-silver-13",
+    "_caption": "",
+    "_description": "",
+    "master": 20
+  }
+},
+{
+  "model": "shopit.producttranslation",
+  "pk": 21,
+  "fields": {
+    "language_code": "en",
+    "name": "MacBook Pro Silver 15\"",
+    "slug": "macbook-pro-silver-15",
+    "_caption": "",
+    "_description": "",
+    "master": 21
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 1,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:17.298Z",
+    "updated_at": "2017-04-07T07:24:17.298Z",
+    "active": true,
+    "code": "1",
+    "_category": 2,
+    "_brand": 1,
+    "_manufacturer": 1,
+    "_unit_price": 699.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 1,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": null,
+    "published": "2017-04-07T07:10:23Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 16,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 2,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.669Z",
+    "updated_at": "2017-04-07T07:24:32.673Z",
+    "active": true,
+    "code": "2",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 0.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32.668Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 17,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 3,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.682Z",
+    "updated_at": "2017-04-07T07:25:56.814Z",
+    "active": true,
+    "code": "3",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 799.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 18,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 4,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.693Z",
+    "updated_at": "2017-04-07T07:26:09.184Z",
+    "active": true,
+    "code": "4",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 899.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 19,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 5,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.702Z",
+    "updated_at": "2017-04-07T07:24:32.706Z",
+    "active": true,
+    "code": "5",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 0.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32.702Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 20,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 6,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.714Z",
+    "updated_at": "2017-04-07T07:26:33.825Z",
+    "active": true,
+    "code": "6",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 799.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 21,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 7,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.725Z",
+    "updated_at": "2017-04-07T07:26:49.194Z",
+    "active": true,
+    "code": "7",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 899.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 22,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 8,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.737Z",
+    "updated_at": "2017-04-07T07:31:01.634Z",
+    "active": true,
+    "code": "8",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 0.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": 0,
+    "order": 1491549023000,
+    "content": 23,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 10,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.757Z",
+    "updated_at": "2017-04-07T07:27:21.093Z",
+    "active": true,
+    "code": "10",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 899.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 25,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 11,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.766Z",
+    "updated_at": "2017-04-07T07:24:32.769Z",
+    "active": true,
+    "code": "11",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 0.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32.766Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 26,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 12,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.776Z",
+    "updated_at": "2017-04-07T07:27:41.948Z",
+    "active": true,
+    "code": "12",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 799.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 27,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 13,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.788Z",
+    "updated_at": "2017-04-07T07:30:48.548Z",
+    "active": true,
+    "code": "13",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 899.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": 1,
+    "order": 1491549023000,
+    "content": 28,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 14,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.798Z",
+    "updated_at": "2017-04-07T07:24:32.800Z",
+    "active": true,
+    "code": "14",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 0.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32.797Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 29,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 15,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.808Z",
+    "updated_at": "2017-04-07T07:28:11.327Z",
+    "active": true,
+    "code": "15",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 799.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 30,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 16,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T07:24:32.817Z",
+    "updated_at": "2017-04-07T07:28:19.143Z",
+    "active": true,
+    "code": "16",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 899.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 1,
+    "published": "2017-04-07T07:24:32Z",
+    "quantity": null,
+    "order": 1491549023000,
+    "content": 31,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 17,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T08:22:54.284Z",
+    "updated_at": "2017-04-07T08:24:50.139Z",
+    "active": true,
+    "code": "17",
+    "_category": 3,
+    "_brand": 1,
+    "_manufacturer": 1,
+    "_unit_price": 1499.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 1,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": null,
+    "published": "2017-04-07T08:18:55Z",
+    "quantity": null,
+    "order": 1491553135000,
+    "content": 32,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": [
+      1,
+      3
+    ]
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 18,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T08:26:15.269Z",
+    "updated_at": "2017-04-07T08:26:15.279Z",
+    "active": true,
+    "code": "18",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 0.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 17,
+    "published": "2017-04-07T08:26:15.268Z",
+    "quantity": null,
+    "order": 1491553135000,
+    "content": 33,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 19,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T08:26:22.602Z",
+    "updated_at": "2017-04-11T06:57:32.175Z",
+    "active": true,
+    "code": "19",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 1699.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 17,
+    "published": "2017-04-07T08:26:22Z",
+    "quantity": null,
+    "order": 1491553135000,
+    "content": 34,
+    "modifiers": [
+      1
+    ],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 20,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T08:26:45.510Z",
+    "updated_at": "2017-04-07T08:26:45.522Z",
+    "active": true,
+    "code": "20",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 0.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 17,
+    "published": "2017-04-07T08:26:45.508Z",
+    "quantity": null,
+    "order": 1491553135000,
+    "content": 35,
+    "modifiers": [],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.product",
+  "pk": 21,
+  "fields": {
+    "polymorphic_ctype": [
+      "shopit",
+      "product"
+    ],
+    "created_at": "2017-04-07T08:26:52.342Z",
+    "updated_at": "2017-04-11T06:57:18.933Z",
+    "active": true,
+    "code": "21",
+    "_category": null,
+    "_brand": null,
+    "_manufacturer": null,
+    "_unit_price": 1699.0,
+    "_discount": null,
+    "_tax": null,
+    "kind": 2,
+    "discountable": true,
+    "_width": null,
+    "_height": null,
+    "_depth": null,
+    "_weight": null,
+    "group": 17,
+    "published": "2017-04-07T08:26:52Z",
+    "quantity": null,
+    "order": 1491553135000,
+    "content": 36,
+    "modifiers": [
+      1
+    ],
+    "flags": [],
+    "available_attributes": []
+  }
+},
+{
+  "model": "shopit.attributetranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "Color",
+    "master": 1
+  }
+},
+{
+  "model": "shopit.attributetranslation",
+  "pk": 2,
+  "fields": {
+    "language_code": "en",
+    "name": "Capacity",
+    "master": 2
+  }
+},
+{
+  "model": "shopit.attributetranslation",
+  "pk": 3,
+  "fields": {
+    "language_code": "en",
+    "name": "Size",
+    "master": 3
+  }
+},
+{
+  "model": "shopit.attribute",
+  "pk": 1,
+  "fields": {
+    "code": "apple-color",
+    "template": "",
+    "nullable": false,
+    "active": true,
+    "created_at": "2017-04-07T07:22:51.505Z",
+    "updated_at": "2017-04-07T08:24:19.732Z",
+    "order": 1
+  }
+},
+{
+  "model": "shopit.attribute",
+  "pk": 2,
+  "fields": {
+    "code": "iphone-capacity",
+    "template": "",
+    "nullable": false,
+    "active": true,
+    "created_at": "2017-04-07T07:24:04.234Z",
+    "updated_at": "2017-04-07T07:24:04.234Z",
+    "order": 2
+  }
+},
+{
+  "model": "shopit.attribute",
+  "pk": 3,
+  "fields": {
+    "code": "laptop-size",
+    "template": "",
+    "nullable": false,
+    "active": true,
+    "created_at": "2017-04-07T08:21:58.399Z",
+    "updated_at": "2017-04-07T08:25:57.693Z",
+    "order": 3
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 1,
+  "fields": {
+    "language_code": "en",
+    "name": "Jet Black",
+    "master": 1
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 2,
+  "fields": {
+    "language_code": "en",
+    "name": "Black",
+    "master": 2
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 3,
+  "fields": {
+    "language_code": "en",
+    "name": "Silver",
+    "master": 3
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 4,
+  "fields": {
+    "language_code": "en",
+    "name": "Gold",
+    "master": 4
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 5,
+  "fields": {
+    "language_code": "en",
+    "name": "Rose Gold",
+    "master": 5
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 6,
+  "fields": {
+    "language_code": "en",
+    "name": "",
+    "master": 6
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 7,
+  "fields": {
+    "language_code": "en",
+    "name": "",
+    "master": 7
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 8,
+  "fields": {
+    "language_code": "en",
+    "name": "",
+    "master": 8
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 9,
+  "fields": {
+    "language_code": "en",
+    "name": "13\"",
+    "master": 9
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 10,
+  "fields": {
+    "language_code": "en",
+    "name": "15\"",
+    "master": 10
+  }
+},
+{
+  "model": "shopit.attributechoicetranslation",
+  "pk": 13,
+  "fields": {
+    "language_code": "en",
+    "name": "Space Gray",
+    "master": 13
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 1,
+  "fields": {
+    "attribute": 1,
+    "value": "jet-black",
+    "file": null,
+    "order": 1
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 2,
+  "fields": {
+    "attribute": 1,
+    "value": "black",
+    "file": null,
+    "order": 2
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 3,
+  "fields": {
+    "attribute": 1,
+    "value": "silver",
+    "file": null,
+    "order": 3
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 4,
+  "fields": {
+    "attribute": 1,
+    "value": "gold",
+    "file": null,
+    "order": 4
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 5,
+  "fields": {
+    "attribute": 1,
+    "value": "rose-gold",
+    "file": null,
+    "order": 5
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 6,
+  "fields": {
+    "attribute": 2,
+    "value": "32GB",
+    "file": null,
+    "order": 1
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 7,
+  "fields": {
+    "attribute": 2,
+    "value": "128GB",
+    "file": null,
+    "order": 2
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 8,
+  "fields": {
+    "attribute": 2,
+    "value": "256GB",
+    "file": null,
+    "order": 3
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 9,
+  "fields": {
+    "attribute": 3,
+    "value": "13",
+    "file": null,
+    "order": 1
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 10,
+  "fields": {
+    "attribute": 3,
+    "value": "15",
+    "file": null,
+    "order": 2
+  }
+},
+{
+  "model": "shopit.attributechoice",
+  "pk": 13,
+  "fields": {
+    "attribute": 1,
+    "value": "space-gray",
+    "file": null,
+    "order": 6
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 1,
+  "fields": {
+    "attribute": 1,
+    "product": 2,
+    "choice": 1
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 2,
+  "fields": {
+    "attribute": 2,
+    "product": 2,
+    "choice": 6
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 3,
+  "fields": {
+    "attribute": 1,
+    "product": 3,
+    "choice": 1
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 4,
+  "fields": {
+    "attribute": 2,
+    "product": 3,
+    "choice": 7
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 5,
+  "fields": {
+    "attribute": 1,
+    "product": 4,
+    "choice": 1
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 6,
+  "fields": {
+    "attribute": 2,
+    "product": 4,
+    "choice": 8
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 7,
+  "fields": {
+    "attribute": 1,
+    "product": 5,
+    "choice": 2
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 8,
+  "fields": {
+    "attribute": 2,
+    "product": 5,
+    "choice": 6
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 9,
+  "fields": {
+    "attribute": 1,
+    "product": 6,
+    "choice": 2
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 10,
+  "fields": {
+    "attribute": 2,
+    "product": 6,
+    "choice": 7
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 11,
+  "fields": {
+    "attribute": 1,
+    "product": 7,
+    "choice": 2
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 12,
+  "fields": {
+    "attribute": 2,
+    "product": 7,
+    "choice": 8
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 13,
+  "fields": {
+    "attribute": 1,
+    "product": 8,
+    "choice": 3
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 14,
+  "fields": {
+    "attribute": 2,
+    "product": 8,
+    "choice": 6
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 17,
+  "fields": {
+    "attribute": 1,
+    "product": 10,
+    "choice": 3
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 18,
+  "fields": {
+    "attribute": 2,
+    "product": 10,
+    "choice": 8
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 19,
+  "fields": {
+    "attribute": 1,
+    "product": 11,
+    "choice": 4
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 20,
+  "fields": {
+    "attribute": 2,
+    "product": 11,
+    "choice": 6
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 21,
+  "fields": {
+    "attribute": 1,
+    "product": 12,
+    "choice": 4
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 22,
+  "fields": {
+    "attribute": 2,
+    "product": 12,
+    "choice": 7
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 23,
+  "fields": {
+    "attribute": 1,
+    "product": 13,
+    "choice": 4
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 24,
+  "fields": {
+    "attribute": 2,
+    "product": 13,
+    "choice": 8
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 25,
+  "fields": {
+    "attribute": 1,
+    "product": 14,
+    "choice": 5
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 26,
+  "fields": {
+    "attribute": 2,
+    "product": 14,
+    "choice": 6
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 27,
+  "fields": {
+    "attribute": 1,
+    "product": 15,
+    "choice": 5
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 28,
+  "fields": {
+    "attribute": 2,
+    "product": 15,
+    "choice": 7
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 29,
+  "fields": {
+    "attribute": 1,
+    "product": 16,
+    "choice": 5
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 30,
+  "fields": {
+    "attribute": 2,
+    "product": 16,
+    "choice": 8
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 31,
+  "fields": {
+    "attribute": 1,
+    "product": 18,
+    "choice": 13
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 32,
+  "fields": {
+    "attribute": 3,
+    "product": 18,
+    "choice": 9
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 33,
+  "fields": {
+    "attribute": 1,
+    "product": 19,
+    "choice": 13
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 34,
+  "fields": {
+    "attribute": 3,
+    "product": 19,
+    "choice": 10
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 35,
+  "fields": {
+    "attribute": 1,
+    "product": 20,
+    "choice": 3
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 36,
+  "fields": {
+    "attribute": 3,
+    "product": 20,
+    "choice": 9
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 37,
+  "fields": {
+    "attribute": 1,
+    "product": 21,
+    "choice": 3
+  }
+},
+{
+  "model": "shopit.attributevalue",
+  "pk": 38,
+  "fields": {
+    "attribute": 3,
+    "product": 21,
+    "choice": 10
   }
 }
 ]
