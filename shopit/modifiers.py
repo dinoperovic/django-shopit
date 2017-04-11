@@ -14,6 +14,8 @@ class ShopitCartModifier(BaseCartModifier):
     """
     Applies all cart and product modifiers.
     """
+    cart_discount_codes = []
+
     def pre_process_cart(self, cart, request):
         self.cart_discount_codes = cart.get_discount_codes().values_list('code', flat=True)
 
