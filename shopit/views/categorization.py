@@ -9,9 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 from parler.views import ViewUrlMixin
 from rest_framework.generics import ListAPIView
 from rest_framework.settings import api_settings
-from shop.rest.renderers import CMSPageRenderer
 
 from shopit.models.categorization import Brand, Category, Manufacturer
+from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import BrandSerializer, CategorySerializer, ManufacturerSerializer
 from shopit.views.product import ProductListView
 
@@ -38,7 +38,7 @@ class CategorizationListViewBase(CategorizationViewMixin, ListAPIView):
     Base categorization list view.
     """
     serializers_class = None
-    renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
+    renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
     template_name = 'shopit/catalog/categorization_list.html'
 
     def get_queryset(self):

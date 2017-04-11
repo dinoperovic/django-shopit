@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.core.urlresolvers import reverse
 from django.core import mail
+from django.core.urlresolvers import reverse
 
 from shopit.models.customer import Customer
+
 from .utils import ShopitTestCase
 
 

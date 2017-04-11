@@ -8,13 +8,13 @@ from parler.views import ViewUrlMixin
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from shop.rest.renderers import CMSPageRenderer
 from shop.views.catalog import AddToCartView as AddToCartViewBase
 from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
 from shopit.models.cart import Cart, CartItem
 from shopit.models.product import Attribute, Product
+from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, WatchItemSerializer)
 
@@ -29,7 +29,7 @@ SORT_VAR = 's'
 
 class ProductListView(BaseProductListView):
     serializer_class = ProductSummarySerializer
-    renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
+    renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
 
     def get_queryset(self):
         return Product.objects.translated().active().top_level()
@@ -88,7 +88,7 @@ class ProductListView(BaseProductListView):
 
 class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
     serializer_class = ProductDetailSerializer
-    renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
+    renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
 
     def get(self, request, *args, **kwargs):
         response = super(ProductDetailView, self).get(request, *args, **kwargs)

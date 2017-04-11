@@ -19,13 +19,13 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from shop.rest.renderers import CMSPageRenderer
 from shop.views.auth import AuthFormsView, LoginView, LogoutView, PasswordResetConfirm, PasswordResetView
 from shop.views.order import OrderView
 
 from shopit.forms import account as account_forms
 from shopit.models.customer import Customer
 from shopit.models.order import Order
+from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import (AccountResetConfirmSerializer, AccountResetSerializer, AccountSerializer,
                                 OrderListSerializer)
 
@@ -139,7 +139,7 @@ class AccountRegisterView(LoginRegisterMixin, AuthFormsView):
 
 class AccountDetailView(LoginRequiredMixin, RetrieveAPIView):
     serializer_class = AccountSerializer
-    renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
+    renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
     template_name = 'shopit/account/account_detail.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -158,7 +158,7 @@ class AccountDetailView(LoginRequiredMixin, RetrieveAPIView):
 
 class AccountOrderView(LoginRequiredMixin, OrderView):
     latest = False
-    renderer_classes = [CMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
+    renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
     list_serializer_class = OrderListSerializer
 
     def dispatch(self, request, *args, **kwargs):
