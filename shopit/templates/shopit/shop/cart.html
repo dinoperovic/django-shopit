@@ -6,7 +6,7 @@
 {% block content %}
   {% if cart_items %}
     {% cart %}
-    <div class="mt-2 float-right">
+    <div class="mt-2 mb-3 float-right">
       <a href="{% url 'shopit-cart-empty' %}" class="btn btn-danger">{% trans "Empty the cart" %}</a>
       <a href="{% url 'shopit-checkout' %}" class="btn btn-success">{% trans "Proceed to checkout" %}</a>
     </div>

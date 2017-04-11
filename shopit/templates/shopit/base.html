@@ -33,7 +33,7 @@
 
         $.each(errors, function (name, errorlist) {
           if (name === 'non_field_errors') {
-            $form.prepend('<ul class="non-field-errors"><li>'+ errorlist.join('</li><li>') +'</li></ul>');
+            $form.prepend('<div class="non-field-errors alert alert-danger">'+ errorlist.join('<br>') +'</div>');
           } else {
             var $field = $form.find('#id_'+ name);
             var type = $field.attr('type');

@@ -1,4 +1,4 @@
-{% load menu_tags %}
+{% load menu_tags i18n %}
 
 {% for child in children %}
   <li class="nav-item{% if child.selected or child.ancestor %} active{% endif %}{% if child.children %} dropdown{% endif %}">
@@ -13,3 +13,7 @@
     {% endif %}
   </li>
 {% endfor %}
+
+<li class="nav-item">
+  <a href="{% url 'shopit-cart' %}" class="nav-link">{% trans "Cart" %}</a>
+</li>
