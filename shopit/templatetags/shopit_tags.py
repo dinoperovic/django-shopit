@@ -10,6 +10,7 @@ from django.utils import six
 from shop.money import Money
 from shop.money.money_maker import MoneyMaker
 
+from shopit.forms.shop import CartDiscountCodeForm
 from shopit.models import categorization as categorization_models
 from shopit.models.cart import Cart
 from shopit.models.flag import Flag
@@ -228,6 +229,7 @@ def cart(context, editable=True):
         'cart': cart,
         'cart_items': cart._cached_cart_items,
         'editable': editable,
+        'form': context.get('form', CartDiscountCodeForm(cart=cart)),
     }
 
 
