@@ -8,6 +8,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <p><a href="{% url 'shopit-account-reset' %}">{% trans "Forgot password?" %}</a></p>
-    <button class="btn btn-primary">{% trans "Login" %}</button>
+    <button class="btn btn-primary">{% trans "Login" %}</button> {% trans "or" %}
+    <a href="{% url 'shopit-account-register' %}" class="btn btn-secondary">{% trans "Register" %}</a>
   </form>
 {% endblock %}

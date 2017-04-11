@@ -36,6 +36,12 @@ class AccountRegisterForm(CleanEmailMixin, UserCreationForm):
         model = Customer
         fields = ['email', 'password1', 'password2']
 
+    def __init__(self, *args, **kwargs):
+        # Override default init from `UserCreationForm` to use email as
+        # username field, and set autofocus.
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'autofocus': ''})
+
     def save(self, request, commit=False):
         self.instance = Customer.objects.get_from_request(request)
         self.instance.recognize_as_registered()

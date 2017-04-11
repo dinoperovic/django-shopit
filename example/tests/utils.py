@@ -5,12 +5,14 @@ from decimal import Decimal as D
 
 from django.test import TestCase, override_settings
 from django.utils.text import slugify
+from email_auth.models import User
 from shop.money import Money
 
 from shopit.models import categorization as categorization_models
 from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
-from shopit.models.product import Attachment, Attribute, AttributeChoice, AttributeValue, Product, Relation, Review
+from shopit.models.product import (Attachment, Attribute, AttributeChoice, AttributeValue, Customer, Product, Relation,
+                                   Review)
 from shopit.models.tax import Tax
 
 
@@ -67,3 +69,13 @@ class ShopitTestCase(TestCase):
         attrs = {'name': name, 'code': slugify(name)}
         attrs.update(kwargs)
         return Flag.objects.language().create(**kwargs)
+
+    def create_customer(self, username, password=None):
+        if not password:
+            password = User.objects.make_random_password()
+        email = '%s@example.com' % username
+        attrs = {'username': username, 'email': email, 'password': password}
+        user = User.objects.create_user(**attrs)
+        customer = Customer.objects.create(user=user)
+        customer._password = password
+        return customer
