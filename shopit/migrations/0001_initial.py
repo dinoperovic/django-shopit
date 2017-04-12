@@ -26,10 +26,10 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('cms', '__latest__'),
-        ('filer', '__latest__'),
-        ('contenttypes', '__latest__'),
-        ('email_auth', '__latest__'),
+        ('cms', '__first__'),
+        ('filer', '__first__'),
+        ('contenttypes', '__first__'),
+        ('email_auth', '__first__'),
     ]
 
     operations = [
