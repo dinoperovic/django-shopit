@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.2.1
+=====
+
+* Fixes problem with migrations.
+
 0.2.0
 =====
 
