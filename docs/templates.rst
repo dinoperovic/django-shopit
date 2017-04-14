@@ -82,6 +82,11 @@ Simple tags
     {% get_flags 'featured' as featured_flag %}
     {% get_flags products=product_list level=1 parent='featured' as featured_flags %}
 
+    # Fetch a single modifier, or a set of modifiers. Setting filtering to True
+    # returns only the modifiers eligible for filtering.
+    {% get_modifiers 'special-discount' as special_discount_mod %}
+    {% get_modifiers products=product_list filtering=True %}
+
     # Fetch attributes for the set of products.
     {% get_attributes product as attributes %}
 

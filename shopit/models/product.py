@@ -85,15 +85,21 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
             filters['id__in'] = flagged.values_list('id', flat=True)
         return self.filter(**filters) if filters else self
 
-    def filter_price(self, price_from=None, price_to=None):
+    def filter_modifiers(self, modifiers=None):
         """
-        Filters a queryset by a price range.
+        Filters a queryset by the given modifiers. A list of codes should be
+        passed in.
         """
         filters = {}
-        if price_from:
-            filters['_unit_price__gte'] = Decimal(price_from)
-        if price_to:
-            filters['_unit_price__lte'] = Decimal(price_to)
+        if modifiers:
+            enabled = Modifier.objects.filtering_enabled().active().values_list('code', flat=True)
+            if len([x for x in modifiers if x in enabled]) < len(modifiers):
+                # Return empty queryset if invalid modifiers are passed in.
+                return self.none()
+
+            modded = self.prefetch_related('modifiers').filter(modifiers__code__in=modifiers)
+            modded = modded.annotate(num_mods=Count('modifiers')).filter(num_mods=len(modifiers)).distinct()
+            filters['id__in'] = modded.values_list('id', flat=True)
         return self.filter(**filters) if filters else self
 
     def filter_attributes(self, attributes=None):
@@ -103,8 +109,8 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
         """
         if attributes:
             ids = self.values_list('id', flat=True)
-            variants = Product.objects.filter(group_id__in=ids).prefetch_related(
-                'attribute_values', 'attribute_values__attribute', 'attribute_values__choice')
+            variants = Product.objects.filter(group_id__in=ids).\
+                prefetch_related('attribute_values', 'attribute_values__attribute', 'attribute_values__choice')
 
             if variants:
                 for code, value in attributes:
@@ -122,6 +128,17 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
                     self = (self | variants).order_by('-order', 'kind', 'published')
         return self
 
+    def filter_price(self, price_from=None, price_to=None):
+        """
+        Filters a queryset by a price range.
+        """
+        filters = {}
+        if price_from:
+            filters['_unit_price__gte'] = Decimal(price_from)
+        if price_to:
+            filters['_unit_price__lte'] = Decimal(price_to)
+        return self.filter(**filters) if filters else self
+
 
 class ProductManager(BaseProductManager, TranslatableManager):
     queryset_class = ProductQuerySet
@@ -137,6 +154,9 @@ class ProductManager(BaseProductManager, TranslatableManager):
 
     def filter_flags(self, flags=None):
         return self.get_queryset().filter_flags(flags)
+
+    def filter_modifiers(self, modifiers=None):
+        return self.get_queryset().filter_modifiers(modifiers)
 
     def filter_price(self, price_from=None, price_to=None):
         return self.get_queryset().filter_price(price_from, price_to)

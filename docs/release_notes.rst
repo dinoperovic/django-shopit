@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.2.2
+=====
+
+* Add filtering by modifiers.
+
 0.2.1
 =====
 
