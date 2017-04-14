@@ -56,13 +56,13 @@ class ModifierConditionInline(SortableInlineAdminMixin, admin.TabularInline):
 class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
     list_display = ['name', 'code', 'get_value', 'kind', 'get_requires_code', 'active', 'language_column']
     list_filter = ['kind']
-    readonly_fields = ['created_at', 'updated_at', 'get_requires_code_field']
+    readonly_fields = ['created_at', 'updated_at', 'get_requires_code_field', 'get_filtering_enabled_field']
 
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'code']}),
         (_('Status'), {'fields': [('active', 'created_at', 'updated_at')]}),
         (_('Amounts'), {'fields': ['amount', 'percent']}),
-        (_('Settings'), {'fields': ['kind', 'get_requires_code_field']}),
+        (_('Settings'), {'fields': ['kind', 'get_requires_code_field', 'get_filtering_enabled_field']}),
     ]
 
     inlines = [ModifierConditionInline]
@@ -91,6 +91,17 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
         return format_html('%s<p class="help">%s</p>' % (html, help_text))
     get_requires_code_field.allow_tags = True
     get_requires_code_field.short_description = _('Requires code')
+
+    def get_filtering_enabled_field(self, obj):
+        if obj.filtering_enabled:
+            html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
+        else:
+            html = '<img src="/static/admin/img/icon-no.svg" alt="False">'
+        help_text = _("Displays if modifier can be used as a filter to return products with this modifier selected. "
+                      "Filtering is enabled when modifier doesn't require any codes & has no conditions to be met.")
+        return format_html('%s<p class="help">%s</p>' % (html, help_text))
+    get_filtering_enabled_field.allow_tags = True
+    get_filtering_enabled_field.short_description = _('Filtering enabled')
 
 
 @admin.register(DiscountCode)

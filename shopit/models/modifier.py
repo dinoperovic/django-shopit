@@ -80,6 +80,10 @@ class Modifier(TranslatableModel):
     def requires_code(self):
         return self.discount_codes.active().exists()
 
+    @property
+    def filtering_enabled(self):
+        return not self.requires_code and not self.get_conditions().exists()
+
     def get_conditions(self):
         if not hasattr(self, '_conditions'):
             setattr(self, '_conditions', self.conditions.all())
