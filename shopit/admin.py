@@ -54,7 +54,9 @@ class ModifierConditionInline(SortableInlineAdminMixin, admin.TabularInline):
 
 @admin.register(Modifier)
 class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
-    list_display = ['name', 'code', 'get_value', 'kind', 'get_requires_code', 'active', 'language_column']
+    list_display = [
+        'name', 'code', 'get_value', 'kind', 'get_requires_code', 'get_filtering_enabled', 'active', 'language_column']
+
     list_filter = ['kind']
     readonly_fields = ['created_at', 'updated_at', 'get_requires_code_field', 'get_filtering_enabled_field']
 
@@ -82,6 +84,11 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
     get_requires_code.boolean = True
     get_requires_code.short_description = _('Codes')
 
+    def get_filtering_enabled(self, obj):
+        return obj.is_filtering_enabled
+    get_filtering_enabled.boolean = True
+    get_filtering_enabled.short_description = _('Filtering')
+
     def get_requires_code_field(self, obj):
         html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
         if not obj.requires_code:
@@ -93,12 +100,13 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
     get_requires_code_field.short_description = _('Requires code')
 
     def get_filtering_enabled_field(self, obj):
-        if obj.filtering_enabled:
+        if obj.is_filtering_enabled:
             html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
         else:
             html = '<img src="/static/admin/img/icon-no.svg" alt="False">'
-        help_text = _("Displays if modifier can be used as a filter to return products with this modifier selected. "
-                      "Filtering is enabled when modifier doesn't require any codes & has no conditions to be met.")
+        help_text = _('Displays if modifier can be used as a filter to return products with this modifier selected. '
+                      'Filtering is enabled when modifier is not a "Cart modifier", does not require any codes & '
+                      'has no conditions to be met.')
         return format_html('%s<p class="help">%s</p>' % (html, help_text))
     get_filtering_enabled_field.allow_tags = True
     get_filtering_enabled_field.short_description = _('Filtering enabled')

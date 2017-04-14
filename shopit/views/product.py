@@ -22,6 +22,7 @@ CATEGORIES_VAR = 'c'
 BRANDS_VAR = 'b'
 MANUFACTURERS_VAR = 'm'
 FLAGS_VAR = 'f'
+MODIFIERS_VAR = 'd'
 PRICE_FROM_VAR = 'pf'
 PRICE_TO_VAR = 'pt'
 SORT_VAR = 's'
@@ -45,9 +46,8 @@ class ProductListView(BaseProductListView):
         flags = list(filter(None, self.request.GET.get(FLAGS_VAR, '').split(','))) or None
         queryset = queryset.filter_flags(flags)
 
-        price_from = self.request.GET.get(PRICE_FROM_VAR, None)
-        price_to = self.request.GET.get(PRICE_TO_VAR, None)
-        queryset = queryset.filter_price(price_from, price_to)
+        modifiers = list(filter(None, self.request.GET.get(MODIFIERS_VAR, '').split(','))) or None
+        queryset = queryset.filter_modifiers(modifiers)
 
         attrs = Attribute.objects.active()
         attr_codes = attrs.values_list('code', flat=True)
@@ -59,6 +59,10 @@ class ProductListView(BaseProductListView):
                 attr_filters.remove(f)
 
         queryset = queryset.filter_attributes(attr_filters)
+
+        price_from = self.request.GET.get(PRICE_FROM_VAR, None)
+        price_to = self.request.GET.get(PRICE_TO_VAR, None)
+        queryset = queryset.filter_price(price_from, price_to)
 
         sort = self.request.GET.get(SORT_VAR, None)
         sort_map = {

@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
@@ -22,6 +22,12 @@ from shopit.settings import ERROR_MESSAGES as EM
 class ModifierQuerySet(TranslatableQuerySet):
     def active(self):
         return self.filter(active=True)
+
+    def filtering_enabled(self):
+        return self.filter(kind__in=[Modifier.STANDARD, Modifier.DISCOUNT]).\
+            prefetch_related('discount_codes').prefetch_related('conditions').\
+            annotate(num_discount_codes=Count('discount_codes'), num_conditions=Count('conditions')).\
+            filter(num_discount_codes=0, num_conditions=0)
 
 
 @python_2_unicode_compatible
@@ -81,8 +87,8 @@ class Modifier(TranslatableModel):
         return self.discount_codes.active().exists()
 
     @property
-    def filtering_enabled(self):
-        return not self.requires_code and not self.get_conditions().exists()
+    def is_filtering_enabled(self):
+        return Modifier.objects.filtering_enabled().active().filter(id=self.id).exists()
 
     def get_conditions(self):
         if not hasattr(self, '_conditions'):
