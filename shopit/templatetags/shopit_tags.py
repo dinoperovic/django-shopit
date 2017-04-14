@@ -16,6 +16,7 @@ from shopit.models.cart import Cart
 from shopit.models.flag import Flag
 from shopit.models.order import Order
 from shopit.models.product import Attribute, Product
+from shopit.models.modifier import Modifier
 
 register = template.Library()
 
@@ -123,13 +124,13 @@ def get_flags(code=None, products=None, limit=None, level=None, depth=None, pare
     """
     Returns flag with the given code. If code is None returns all, in that
     case products, limit, level, depth & parent can be passed in to filter the results.
-    If `products` is passed in only return flags appearing in the given list of products.
+    If `products` is passed in only returns flags appearing in the given list of products.
 
     {% get_flags 'featured' as featured_flag %}
     {% get_flags products=product_list level=1 parent='featured' as featured_flags %}
     """
     if code is not None:
-        return Flag.objects.filter(code=code).first()
+        return Flag.objects.active().filter(code=code).first()
 
     filters = {}
 
@@ -148,6 +149,34 @@ def get_flags(code=None, products=None, limit=None, level=None, depth=None, pare
         filters['parent'] = parent
 
     return Flag.objects.active().filter(**filters)[:limit]
+
+
+@register.simple_tag
+def get_modifiers(code=None, products=None, limit=None, filtering=False):
+    """
+    Return modifier with the given code. If code is None returns all, in that
+    case products, limit & filtering can be passed in to filter the results.
+    If `products` is passed in only returns modifiers appearing in the given list of products.
+    If `filtering` is set to True, only returns modifiers that are eligible for filtering.
+
+    {% get_modifiers 'special-discount' as special_discount_mod %}
+    {% get_modifiers products=product_list filtering=True %}
+    """
+    if code is not None:
+        return Modifier.objects.active().filter(code=code).first()
+
+    filters = {}
+
+    if products is not None:
+        product_mods = [x.get_modifiers().values_list('code', flat=True) for x in products]
+        filters['code__in'] = list(set(itertools.chain.from_iterable(product_mods)))
+
+    modifiers = Modifier.objects.active()
+
+    if filtering:
+        modifiers = modifiers.filtering_enabled()
+
+    return modifiers.filter(**filters)[:limit]
 
 
 @register.simple_tag
