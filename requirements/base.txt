@@ -1,4 +1,4 @@
-django-shop>=0.10.1
+django-shop>=0.10.2
 django-cms>=3.4.2
 django-admin-sortable2>=0.6.4
 django-measurement>=2.4.0

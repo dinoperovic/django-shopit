@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add filtering by modifiers.
+* Update django-shop requirement to 0.10.2.
 
 0.2.1
 =====
