@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.template.loader import select_template
 from django.utils import six
 from measurement.base import MeasureBase
@@ -240,8 +240,11 @@ class ProductSerializer(BaseProductSerializer):
         return self.context['request'].build_absolute_uri(url) if url else None
 
     def get_add_to_cart_url(self, obj):
-        url = reverse('shopit-add-to-cart', args=[obj.safe_translation_getter('slug', any_language=True)])
-        return self.context['request'].build_absolute_uri(url) if url else None
+        try:
+            url = reverse('shopit-add-to-cart', args=[obj.safe_translation_getter('slug', any_language=True)])
+            return self.context['request'].build_absolute_uri(url)
+        except NoReverseMatch:
+            return None
 
     def get_is_available(self, obj):
         return obj.is_available(request=self.context['request'])

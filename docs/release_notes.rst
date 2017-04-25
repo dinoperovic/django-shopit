@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.2.3
+=====
+
+* Handle NoReverseMatch for `add_to_cart_url` in a Product serializer.
+
 0.2.2
 =====
 
