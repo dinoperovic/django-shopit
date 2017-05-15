@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Handle NoReverseMatch for `add_to_cart_url` in a Product serializer.
+* Add `order_insertion_by` to MPTT models.
 
 0.2.2
 =====

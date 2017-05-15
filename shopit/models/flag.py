@@ -53,6 +53,9 @@ class Flag(TranslatableModelMixin, MPTTModel):
         verbose_name_plural = _('Flags')
         ordering = ['tree_id', 'lft']
 
+    class MPTTMeta:
+        order_insertion_by = ['code']
+
     def __str__(self):
         name = self.safe_translation_getter('name', any_language=True)
         return '%s | %s' % (str(self.parent), name) if self.parent else name
