@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Handle NoReverseMatch for `add_to_cart_url` in a Product serializer.
+* Add missing `FlagModelForm` to `FlagAdmin`.
 
 0.2.2
 =====

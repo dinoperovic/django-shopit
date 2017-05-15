@@ -29,6 +29,7 @@ from shop.admin.order import OrderAdmin as OrderAdminBase
 from shop.admin.order import PrintOrderAdminMixin
 
 from shopit.forms import categorization as categorization_forms
+from shopit.forms import flag as flag_forms
 from shopit.forms import product as product_forms
 from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.flag import Flag
@@ -136,6 +137,7 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 @admin.register(Flag)
 class FlagAdmin(TranslatableAdmin, DraggableMPTTAdmin):
+    form = flag_forms.FlagModelForm
     list_display = ['tree_actions', 'get_name', 'code', 'active', 'language_column']
     list_display_links = ['get_name']
     readonly_fields = ['created_at', 'updated_at']
