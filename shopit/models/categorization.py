@@ -159,9 +159,6 @@ class Category(CategorizationModel):
         verbose_name_plural = _('Categories')
         ordering = ['tree_id', 'lft']
 
-    class MPTTMeta:
-        order_insertion_by = ['id']
-
     @property
     def tax(self):
         if not self._tax and self.parent:
@@ -182,9 +179,6 @@ class Brand(CategorizationModel):
         verbose_name_plural = _('Brands')
         ordering = ['tree_id', 'lft']
 
-    class MPTTMeta:
-        order_insertion_by = ['id']
-
 
 class Manufacturer(CategorizationModel):
     translations = _categorization_translated_fields()
@@ -194,6 +188,3 @@ class Manufacturer(CategorizationModel):
         verbose_name = _('Manufacturer')
         verbose_name_plural = _('Manufacturers')
         ordering = ['tree_id', 'lft']
-
-    class MPTTMeta:
-        order_insertion_by = ['id']
