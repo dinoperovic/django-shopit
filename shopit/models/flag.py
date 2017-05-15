@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.db.models import Q
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel, TreeForeignKey
@@ -55,7 +55,7 @@ class Flag(TranslatableModelMixin, MPTTModel):
 
     def __str__(self):
         name = self.safe_translation_getter('name', any_language=True)
-        return '%s | %s' % (str(self.parent), name) if self.parent else name
+        return '%s | %s' % (smart_text(self.parent), name) if self.parent else name
 
     def get_products(self):
         """

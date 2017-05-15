@@ -10,6 +10,7 @@ Release notes for **Shopit**.
 
 * Handle NoReverseMatch for `add_to_cart_url` in a Product serializer.
 * Add missing `FlagModelForm` to `FlagAdmin`.
+* Fix Flag unicode error in `__str__`.
 
 0.2.2
 =====

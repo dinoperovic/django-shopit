@@ -14,9 +14,9 @@ from shopit.forms.shop import CartDiscountCodeForm
 from shopit.models import categorization as categorization_models
 from shopit.models.cart import Cart
 from shopit.models.flag import Flag
+from shopit.models.modifier import Modifier
 from shopit.models.order import Order
 from shopit.models.product import Attribute, Product
-from shopit.models.modifier import Modifier
 
 register = template.Library()
 
