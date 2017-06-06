@@ -64,7 +64,7 @@ class ProductTest(ShopitTestCase):
         self.iphone7.available_attributes.add(self.color)
         self.iphone7.flags.add(self.featured_flag)
         self.create_relation(self.iphone7, self.headphones, kind='up-sell')
-        self.create_review(self.iphone7, self.customer, body='iPhone review')
+        self.create_review(self.iphone7, self.customer, text='iPhone review')
         [self.create_attachment(self.iphone7, 'image', url='image%s' % x) for x in range(2)]
         [self.create_attachment(self.iphone7, 'video', url='video%s' % x) for x in range(2)]
         [self.create_attachment(self.iphone7, 'file', url='file%s' % x) for x in range(2)]
@@ -330,4 +330,4 @@ class RelationTest(ShopitTestCase):
 
 class ReviewTest(ShopitTestCase):
     def test__str__(self):
-        self.assertEquals(str(Review(body='Testing')), 'Testing')
+        self.assertEquals(str(Review(text='Testing')), 'Testing')

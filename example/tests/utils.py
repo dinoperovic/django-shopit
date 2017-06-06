@@ -48,10 +48,10 @@ class ShopitTestCase(TestCase):
         attrs.update(kwargs)
         return Relation.objects.create(**attrs)
 
-    def create_review(self, product, customer, body='Lorem ipsum dolor sin', rating=5, **kwargs):
-        attrs = {'product': product, 'customer': customer, 'body': body, 'rating': rating}
+    def create_review(self, product, customer, text='Lorem ipsum dolor sin', rating=5, **kwargs):
+        attrs = {'product': product, 'customer': customer, 'text': text, 'rating': rating}
         attrs.update(kwargs)
-        return Review.objects.language().create(**attrs)
+        return Review.objects.create(**attrs)
 
     def create_categorization(self, model, name, depth=1, **kwargs):
         model = getattr(categorization_models, model.capitalize(), categorization_models.Category)
