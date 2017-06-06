@@ -277,10 +277,10 @@ class ReviewInline(SortableInlineAdminMixin, TranslatableTabularInline, admin.Ta
     model = Review
     extra = 0
     fields = ['customer', 'rating', 'body', 'active']
-    readonly_fields = ['customer', 'rating', 'body', 'created_at']
+    # readonly_fields = ['customer', 'rating', 'body', 'created_at']
 
-    def has_add_permission(self, request):
-        return False
+    # def has_add_permission(self, request):
+    #     return False
 
 
 class ProductChangeList(ChangeList):

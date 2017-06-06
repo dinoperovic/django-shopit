@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from parler.views import ViewUrlMixin
 from rest_framework import status
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from shop.views.catalog import AddToCartView as AddToCartViewBase
@@ -13,10 +14,10 @@ from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
 from shopit.models.cart import Cart, CartItem
-from shopit.models.product import Attribute, Product
+from shopit.models.product import Attribute, Product, Review
 from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
-                                ProductSummarySerializer, WatchItemSerializer)
+                                ProductSummarySerializer, ReviewSerializer, WatchItemSerializer)
 
 CATEGORIES_VAR = 'c'
 BRANDS_VAR = 'b'
@@ -116,6 +117,44 @@ class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
         Return object view url. Used in `get_translated_url` templatetag from parler.
         """
         return self.get_object().get_absolute_url()
+
+
+class ProductReviewListCreateView(ListCreateAPIView):
+    """
+    View that handles listing and creatign reviews on a product.
+    """
+    serializer_class = ReviewSerializer
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+    def get_queryset(self):
+        return self.get_product().get_reviews(language=self.request.LANGUAGE_CODE)
+
+    def get_product(self):
+        if not hasattr(self, '_product'):
+            self._product = get_object_or_404(Product.objects.translated(slug=self.kwargs['slug']))
+        return self._product
+
+    def create(self, request, *args, **kwargs):
+        """
+        Check that customer is registered, and that the review is not already
+        written for this product by the registered customer.
+        """
+        if not request.customer.is_authenticated():
+            errors = {'not-registered': _('Not registered customer.')}
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+        if self.get_queryset().filter(customer=self.request.customer).exists():
+            errors = {'exists': _('Review by "%s" already exists for this Product') % self.request.customer}
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+        return super(ProductReviewListCreateView, self).create(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        Review.objects.create(
+            product=self.get_product(),
+            customer=self.request.customer,
+            text=serializer.data['text'],
+            rating=serializer.data['rating'],
+            language=self.request.LANGUAGE_CODE
+        )
 
 
 class AddToCartView(AddToCartViewBase):

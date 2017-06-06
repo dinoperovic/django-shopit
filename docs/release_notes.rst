@@ -11,6 +11,12 @@ Release notes for **Shopit**.
 * Handle NoReverseMatch for `add_to_cart_url` in a Product serializer.
 * Add missing `FlagModelForm` to `FlagAdmin`.
 * Fix Flag unicode error in `__str__`.
+* Re-work the reviews, making them non-translatable. Not compatible with the old reviews, make sure to save them
+  (if you have any) before upgrading. A way for adding reviews was not provided before so this should not be the case.
+
+  .. attention::
+
+    Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model.
 
 0.2.2
 =====

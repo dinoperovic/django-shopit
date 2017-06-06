@@ -128,16 +128,19 @@ def get_urls(name, prefixed=SINGLE_APPHOOK):  # noqa
         ]
 
     if name == 'products':
+        review_regexp = _(r'^%s/reviews/$') % slug_regexp
         add_to_cart_regexp = _(r'^%s/add-to-cart/$') % slug_regexp
 
         if prefixed:
             list_regexp = _(r'^products/$')
             detail_regexp = _(r'^products/%s/$') % slug_regexp
             add_to_cart_regexp = _(r'^products/%s/add-to-cart/$') % slug_regexp
+            review_regexp = _(r'^products/%s/reviews/$') % slug_regexp
 
         return [
             url(list_regexp, views.ProductListView.as_view(), name='shopit-product-list'),
             url(detail_regexp, views.ProductDetailView.as_view(), name='shopit-product-detail'),
+            url(review_regexp, views.ProductReviewListCreateView.as_view(), name='shopit-product-review-list-create'),
             url(add_to_cart_regexp, views.AddToCartView.as_view(), name='shopit-add-to-cart'),
         ]
 

@@ -178,11 +178,9 @@ class RelationSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    customer = AccountSummarySerializer()
-
     class Meta:
         model = Review
-        fields = ['id', 'customer', 'body', 'rating']
+        fields = ['id', 'customer', 'name', 'text', 'rating', 'language']
 
 
 class ProductSerializer(BaseProductSerializer):
@@ -212,7 +210,7 @@ class ProductSerializer(BaseProductSerializer):
     variations = serializers.ListField(source='get_variations', read_only=True)
     attachments = serializers.SerializerMethodField()
     relations = RelationSerializer(source='get_relations', many=True)
-    reviews = ReviewSerializer(source='get_reviews', many=True)
+    reviews = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -263,6 +261,11 @@ class ProductSerializer(BaseProductSerializer):
                     if key.startswith('url'):
                         item[key] = request.build_absolute_uri(value)
         return attachments
+
+    def get_reviews(self, obj):
+        reviews = obj.get_reviews(language=self.context['request'].LANGUAGE_CODE)
+        if reviews:
+            return ReviewSerializer(reviews, context=self.context, many=True).data
 
 
 class ProductSummarySerializer(ProductSerializer):
