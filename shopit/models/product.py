@@ -1141,3 +1141,9 @@ class Review(models.Model):
 
     def __str__(self):
         return truncatewords(self.text, 3)
+
+    def get_absolute_url(self):
+        try:
+            return reverse('shopit-product-review-detail', args=[self.product.safe_translation_getter('slug'), self.id])  # noqa
+        except NoReverseMatch:  # pragma: no cover
+            pass

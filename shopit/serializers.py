@@ -178,9 +178,15 @@ class RelationSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
     class Meta:
         model = Review
-        fields = ['id', 'customer', 'name', 'text', 'rating', 'language']
+        fields = ['id', 'customer', 'name', 'text', 'rating', 'url', 'language']
+
+    def get_url(self, obj):
+        url = obj.get_absolute_url()
+        return self.context['request'].build_absolute_uri(url) if url else None
 
 
 class ProductSerializer(BaseProductSerializer):

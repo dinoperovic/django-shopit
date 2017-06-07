@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from parler.views import ViewUrlMixin
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from shop.views.catalog import AddToCartView as AddToCartViewBase
@@ -14,7 +14,7 @@ from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
 from shopit.models.cart import Cart, CartItem
-from shopit.models.product import Attribute, Product, Review
+from shopit.models.product import Attribute, Product
 from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, ReviewSerializer, WatchItemSerializer)
@@ -119,20 +119,25 @@ class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
         return self.get_object().get_absolute_url()
 
 
-class ProductReviewListCreateView(ListCreateAPIView):
+class ProductReviewMixin(object):
     """
-    View that handles listing and creatign reviews on a product.
+    Mixin used in product reviews.
     """
-    serializer_class = ReviewSerializer
-    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
-
     def get_queryset(self):
         return self.get_product().get_reviews(language=self.request.LANGUAGE_CODE)
 
     def get_product(self):
         if not hasattr(self, '_product'):
-            self._product = get_object_or_404(Product.objects.translated(slug=self.kwargs['slug']))
+            self._product = get_object_or_404(Product.objects.translated(slug=self.kwargs.get('slug')))
         return self._product
+
+
+class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
+    """
+    View that handles listing and creatign reviews on a product.
+    """
+    serializer_class = ReviewSerializer
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
     def create(self, request, *args, **kwargs):
         """
@@ -143,21 +148,60 @@ class ProductReviewListCreateView(ListCreateAPIView):
             errors = {'not-registered': _('Not registered customer.')}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         if self.get_queryset().filter(customer=self.request.customer).exists():
-            errors = {'exists': _('Review by "%s" already exists for this Product') % self.request.customer}
+            errors = {'exists': _('Review already written for this Product.')}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
-        return super(ProductReviewListCreateView, self).create(request, *args, **kwargs)
+        return super(ProductReviewListView, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        Review.objects.create(
+        serializer.save(
             product=self.get_product(),
             customer=self.request.customer,
-            text=serializer.data['text'],
-            rating=serializer.data['rating'],
-            language=self.request.LANGUAGE_CODE
+            language=self.request.LANGUAGE_CODE,
+        )
+
+
+class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
+    """
+    View that handles getting, updating and deleting the review.
+    """
+    serializer_class = ReviewSerializer
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+    def get_object(self):
+        if not hasattr(self, '_object'):
+            self._object = get_object_or_404(self.get_queryset().filter(id=self.kwargs.get('pk')))
+        return self._object
+
+    def update(self, request, *args, **kwargs):
+        """
+        Only allow update for the review owner.
+        """
+        if self.get_object().customer != self.request.customer:
+            errors = {'not-allowed': _('You can only update your own reviews.')}
+            return Response(errors, status=status.HTTP_403_FORBIDDEN)
+        return super(ProductReviewDetailView, self).update(self.request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Only allow delete for the review owner.
+        """
+        if self.get_object().customer != self.request.customer:
+            errors = {'not-allowed': _('You can only delete your own reviews.')}
+            return Response(errors, status=status.HTTP_403_FORBIDDEN)
+        return super(ProductReviewDetailView, self).delete(self.request, *args, **kwargs)
+
+    def perform_update(self, serializer):
+        serializer.save(
+            product=self.get_product(),
+            customer=self.request.customer,
+            language=self.request.LANGUAGE_CODE,
         )
 
 
 class AddToCartView(AddToCartViewBase):
+    """
+    View that handles adding product to the cart.
+    """
     serializer_class = AddToCartSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
