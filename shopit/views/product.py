@@ -146,7 +146,7 @@ class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
         written for this product by the registered customer.
         """
         if not request.customer.is_authenticated():
-            errors = {'not-registered': [_('Not registered customer.')]}
+            errors = {'not-registered': [_('Please register to submit a review.')]}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         if self.get_queryset(include_inactive=True).filter(customer=request.customer).exists():
             errors = {'exists': [_('Review already written for this Product.')]}
