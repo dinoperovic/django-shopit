@@ -18,6 +18,7 @@ from shopit.models.product import Attribute, Product
 from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, ReviewSerializer, WatchItemSerializer)
+from shopit.settings import REVIEW_ACTIVE_DEFAULT
 
 CATEGORIES_VAR = 'c'
 BRANDS_VAR = 'b'
@@ -157,6 +158,7 @@ class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
             product=self.get_product(),
             customer=self.request.customer,
             language=self.request.LANGUAGE_CODE,
+            active=REVIEW_ACTIVE_DEFAULT,
         )
 
 
