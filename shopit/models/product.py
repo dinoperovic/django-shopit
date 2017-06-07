@@ -704,12 +704,14 @@ class Product(BaseProduct, TranslatableModel):
             relations = relations.filter(kind=kind)
         return [x.product for x in relations]
 
-    def get_reviews(self, language=None):
+    def get_reviews(self, language=None, include_inactive=False):
         """
         Returns reviews for this product, uses the group product for varaints.
         """
         if not self.is_variant:
             reviews = getattr(self, '_reviews', None)
+            if include_inactive:
+                reviews = self.reviews.all()
             if reviews is None:
                 reviews = self.reviews.active()
                 self.cache('_reviews', reviews)

@@ -182,7 +182,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ['id', 'customer', 'name', 'text', 'rating', 'url', 'language']
+        fields = ['id', 'customer', 'name', 'text', 'rating', 'language', 'url', 'active', 'created_at', 'updated_at']
 
     def get_url(self, obj):
         url = obj.get_absolute_url()

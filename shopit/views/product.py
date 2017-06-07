@@ -124,8 +124,8 @@ class ProductReviewMixin(object):
     """
     Mixin used in product reviews.
     """
-    def get_queryset(self):
-        return self.get_product().get_reviews(language=self.request.LANGUAGE_CODE)
+    def get_queryset(self, include_inactive=False):
+        return self.get_product().get_reviews(language=self.request.LANGUAGE_CODE, include_inactive=include_inactive)
 
     def get_product(self):
         if not hasattr(self, '_product'):
@@ -148,18 +148,15 @@ class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
         if not request.customer.is_authenticated():
             errors = {'not-registered': _('Not registered customer.')}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
-        if self.get_queryset().filter(customer=self.request.customer).exists():
+        if self.get_queryset(include_inactive=True).filter(customer=request.customer).exists():
             errors = {'exists': _('Review already written for this Product.')}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
-        return super(ProductReviewListView, self).create(request, *args, **kwargs)
-
-    def perform_create(self, serializer):
-        serializer.save(
-            product=self.get_product(),
-            customer=self.request.customer,
-            language=self.request.LANGUAGE_CODE,
-            active=REVIEW_ACTIVE_DEFAULT,
-        )
+        data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE, active=REVIEW_ACTIVE_DEFAULT)  # noqa
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(product=self.get_product())
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
@@ -171,7 +168,7 @@ class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         if not hasattr(self, '_object'):
-            self._object = get_object_or_404(self.get_queryset().filter(id=self.kwargs.get('pk')))
+            self._object = get_object_or_404(self.get_queryset(include_inactive=True).filter(id=self.kwargs.get('pk')))
         return self._object
 
     def update(self, request, *args, **kwargs):
@@ -181,7 +178,11 @@ class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
         if self.get_object().customer != self.request.customer:
             errors = {'not-allowed': _('You can only update your own reviews.')}
             return Response(errors, status=status.HTTP_403_FORBIDDEN)
-        return super(ProductReviewDetailView, self).update(self.request, *args, **kwargs)
+        data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE)
+        serializer = self.get_serializer(self.get_object(), data=data, partial=kwargs.pop('partial', False))
+        serializer.is_valid(raise_exception=True)
+        serializer.save(product=self.get_product())
+        return Response(serializer.data)
 
     def delete(self, request, *args, **kwargs):
         """
@@ -191,13 +192,6 @@ class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
             errors = {'not-allowed': _('You can only delete your own reviews.')}
             return Response(errors, status=status.HTTP_403_FORBIDDEN)
         return super(ProductReviewDetailView, self).delete(self.request, *args, **kwargs)
-
-    def perform_update(self, serializer):
-        serializer.save(
-            product=self.get_product(),
-            customer=self.request.customer,
-            language=self.request.LANGUAGE_CODE,
-        )
 
 
 class AddToCartView(AddToCartViewBase):
