@@ -146,10 +146,10 @@ class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
         written for this product by the registered customer.
         """
         if not request.customer.is_authenticated():
-            errors = {'not-registered': _('Not registered customer.')}
+            errors = {'not-registered': [_('Not registered customer.')]}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         if self.get_queryset(include_inactive=True).filter(customer=request.customer).exists():
-            errors = {'exists': _('Review already written for this Product.')}
+            errors = {'exists': [_('Review already written for this Product.')]}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE, active=REVIEW_ACTIVE_DEFAULT)  # noqa
         serializer = self.get_serializer(data=data)
@@ -176,7 +176,7 @@ class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
         Only allow update for the review owner.
         """
         if self.get_object().customer != self.request.customer:
-            errors = {'not-allowed': _('You can only update your own reviews.')}
+            errors = {'not-allowed': [_('You can only update your own reviews.')]}
             return Response(errors, status=status.HTTP_403_FORBIDDEN)
         data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE)
         serializer = self.get_serializer(self.get_object(), data=data, partial=kwargs.pop('partial', False))
@@ -189,7 +189,7 @@ class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
         Only allow delete for the review owner.
         """
         if self.get_object().customer != self.request.customer:
-            errors = {'not-allowed': _('You can only delete your own reviews.')}
+            errors = {'not-allowed': [_('You can only delete your own reviews.')]}
             return Response(errors, status=status.HTTP_403_FORBIDDEN)
         return super(ProductReviewDetailView, self).delete(self.request, *args, **kwargs)
 
