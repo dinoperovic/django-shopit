@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-22 12:35+0100\n"
-"PO-Revision-Date: 2016-11-22 12:35+0100\n"
+"POT-Creation-Date: 2017-06-07 10:27+0200\n"
+"PO-Revision-Date: 2017-06-07 10:39+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -17,38 +17,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.0.2\n"
 
-#: admin.py:44 admin.py:62 admin.py:103 admin.py:124 admin.py:145 admin.py:203
-#: admin.py:285
+#: admin.py:45 admin.py:65 admin.py:123 admin.py:146 admin.py:174 admin.py:233
+#: admin.py:315
 msgid "Basic info"
 msgstr "Osnovni podaci"
 
-#: admin.py:63 admin.py:104 admin.py:125 admin.py:146 admin.py:204 admin.py:286
+#: admin.py:66 admin.py:124 admin.py:147 admin.py:175 admin.py:234 admin.py:316
 #: templates/shopit/includes/order.html:9
 msgid "Status"
 msgstr "Status"
 
-#: admin.py:64
+#: admin.py:67
 msgid "Amounts"
 msgstr "Iznosi"
 
-#: admin.py:65 admin.py:105 admin.py:148 admin.py:205 admin.py:294
+#: admin.py:68 admin.py:125 admin.py:148 admin.py:178 admin.py:235 admin.py:324
 #: templates/shopit/account/account_detail.html:10
 #: templates/shopit/account/account_settings.html:4
 msgid "Settings"
 msgstr "Postavke"
 
-#: admin.py:78 models/modifier.py:154 models/product.py:783
-#: models/product.py:805
+#: admin.py:81 models/modifier.py:164 models/product.py:944
+#: models/product.py:966
 msgid "Value"
 msgstr "Vrijednost"
 
-#: admin.py:83
+#: admin.py:86
 msgid "Codes"
 msgstr "Kodovi"
 
-#: admin.py:89
+#: admin.py:91
+msgid "Filtering"
+msgstr "Filtriranje"
+
+#: admin.py:97
 msgid ""
 "Displays if code is required for the modifier to be valid. This value "
 "depends on active codes that are assigned to this modifier."
@@ -57,39 +61,55 @@ msgstr ""
 "vrijednost ovisi o tome dali postoje aktivni kodovi povezani na ovu "
 "modifikaciju."
 
-#: admin.py:93
+#: admin.py:101
 msgid "Requires code"
 msgstr "Zahtjeva kod"
 
-#: admin.py:115
+#: admin.py:108
+msgid ""
+"Displays if modifier can be used as a filter to return products with this "
+"modifier selected. Filtering is enabled when modifier is not a \"Cart "
+"modifier\", does not require any codes & has no conditions to be met."
+msgstr ""
+"Prikaži ako modifikacija se moze koristiti kao filter za ispis proizvoda sa "
+"ovom modifikacijom izabranom. Filtriranje je omogućeno kada modifier nije "
+"“Modifikacija košarice”, ne zahtjeva promo kodove & nema uvijeta koji moraju "
+"biti zadovoljeni."
+
+#: admin.py:113
+msgid "Filtering enabled"
+msgstr "Filtriranje omogućeno"
+
+#: admin.py:135
 msgid "Is valid"
 msgstr "Je ispravan"
 
-#: admin.py:147
-msgid "Media"
-msgstr "Media"
-
-#: admin.py:161 admin.py:219 admin.py:347 models/categorization.py:40
-#: models/flag.py:22 models/modifier.py:40 models/product.py:82
-#: models/product.py:714 models/product.py:780 models/tax.py:16
+#: admin.py:161 admin.py:191 admin.py:249 admin.py:377
+#: models/categorization.py:40 models/flag.py:36 models/modifier.py:46
+#: models/product.py:184 models/product.py:875 models/product.py:941
+#: models/product.py:1124 models/tax.py:16
 #: templates/admin/shopit/product_variants_field.html:16
 #: templates/admin/shopit/product_variants_field.html:78
 msgid "Name"
 msgstr "Naziv"
 
-#: admin.py:224 models/product.py:720
-msgid "Template"
-msgstr "Predložak"
-
-#: admin.py:287 models/product.py:87
+#: admin.py:176 admin.py:317 models/categorization.py:42 models/product.py:189
 msgid "Description"
 msgstr "Opis"
 
-#: admin.py:288 templates/shopit/catalog/categorization_list.html:4
+#: admin.py:177
+msgid "Media"
+msgstr "Media"
+
+#: admin.py:254 models/product.py:881
+msgid "Template"
+msgstr "Predložak"
+
+#: admin.py:318 templates/shopit/catalog/categorization_list.html:4
 msgid "Categorization"
 msgstr "Kategorizacija"
 
-#: admin.py:290
+#: admin.py:320
 msgid ""
 "This section is ment for Single and Group products. Variants will inherit "
 "their categorization from their Group."
@@ -97,19 +117,19 @@ msgstr ""
 "Ovaj dio je namijenjen za Samostalne i Grupne proizvode. Varijanti će "
 "naslijediti kategorizaciju iz svoje Grupe."
 
-#: admin.py:292
+#: admin.py:322
 msgid "Pricing"
 msgstr "Cijena"
 
-#: admin.py:293
+#: admin.py:323
 msgid "Stock"
 msgstr "Zaliha"
 
-#: admin.py:295
+#: admin.py:325
 msgid "Measurements"
 msgstr "Mjere"
 
-#: admin.py:297
+#: admin.py:327
 msgid ""
 "Measurements of a product, mostly used for delivery calculations. Variants "
 "can leave this section empty to inherit the values from their Group."
@@ -117,117 +137,117 @@ msgstr ""
 "Mjere proizvoda, najčešće korištene u kalkulacijama za dostavu. Varijanti "
 "mogu pustiti ovaj odjel prazan da bi naslijedili vrijednosti iz svoje Grupe."
 
-#: admin.py:299 admin.py:359 models/product.py:77 models/product.py:143
+#: admin.py:329 admin.py:389 models/product.py:179 models/product.py:245
 msgid "Group"
 msgstr "Grupa"
 
-#: admin.py:300 admin.py:401
+#: admin.py:330 admin.py:431
 msgid "Variants"
 msgstr "Varijanti"
 
-#: admin.py:353 models/categorization.py:41 models/product.py:83
+#: admin.py:383 models/categorization.py:41 models/product.py:185
 msgid "Slug"
 msgstr "Slug"
 
-#: admin.py:363 admin.py:385 models/product.py:100
+#: admin.py:393 admin.py:415 models/product.py:202
 msgid "Unit price"
 msgstr "Jedinična cijena"
 
-#: admin.py:368 models/product.py:104
+#: admin.py:398 models/product.py:206
 msgid "Discount %"
 msgstr "Popust %"
 
-#: admin.py:373
+#: admin.py:403
 msgid "Tax %"
 msgstr "Porez %"
 
-#: admin.py:377 admin.py:388
+#: admin.py:407 admin.py:418
 #: templates/admin/shopit/product_variants_field.html:20
 #: templates/shopit/includes/cart.html:10
 #: templates/shopit/includes/order.html:14 templates/shopit/shop/watch.html:12
 msgid "Price"
 msgstr "Cijena"
 
-#: admin.py:382 models/product.py:147
+#: admin.py:412 models/product.py:249
 msgid "Published"
 msgstr "Objavljeno"
 
-#: admin.py:386
+#: admin.py:416
 msgid "Discount percent"
 msgstr "Postotak popusta"
 
-#: admin.py:387
+#: admin.py:417
 msgid "Tax percent"
 msgstr "Postotak poreze"
 
-#: admin.py:391
+#: admin.py:421
 msgid "Summary"
 msgstr "Sažetak"
 
-#: admin.py:446
+#: admin.py:457
 msgid "Variant successfully created."
 msgstr "Varijant uspiješno unešen."
 
-#: admin.py:458
+#: admin.py:467
 msgid "Variant successfully deleted."
 msgstr "Varijant uspiješno izbrisan."
 
-#: admin.py:471
+#: admin.py:474
 msgid "Variants successfully created."
 msgstr "Varijanti uspiješno unešeni."
 
-#: admin.py:480
+#: admin.py:483
 msgid "Invalid variants successfully deleted."
 msgstr "Nevažeči varijanti uspiješno izbrisani."
 
-#: admin.py:499
+#: admin.py:502
 msgid "1 Product was successfully marked as active."
 msgstr "1 Proizvod je uspiješno označen kao aktivan."
 
-#: admin.py:501
+#: admin.py:504
 #, python-format
 msgid "%s Products were successfully marked as active."
 msgstr "%s Proizvoda su uspiješno označeni kao aktivni."
 
-#: admin.py:503
+#: admin.py:506
 msgid "Mark selected Products as active"
 msgstr "Označi izabrane Proizvode ako aktivne"
 
-#: admin.py:508
+#: admin.py:511
 msgid "1 Product was successfully marked as inactive."
 msgstr "1 Proizvod je uspiješno označen kao neaktivan."
 
-#: admin.py:510
+#: admin.py:513
 #, python-format
 msgid "%s Products were successfully marked as inactive."
 msgstr "%s Proizvoda su uspiješno označeni kao neaktivni."
 
-#: admin.py:512
+#: admin.py:515
 msgid "Mark selected Products as inactive"
 msgstr "Označi izabrane Proizvode kao neaktivne."
 
-#: apps.py:10 cms_apps.py:13 cms_toolbars.py:25 cms_toolbars.py:30
-#: cms_toolbars.py:56 views/categorization.py:90 views/product.py:108
+#: apps.py:10 cms_apps.py:19 cms_toolbars.py:25 cms_toolbars.py:30
+#: cms_toolbars.py:56 views/categorization.py:89 views/product.py:101
 msgid "Shopit"
 msgstr "Shopit"
 
-#: cms_apps.py:22
+#: cms_apps.py:28
 msgid "Shopit Account"
 msgstr "Shopit Korisnički račun"
 
-#: cms_apps.py:29
+#: cms_apps.py:35
 msgid "Shopit Categories"
 msgstr "Shopit Kategorije"
 
-#: cms_apps.py:36
+#: cms_apps.py:42
 msgid "Shopit Brands"
 msgstr "Shopit Brandovi"
 
-#: cms_apps.py:43
+#: cms_apps.py:49
 msgid "Shopit Manufacturers"
 msgstr "Shopit Proizvođači"
 
-#: cms_apps.py:50
+#: cms_apps.py:56
 msgid "Shopit Products"
 msgstr "Shopit Proizvodi"
 
@@ -267,22 +287,22 @@ msgstr "Dodaj Novog Proizvođača"
 msgid "Add New"
 msgstr "Dodaj Novo"
 
-#: cms_toolbars.py:59 models/product.py:162 models/product.py:804
-#: models/product.py:859 models/product.py:919 models/product.py:960
+#: cms_toolbars.py:59 models/product.py:264 models/product.py:965
+#: models/product.py:1021 models/product.py:1079 models/product.py:1120
 #: templates/shopit/includes/cart.html:9
 #: templates/shopit/includes/order.html:13 templates/shopit/shop/watch.html:11
 msgid "Product"
 msgstr "Proizvod"
 
-#: cms_toolbars.py:60 models/categorization.py:156 models/product.py:95
+#: cms_toolbars.py:60 models/categorization.py:158 models/product.py:197
 msgid "Category"
 msgstr "Kategorija"
 
-#: cms_toolbars.py:61 models/categorization.py:176 models/product.py:96
+#: cms_toolbars.py:61 models/categorization.py:178 models/product.py:198
 msgid "Brand"
 msgstr "Brend"
 
-#: cms_toolbars.py:62 models/categorization.py:186 models/product.py:97
+#: cms_toolbars.py:62 models/categorization.py:188 models/product.py:199
 msgid "Manufacturer"
 msgstr "Proizvođač"
 
@@ -290,27 +310,27 @@ msgstr "Proizvođač"
 msgid "An account with this email address already exists."
 msgstr "Korisnički račun sa ovom email adresom već postoji."
 
-#: forms/account.py:29 forms/account.py:33 forms/account.py:55 forms/shop.py:75
+#: forms/account.py:29 forms/account.py:33 forms/account.py:61 forms/shop.py:75
 msgid "Email address"
 msgstr "Email adresa"
 
-#: forms/account.py:53
+#: forms/account.py:59
 msgid "First name"
 msgstr "Ime"
 
-#: forms/account.py:54
+#: forms/account.py:60
 msgid "Last name"
 msgstr "Prezime"
 
-#: forms/account.py:76
+#: forms/account.py:82
 msgid "Info successfully updated."
 msgstr "Informacije uspiješno ažurirane."
 
-#: forms/account.py:90
+#: forms/account.py:96
 msgid "Password successfully changed."
 msgstr "Lozinka uspiješno promijenjena."
 
-#: forms/shop.py:33 models/modifier.py:224
+#: forms/shop.py:33 models/modifier.py:234
 msgid "Discount code"
 msgstr "Kod za popust"
 
@@ -322,11 +342,11 @@ msgstr "Koristi postojeću adresu"
 msgid "Use shipping address for billing"
 msgstr "Koristi adresu dostave za adresu plaćanja"
 
-#: forms/shop.py:171 templates/shopit/shop/checkout.html:28
+#: forms/shop.py:171 templates/shopit/shop/checkout.html:31
 msgid "Payment method"
 msgstr "Način plaćanja"
 
-#: forms/shop.py:182 templates/shopit/shop/checkout.html:33
+#: forms/shop.py:182 templates/shopit/shop/checkout.html:36
 msgid "Delivery method"
 msgstr "Način dostave"
 
@@ -363,7 +383,7 @@ msgid "Country"
 msgstr "Država"
 
 #: models/address.py:32 templates/shopit/includes/order.html:10
-#: templates/shopit/shop/checkout.html:16
+#: templates/shopit/shop/checkout.html:17
 msgid "Shipping address"
 msgstr "Adresa dostave"
 
@@ -372,7 +392,7 @@ msgid "Shipping addresses"
 msgstr "Adrese dostave"
 
 #: models/address.py:43 templates/shopit/includes/order.html:10
-#: templates/shopit/shop/checkout.html:22
+#: templates/shopit/shop/checkout.html:23
 msgid "Billing address"
 msgstr "Adresa plaćanja"
 
@@ -396,8 +416,8 @@ msgstr "Artikal"
 msgid "Cart items"
 msgstr "Artikli"
 
-#: models/cart.py:51 models/flag.py:25 models/modifier.py:43
-#: models/modifier.py:208 models/product.py:92 models/product.py:717
+#: models/cart.py:51 models/flag.py:39 models/modifier.py:49
+#: models/modifier.py:218 models/product.py:194 models/product.py:878
 #: templates/admin/shopit/product_variants_field.html:21
 msgid "Code"
 msgstr "Kod"
@@ -410,55 +430,63 @@ msgstr "Kod za popust košarice"
 msgid "Cart discount codes"
 msgstr "Kodovi za popust košarice"
 
-#: models/categorization.py:55
+#: models/categorization.py:43
+msgid ""
+"Description of a categorization, usually used as lead text in "
+"categorization's detail view."
+msgstr ""
+"Opis kategorizacije, koristi se najčešće kao uvodni teksts u detaljima "
+"kategorizacije."
+
+#: models/categorization.py:57
 msgid "Featured image"
 msgstr "Istaknuta slika"
 
-#: models/categorization.py:56
+#: models/categorization.py:58
 msgid "If left empty for childs, a parent's featured image will be used."
 msgstr ""
 "Ako je prazno za djecu, istaknuta slika or roditelja će biti korištena."
 
-#: models/categorization.py:59
+#: models/categorization.py:61 models/flag.py:42
 msgid "Parent"
 msgstr "Roditelj"
 
-#: models/categorization.py:62 models/modifier.py:65 models/product.py:124
+#: models/categorization.py:64 models/modifier.py:71 models/product.py:226
 msgid "Modifiers"
 msgstr "Modifikacije"
 
-#: models/categorization.py:65 models/flag.py:37 models/product.py:127
+#: models/categorization.py:67 models/flag.py:53 models/product.py:229
 msgid "Flags"
 msgstr "Oznake"
 
-#: models/categorization.py:66
+#: models/categorization.py:68
 msgid "Check flags for products in this categorization."
 msgstr "Izaberi oznake za proizvode u ovoj kategorizaciji."
 
-#: models/categorization.py:68 models/flag.py:27 models/modifier.py:55
-#: models/modifier.py:215 models/product.py:726 models/product.py:971
+#: models/categorization.py:70 models/flag.py:44 models/modifier.py:61
+#: models/modifier.py:225 models/product.py:887 models/product.py:1129
 msgid "Active"
 msgstr "Aktivno"
 
-#: models/categorization.py:68
+#: models/categorization.py:70
 msgid "Is this categorization publicly visible."
 msgstr "Je ova kategorizacija javno vidljiva."
 
-#: models/categorization.py:69 models/flag.py:28 models/modifier.py:56
-#: models/product.py:727 models/product.py:972
+#: models/categorization.py:71 models/flag.py:45 models/modifier.py:62
+#: models/product.py:888 models/product.py:1130
 msgid "Created at"
 msgstr "Napravljeno u"
 
-#: models/categorization.py:70 models/flag.py:29 models/modifier.py:57
-#: models/product.py:728 models/product.py:973
+#: models/categorization.py:72 models/flag.py:46 models/modifier.py:63
+#: models/product.py:889 models/product.py:1131
 msgid "Updated at"
 msgstr "Ažurirano u"
 
-#: models/categorization.py:151 models/product.py:109 models/tax.py:27
+#: models/categorization.py:153 models/product.py:211 models/tax.py:27
 msgid "Tax"
 msgstr "Porez"
 
-#: models/categorization.py:152
+#: models/categorization.py:154
 msgid ""
 "Tax to be applied to products in this category. If empty, parent's tax will "
 "be used."
@@ -466,28 +494,44 @@ msgstr ""
 "Porez na proizvode u ovoj kategoriji. Ako je prazno, porez od roditelja će "
 "bit korišten."
 
-#: models/categorization.py:157
+#: models/categorization.py:159
 msgid "Categories"
 msgstr "Kategorije"
 
-#: models/categorization.py:177
+#: models/categorization.py:179
 msgid "Brands"
 msgstr "Brendovi"
 
-#: models/categorization.py:187
+#: models/categorization.py:189
 msgid "Manufacturers"
 msgstr "Proizvođači"
 
 #: models/customer.py:12
+msgid "Mrs."
+msgstr "Gđa."
+
+#: models/customer.py:12
+msgid "Mr."
+msgstr "G."
+
+#: models/customer.py:12
+msgid "(n/a)"
+msgstr "(n/a)"
+
+#: models/customer.py:14
 msgid "Customer Number"
 msgstr "Broj kupca"
 
-#: models/customer.py:23 models/modifier.py:212 models/product.py:963
+#: models/customer.py:15
+msgid "Salutation"
+msgstr "Naziv"
+
+#: models/customer.py:19 models/modifier.py:222 models/product.py:1123
 #: templates/shopit/shop/checkout.html:11
 msgid "Customer"
 msgstr "Kupac"
 
-#: models/customer.py:24
+#: models/customer.py:20
 msgid "Customers"
 msgstr "Kupci"
 
@@ -511,59 +555,52 @@ msgstr "Dostavljen artikal"
 msgid "Delivery items"
 msgstr "Dostavljeni artikli"
 
-#: models/flag.py:25
+#: models/flag.py:39
 msgid "Unique identifier for this flag."
 msgstr "Jedinstveni identifikator za oznaku."
 
-#: models/flag.py:27
+#: models/flag.py:44
 msgid "Is this flag publicly visible."
 msgstr "Je ova oznako javno vidljiva."
 
-#: models/flag.py:30 models/modifier.py:58 models/modifier.py:156
-#: models/modifier.py:218 models/product.py:153 models/product.py:729
-#: models/product.py:785 models/product.py:863 models/product.py:924
-#: models/product.py:974 models/tax.py:23
-msgid "Sort"
-msgstr "Poredak"
-
-#: models/flag.py:36
+#: models/flag.py:52
 msgid "Flag"
 msgstr "Oznaka"
 
-#: models/modifier.py:34
+#: models/modifier.py:40
 msgid "Standard"
 msgstr "Standard"
 
-#: models/modifier.py:35
+#: models/modifier.py:41
 msgid "Discount"
 msgstr "Popust"
 
-#: models/modifier.py:36 templates/shopit/shop/cart.html:4
+#: models/modifier.py:42 templates/shopit/shop/cart.html:4
 msgid "Cart"
 msgstr "Košarica"
 
-#: models/modifier.py:43
+#: models/modifier.py:49
 msgid "Unique identifier for this modifier."
 msgstr "Jedinstveni identifikator za modifikaciju."
 
-#: models/modifier.py:45
+#: models/modifier.py:51
 msgid "Amount"
 msgstr "Iznos"
 
-#: models/modifier.py:48 models/tax.py:20
+#: models/modifier.py:54 models/tax.py:20
 msgid "Percent"
 msgstr "Postotak"
 
-#: models/modifier.py:49
+#: models/modifier.py:55
 msgid "Percent that should be added, overrides the amount. Can be negative."
 msgstr "Postotak koji se dodaje, pregazuje iznos. Može biti negativan."
 
-#: models/modifier.py:51 models/product.py:114 models/product.py:860
-#: models/product.py:922
+#: models/modifier.py:57 models/product.py:216 models/product.py:1022
+#: models/product.py:1082
 msgid "Kind"
 msgstr "Tip"
 
-#: models/modifier.py:52
+#: models/modifier.py:58
 msgid ""
 "Standard affects the product regardles, Discount checks for a \"Discountable"
 "\" flag on a product and should be negative, Cart will affect an entire cart."
@@ -572,43 +609,50 @@ msgstr ""
 "popusta” oznaku na proizvodu i nesmije biti negativan, Košarica će utjecati "
 "na cijelu košaricu."
 
-#: models/modifier.py:55
+#: models/modifier.py:61
 msgid "Is this modifier publicly visible."
 msgstr "Je ova modifikacija javno vidljiva."
 
-#: models/modifier.py:64 models/modifier.py:152 models/modifier.py:205
+#: models/modifier.py:64 models/modifier.py:166 models/modifier.py:228
+#: models/product.py:255 models/product.py:890 models/product.py:946
+#: models/product.py:1025 models/product.py:1084 models/product.py:1132
+#: models/tax.py:23
+msgid "Sort"
+msgstr "Poredak"
+
+#: models/modifier.py:70 models/modifier.py:162 models/modifier.py:215
 msgid "Modifier"
 msgstr "Modifikacija"
 
-#: models/modifier.py:153 models/modifier.py:160
+#: models/modifier.py:163 models/modifier.py:170
 msgid "Condition"
 msgstr "Uvijet"
 
-#: models/modifier.py:161
+#: models/modifier.py:171
 msgid "Conditions"
 msgstr "Uvijeti"
 
-#: models/modifier.py:206
+#: models/modifier.py:216
 msgid "Modifier that this discount code applies to."
 msgstr "Mdifikacija na koje se ovaj kod popusta odnosi."
 
-#: models/modifier.py:209
+#: models/modifier.py:219
 msgid "Code that must be entered for the modifier to activate."
 msgstr "Kod koji mora biti unešen da bi se modifikacija aktivirala."
 
-#: models/modifier.py:213
+#: models/modifier.py:223
 msgid "Limit code so that it can be used only by a specific customer."
 msgstr "Limitiraj kod da ga moze korisititi samo određeni kupac."
 
-#: models/modifier.py:216
+#: models/modifier.py:226
 msgid "Valid from"
 msgstr "Vrijedi od"
 
-#: models/modifier.py:217
+#: models/modifier.py:227
 msgid "Valid until"
 msgstr "Vrijedi do"
 
-#: models/modifier.py:225
+#: models/modifier.py:235
 msgid "Discount codes"
 msgstr "Kodovi popusta"
 
@@ -642,62 +686,62 @@ msgstr "Narudžba"
 msgid "Orders"
 msgstr "Narudžbe"
 
-#: models/order.py:97
+#: models/order.py:102
 msgid "Ordered quantity"
 msgstr "Naručena količina"
 
-#: models/order.py:98
+#: models/order.py:103
 msgid "Item canceled"
 msgstr "Stavka odkazana"
 
-#: models/order.py:102
+#: models/order.py:107
 msgid "Order item"
 msgstr "Artikal"
 
-#: models/order.py:103
+#: models/order.py:108
 msgid "Order items"
 msgstr "Artikli"
 
-#: models/product.py:76
+#: models/product.py:178
 msgid "Single"
 msgstr "Samostalan"
 
-#: models/product.py:78
+#: models/product.py:180
 msgid "Variant"
 msgstr "Varijant"
 
-#: models/product.py:84
+#: models/product.py:186
 msgid "Part that's used in url to display this product. Needs to be unique."
 msgstr ""
 "Dio koji se koristi url-u da se prikaže ovaj proizvod. Mora biti jedinstven."
 
-#: models/product.py:85
+#: models/product.py:187
 msgid "Caption"
 msgstr "Podnaslov"
 
-#: models/product.py:86
+#: models/product.py:188
 msgid "Short product caption, usually used in catalog's list view of products."
 msgstr "Kratki podnaslov proizvoda, koristi se najčešće na listi proizvoda."
 
-#: models/product.py:88
+#: models/product.py:190
 msgid ""
 "Description of a product, usually used as lead text in product's detail view."
 msgstr ""
 "Opis proizvoda, koristi se najčešće kao uvodni teksts u detaljima proizvoda."
 
-#: models/product.py:92
+#: models/product.py:194
 msgid "Unique identifier for a product."
 msgstr "Jedinstveni identifikator za proizvod."
 
-#: models/product.py:101
+#: models/product.py:203
 msgid "For variants leave empty to use the Group price."
 msgstr "Za varijante ostaviti prazno da koriste cijenu iz Grupe."
 
-#: models/product.py:106
+#: models/product.py:208
 msgid "For variants leave empty to use Group discount."
 msgstr "Za varijante ostaviti prazno da koriste popust iz Grupe."
 
-#: models/product.py:110
+#: models/product.py:212
 msgid ""
 "Tax to be applied to this product. Variants inherit tax percentage from "
 "their Group, and should leave this field empty."
@@ -705,7 +749,7 @@ msgstr ""
 "Porez za proizvod. Varijanti naslijeđuju postotak poreza is njihove Grupe, i "
 "trebaju pustiti ovo polje prazno."
 
-#: models/product.py:115
+#: models/product.py:217
 msgid ""
 "Choose a product type. Single products are products without variations. "
 "Group products are base products that hold variants and their common info, "
@@ -719,55 +763,56 @@ msgstr ""
 "varijacije proizvoda koje moraju izabrati Groupni proizvod, i postavit "
 "njihove jedinstvene atribute. (Pogledaj sekciju “Varijanti” ispod)"
 
-#: models/product.py:120
+#: models/product.py:222
 msgid "Discountable"
 msgstr "Mogućnost popusta"
 
-#: models/product.py:121
+#: models/product.py:223
 msgid "Can this product be used in an offer?"
 msgstr "Može li se ovaj proizvod koristiti u ponudi?"
 
-#: models/product.py:128
+#: models/product.py:230
 msgid "Check flags for this product."
 msgstr "Izaberi oznake za ovaj proizvod."
 
-#: models/product.py:131
+#: models/product.py:233
 msgid "Width"
 msgstr "Širina"
 
-#: models/product.py:132
+#: models/product.py:234
 msgid "Height"
 msgstr "Visina"
 
-#: models/product.py:133
+#: models/product.py:235
 msgid "Depth"
 msgstr "Dubljina"
 
-#: models/product.py:134
+#: models/product.py:236
 msgid "Weight"
 msgstr "Težina"
 
-#: models/product.py:138 models/product.py:146 models/product.py:736
+#: models/product.py:240 models/product.py:248 models/product.py:897
 #: templates/admin/shopit/product_variants_field.html:79
+#: templates/shopit/catalog/product_list.html:13
 msgid "Attributes"
 msgstr "Atributi"
 
-#: models/product.py:139
+#: models/product.py:241
 msgid "Select attributes that can be used in a Variant for this product."
 msgstr ""
 "Izaberite atribute koje se smiju koristiti u Varijantima za ovaj proizvod."
 
-#: models/product.py:144
+#: models/product.py:246
 msgid "Select a Group product for this variation."
 msgstr "Izaberite Grupni proizvod za ovu varijaciju."
 
-#: models/product.py:149 templates/admin/shopit/product_variants_field.html:22
+#: models/product.py:251 templates/admin/shopit/product_variants_field.html:22
 #: templates/shopit/includes/cart.html:11
 #: templates/shopit/includes/order.html:15
 msgid "Quantity"
 msgstr "Količina"
 
-#: models/product.py:150
+#: models/product.py:252
 msgid ""
 "Number of available products to ship. Leave empty if product is always "
 "available, or set to 0 if product is not available."
@@ -775,17 +820,17 @@ msgstr ""
 "Broj proizvoda dostupnih za dostavu. Pustite prazno ako je proizvod uvijek "
 "dostupan, ili stavite na 0 ako je proizvod nedostupan."
 
-#: models/product.py:163 templates/shopit/catalog/product_list.html:4
+#: models/product.py:265 templates/shopit/catalog/product_list.html:4
 msgid "Products"
 msgstr "Proizvodi"
 
-#: models/product.py:718
+#: models/product.py:879
 msgid "An identifier that's used to access this attribute. Must be unique."
 msgstr ""
 "Identifikator koji se koristi za dohvatiti ovaj atribut. Mora biti "
 "jedinstven."
 
-#: models/product.py:721
+#: models/product.py:882
 msgid ""
 "You can specify a template for rendering this attribute or leave it empty "
 "for the default (dropdown) look."
@@ -793,89 +838,93 @@ msgstr ""
 "Mozete izabrati predložak za prikazivanje ovog atributa ili pustiti prazno "
 "za obični (padajući) izgled."
 
-#: models/product.py:723
+#: models/product.py:884
 msgid "Nullable"
 msgstr "Prazno"
 
-#: models/product.py:724
+#: models/product.py:885
 msgid "Check this if you want to make \"empty\" an option for this Attribute."
 msgstr "Izaberi ovo ako želite da “prazno” bude opcija za ovaj Atribut. "
 
-#: models/product.py:726
+#: models/product.py:887
 msgid "Is this attribute publicly visible."
 msgstr "Je ovaj atribut javno vidljiv."
 
-#: models/product.py:735 models/product.py:777 models/product.py:803
+#: models/product.py:896 models/product.py:938 models/product.py:964
 msgid "Attribute"
 msgstr "Atribut"
 
-#: models/product.py:784 models/product.py:850 models/product.py:861
+#: models/product.py:945 models/product.py:1012 models/product.py:1023
 msgid "File"
 msgstr "Datoteka"
 
-#: models/product.py:789
+#: models/product.py:950
 msgid "Choice"
 msgstr "Izbor"
 
-#: models/product.py:790
+#: models/product.py:951
 msgid "Choices"
 msgstr "Izbori"
 
-#: models/product.py:809
+#: models/product.py:970
 msgid "Attribute Value"
 msgstr "Vrijednos Atributa"
 
-#: models/product.py:810
+#: models/product.py:971
 msgid "Attribute Values"
 msgstr "Vrijednosti Atributa"
 
-#: models/product.py:848
+#: models/product.py:1010
 msgid "Image"
 msgstr "Slika"
 
-#: models/product.py:849
+#: models/product.py:1011
 msgid "Video"
 msgstr "Video"
 
-#: models/product.py:862
+#: models/product.py:1024
 msgid "Url"
 msgstr "Url"
 
-#: models/product.py:867
+#: models/product.py:1029
 msgid "Attachment"
 msgstr "Priložak"
 
-#: models/product.py:868
+#: models/product.py:1030
 msgid "Attachments"
 msgstr "Prilošci"
 
-#: models/product.py:928
+#: models/product.py:1088
 msgid "Relation"
 msgstr "Relacija"
 
-#: models/product.py:929
+#: models/product.py:1089
 msgid "Relations"
 msgstr "Relacije"
 
-#: models/product.py:966
-msgid "Body"
-msgstr "Tijelo"
+#: models/product.py:1125
+msgid "Text"
+msgstr "Tekst"
 
-#: models/product.py:969
+#: models/product.py:1126
 msgid "Rating"
 msgstr "Ocijena"
 
-#: models/product.py:971
+#: models/product.py:1127
+msgid "Language"
+msgstr "Jezik"
+
+#: models/product.py:1129
 msgid "Is this review publicly visible."
-msgstr "Je ovaj pregled javno vidljiv."
+msgstr "Je ova recenzija javno vidljiva."
 
-#: models/product.py:980
+#: models/product.py:1138
 msgid "Review"
-msgstr "Pregled"
+msgstr "Recenzija"
 
-#: models/product.py:981
+#: models/product.py:1139
 msgid "Reviews"
-msgstr "Pregledi"
+msgstr "Recenzije"
 
 #: models/tax.py:21
 msgid "Tax percentage."
@@ -1003,11 +1052,11 @@ msgstr "Kod je već unešen za vašu košaricu."
 msgid "Code is invalid or expired."
 msgstr "Koje nevažeči ili je istekao."
 
-#: settings.py:44
+#: settings.py:53
 msgid "Up-sell"
 msgstr "Up-sell"
 
-#: settings.py:45
+#: settings.py:54
 msgid "Cross-sell"
 msgstr "Cross-sell"
 
@@ -1118,6 +1167,15 @@ msgstr "Zaboravili ste lozinku?"
 msgid "Login"
 msgstr "Prijava"
 
+#: templates/shopit/account/account_login.html:11
+msgid "or"
+msgstr "ili"
+
+#: templates/shopit/account/account_login.html:12
+#: templates/shopit/account/account_register.html:10
+msgid "Register"
+msgstr "Registriraj se"
+
 #: templates/shopit/account/account_order_list.html:11
 msgid "No orders."
 msgstr "Nema narudžbi."
@@ -1125,10 +1183,6 @@ msgstr "Nema narudžbi."
 #: templates/shopit/account/account_register.html:4
 msgid "Account register"
 msgstr "Registracija korisničkog računa"
-
-#: templates/shopit/account/account_register.html:10
-msgid "Register"
-msgstr "Registriraj se"
 
 #: templates/shopit/account/account_reset.html:4
 msgid "Password reset"
@@ -1161,24 +1215,28 @@ msgid "Change password"
 msgstr "Promijeni lozinku"
 
 #: templates/shopit/account/account_settings.html:16
-#: templates/shopit/shop/checkout.html:47
+#: templates/shopit/shop/checkout.html:51
 msgid "Submit"
 msgstr "Podvrdi"
 
-#: templates/shopit/catalog/product_detail.html:24
-#: templates/shopit/catalog/product_detail.html:65
+#: templates/shopit/catalog/product_detail.html:15
+msgid "Choose variation"
+msgstr "Izaberite varijaciju"
+
+#: templates/shopit/catalog/product_detail.html:30
+#: templates/shopit/catalog/product_detail.html:73
 msgid "Not available."
 msgstr "Nije dostupno."
 
-#: templates/shopit/catalog/product_list.html:23
-msgid "Price from"
-msgstr "Cijena od"
+#: templates/shopit/catalog/product_list.html:30
+msgid "Price from / price to"
+msgstr "Cijena od / cijena do"
 
-#: templates/shopit/catalog/product_list.html:29
-msgid "Price to"
-msgstr "Cijena do"
+#: templates/shopit/catalog/product_list.html:64
+msgid "Details"
+msgstr "Detalji"
 
-#: templates/shopit/catalog/product_list.html:41
+#: templates/shopit/catalog/product_list.html:68
 msgid "No products."
 msgstr "Nema proizvoda."
 
@@ -1210,25 +1268,25 @@ msgid "Password reset on %(site_name)s"
 msgstr "Reset lozinke na %(site_name)s"
 
 #: templates/shopit/includes/add_to_cart.html:9
-#: templates/shopit/includes/add_to_cart.html:75
+#: templates/shopit/includes/add_to_cart.html:81
 #: templates/shopit/shop/watch.html:13
 msgid "Add to cart"
 msgstr "Dodaj u košaricu"
 
 #: templates/shopit/includes/add_to_cart.html:10
-#: templates/shopit/includes/add_to_cart.html:76
+#: templates/shopit/includes/add_to_cart.html:82
 msgid "Not available"
 msgstr "Nije dostupno"
 
 #: templates/shopit/includes/add_to_cart.html:11
-#: templates/shopit/includes/add_to_cart.html:78
-#: templates/shopit/includes/add_to_cart.html:79
+#: templates/shopit/includes/add_to_cart.html:84
+#: templates/shopit/includes/add_to_cart.html:85
 #: templates/shopit/shop/watch.html:4
 msgid "Watch"
 msgstr "Watch"
 
-#: templates/shopit/includes/add_to_cart.html:77
-#: templates/shopit/includes/add_to_cart.html:80
+#: templates/shopit/includes/add_to_cart.html:83
+#: templates/shopit/includes/add_to_cart.html:86
 msgid "Adding"
 msgstr "Dodaje se"
 
@@ -1244,7 +1302,7 @@ msgstr "Ukupno"
 msgid "Subtotal"
 msgstr "Međuzbroj"
 
-#: templates/shopit/includes/cart.html:41
+#: templates/shopit/includes/cart.html:46
 msgid "Update the cart"
 msgstr "Ažuriraj košaricu"
 
@@ -1264,15 +1322,15 @@ msgstr "Preostali iznos"
 msgid "No order."
 msgstr "Nema narudžbe."
 
-#: templates/shopit/shop/cart.html:9
+#: templates/shopit/shop/cart.html:10
 msgid "Empty the cart"
 msgstr "Isprazni košaricu"
 
-#: templates/shopit/shop/cart.html:10
+#: templates/shopit/shop/cart.html:11
 msgid "Proceed to checkout"
 msgstr "Nastavi na blagajnu"
 
-#: templates/shopit/shop/cart.html:12
+#: templates/shopit/shop/cart.html:14
 msgid "Cart is empty."
 msgstr "Košarica je prazna."
 
@@ -1284,11 +1342,11 @@ msgstr "Checkout"
 msgid "Guest"
 msgstr "Gost"
 
-#: templates/shopit/shop/checkout.html:38
+#: templates/shopit/shop/checkout.html:42
 msgid "Extra annotation"
 msgstr "Dodatne informacije"
 
-#: templates/shopit/shop/checkout.html:43
+#: templates/shopit/shop/checkout.html:47
 msgid "Accept condition"
 msgstr "Prihvati uvijet"
 
@@ -1311,234 +1369,280 @@ msgstr "<a href=“%(link)s”>Prijavite se</a> da pratite Vaše narudžbe."
 msgid "You're not watching any items."
 msgstr "Ne pratiš ni jedan artikal."
 
-#: urls.py:24
+#: urls/__init__.py:24
 msgid "cart/$"
 msgstr "kosarica/$"
 
-#: urls.py:25
+#: urls/__init__.py:25
 msgid "cart/empty/$"
 msgstr "kosarica/isprazni/$"
 
-#: urls.py:26
+#: urls/__init__.py:26
 msgid "watch/$"
 msgstr "watch/$"
 
-#: urls.py:27
+#: urls/__init__.py:27
 msgid "checkout/$"
 msgstr "checkout/$"
 
-#: urls.py:28
+#: urls/__init__.py:28
 msgid "thanks/$"
 msgstr "hvala/$"
 
-#: urls.py:31
+#: urls/__init__.py:31
 msgid "shop/$"
 msgstr "shop/$"
 
-#: urls.py:32
+#: urls/__init__.py:32
 msgid "shop/cart/$"
 msgstr "shop/kosarica/$"
 
-#: urls.py:33
+#: urls/__init__.py:33
 msgid "shop/cart/empty/$"
 msgstr "shop/kosarica/isprazni/$"
 
-#: urls.py:34
+#: urls/__init__.py:34
 msgid "shop/watch/$"
 msgstr "shop/watch/$"
 
-#: urls.py:35
+#: urls/__init__.py:35
 msgid "shop/checkout/$"
 msgstr "shop/checkout/$"
 
-#: urls.py:36
+#: urls/__init__.py:36
 msgid "shop/thanks/$"
 msgstr "shop/hvala/$"
 
-#: urls.py:51
+#: urls/__init__.py:51
 msgid "^login/$"
 msgstr "^prijava/$"
 
-#: urls.py:52
+#: urls/__init__.py:52
 msgid "^logout/$"
 msgstr "^odjava/$"
 
-#: urls.py:53
+#: urls/__init__.py:53
 msgid "^register/$"
 msgstr "^registracija/$"
 
-#: urls.py:54
+#: urls/__init__.py:54
 msgid "^reset/$"
 msgstr "^resetiraj/$"
 
-#: urls.py:55
+#: urls/__init__.py:55
 #, python-format
 msgid "^reset/confirm/%s/$"
 msgstr "^resetiraj/potvrdi/%s/$"
 
-#: urls.py:56
+#: urls/__init__.py:56
 msgid "^orders/$"
 msgstr "^narudzbe/$"
 
-#: urls.py:57
+#: urls/__init__.py:57
 #, python-format
 msgid "^orders/%s/$"
 msgstr "^narudzbe/%s/$"
 
-#: urls.py:58
+#: urls/__init__.py:58
 msgid "^orders/latest/$"
 msgstr "^narudzbe/zadnja/$"
 
-#: urls.py:59
+#: urls/__init__.py:59
 msgid "^settings/$"
 msgstr "^postavke/$"
 
-#: urls.py:60
+#: urls/__init__.py:60
 msgid "^settings/details/$"
 msgstr "^postavke/detalji/$"
 
-#: urls.py:61
+#: urls/__init__.py:61
 msgid "^settings/password/$"
 msgstr "^postavke/lozinka/$"
 
-#: urls.py:64
+#: urls/__init__.py:64
 msgid "^account/$"
 msgstr "^korisnicki-racun/$"
 
-#: urls.py:65
+#: urls/__init__.py:65
 msgid "^account/login/$"
 msgstr "^korisnicki-racun/prijava/$"
 
-#: urls.py:66
+#: urls/__init__.py:66
 msgid "^account/logout/$"
 msgstr "^korisnicki-racun/odjava/$"
 
-#: urls.py:67
+#: urls/__init__.py:67
 msgid "^account/register/$"
 msgstr "^korisnicni-racun/registracija/$"
 
-#: urls.py:68
+#: urls/__init__.py:68
 msgid "^account/reset/$"
 msgstr "^korisnicni-racun/resetiraj/$"
 
-#: urls.py:69
+#: urls/__init__.py:69
 #, python-format
 msgid "^account/reset/confirm/%s/$"
 msgstr "^korisnicki-racun/resetiraj/potvrdi/%s/$"
 
-#: urls.py:70
+#: urls/__init__.py:70
 msgid "^account/orders/$"
 msgstr "^korisnicki-racun/narudzbe/$"
 
-#: urls.py:71
+#: urls/__init__.py:71
 #, python-format
 msgid "^account/orders/%s/$"
 msgstr "^korisnicki-racun/narudzbe/%s/$"
 
-#: urls.py:72
+#: urls/__init__.py:72
 msgid "^account/orders/latest/$"
 msgstr "^korisnicni-racun/narudzbe/zadnja/$"
 
-#: urls.py:73
+#: urls/__init__.py:73
 msgid "^account/settings/$"
 msgstr "^korisnicki-racun/postavke/$"
 
-#: urls.py:74
+#: urls/__init__.py:74
 msgid "^account/settings/details/$"
 msgstr "^korisnicki-racun/postavke/detalji/$"
 
-#: urls.py:75
+#: urls/__init__.py:75
 msgid "^account/settings/password/$"
 msgstr "^korisnicki-racun/postavke/lozinka/$"
 
-#: urls.py:98
+#: urls/__init__.py:98
 msgid "^categories/$"
 msgstr "^kategorije/$"
 
-#: urls.py:99
+#: urls/__init__.py:99
 #, python-format
 msgid "^categories/%s/$"
 msgstr "^kategorije/%s/$"
 
-#: urls.py:110
+#: urls/__init__.py:110
 msgid "^brands/$"
 msgstr "^brendovi/$"
 
-#: urls.py:111
+#: urls/__init__.py:111
 #, python-format
 msgid "^brands/%s/$"
 msgstr "^brendovi/%s/$"
 
-#: urls.py:122
+#: urls/__init__.py:122
 msgid "^manufacturers/$"
 msgstr "^proizvodaci/$"
 
-#: urls.py:123
+#: urls/__init__.py:123
 #, python-format
 msgid "^manufacturers/%s/$"
 msgstr "^proizvodaci/%s/$"
 
-#: urls.py:131
+#: urls/__init__.py:131
+#, python-format
+#| msgid "Reviews"
+msgid "^%s/reviews/$"
+msgstr "^%s/recenzije/$"
+
+#: urls/__init__.py:132
+#, python-format
+#| msgid "^orders/%s/$"
+msgid "^%s/reviews/%s/$"
+msgstr "^%s/recenzije/%s/$"
+
+#: urls/__init__.py:133
 #, python-format
 msgid "^%s/add-to-cart/$"
 msgstr "^%s/dodaj-u-kosaricu/$"
 
-#: urls.py:134
+#: urls/__init__.py:136
 msgid "^products/$"
 msgstr "^proizvodi/$"
 
-#: urls.py:135
+#: urls/__init__.py:137
 #, python-format
 msgid "^products/%s/$"
 msgstr "^proizvodi/%s/$"
 
-#: urls.py:136
+#: urls/__init__.py:138
+#, python-format
+#| msgid "^products/%s/$"
+msgid "^products/%s/reviews/$"
+msgstr "^proizvodi/%s/recenzije/$"
+
+#: urls/__init__.py:139
+#, python-format
+#| msgid "^products/%s/$"
+msgid "^products/%s/reviews/%s/$"
+msgstr "^proizvodi/%s/recenzije/%s/$"
+
+#: urls/__init__.py:140
 #, python-format
 msgid "^products/%s/add-to-cart/$"
 msgstr "^proizvodi/%s/dodaj-u-kosaricu/$"
 
-#: views/account.py:53
+#: views/account.py:54
 msgid "You have been successfully logged in."
 msgstr "Uspješno ste prijavljeni."
 
-#: views/account.py:65
+#: views/account.py:66
 msgid "You have been successfully logged out."
 msgstr "Uspješno ste odjavljeni."
 
-#: views/account.py:116
+#: views/account.py:117
 msgid "Account has been reset with the new password."
 msgstr "Korisnički račun je resetiran sa novom lozinkom."
 
-#: views/account.py:134
+#: views/account.py:138
 msgid "You have been successfully registered."
 msgstr "Uspješno ste registrirani."
 
-#: views/categorization.py:92
+#: views/categorization.py:91
 #, python-format
 msgid "Edit %s"
 msgstr "Uredi %s"
 
-#: views/categorization.py:93
+#: views/categorization.py:92
 #, python-format
 msgid "Delete %s"
 msgstr "Izbriši %s"
 
-#: views/product.py:110
+#: views/product.py:103
 msgid "Edit Product"
 msgstr "Uredi Proizvod"
 
-#: views/product.py:111
+#: views/product.py:104
 msgid "Delete Product"
 msgstr "Izbriši Proizvod"
 
-#: views/product.py:140
+#: views/product.py:148
+msgid "Not registered customer."
+msgstr "Kupac nije registriran."
+
+#: views/product.py:151
+msgid "Review already written for this Product."
+msgstr "Recenzija je već napisana za ovaj Proizvod."
+
+#: views/product.py:180
+msgid "You can only update your own reviews."
+msgstr "Možete urediti samo svoje recenzije."
+
+#: views/product.py:189
+msgid "You can only delete your own reviews."
+msgstr "Možete izbrisati samo svoje recenzije."
+
+#: views/product.py:223
 msgid "You can't add a group product to the cart."
 msgstr "Nemožete dodati grupni proizvod u košaricu."
 
-#: views/product.py:149
+#: views/product.py:233
 #, python-format
 msgid "Product not available for given quantity, there is %d left."
 msgstr "Proizvod nije dostupan za navedenu količinu, dostupno je %d."
+
+#~ msgid "Body"
+#~ msgstr "Tijelo"
+
+#~ msgid "Price to"
+#~ msgstr "Cijena do"
 
 #~ msgid "Thank you"
 #~ msgstr "Hvala"
