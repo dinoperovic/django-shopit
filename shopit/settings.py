@@ -57,6 +57,9 @@ RELATION_KINDS = getattr(settings, 'SHOPIT_RELATION_KINDS', (
 # Rating choices for product reviews.
 REVIEW_RATINGS = getattr(settings, 'SHOPIT_REVIEW_RATINGS', ())
 
+# Is review active by default when created.
+REVIEW_ACTIVE_DEFAULT = getattr(settings, 'SHOPIT_REVIEW_ACTIVE_DEFAULT', True)
+
 # A list of ``ModifierCondition`` classes that will be used as choices for conditions in a Modifier.
 MODIFIER_CONDITIONS = getattr(settings, 'SHOPIT_MODIFIER_CONDITIONS', [
     'shopit.modifier_conditions.PriceGreaterThanCondition',

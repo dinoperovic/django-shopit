@@ -98,6 +98,12 @@ Rating choices for product reviews.
 
     SHOPIT_REVIEW_RATINGS = ()
 
+Is review active by default when created.
+
+.. code:: python
+
+    SHOPIT_REVIEW_ACTIVE_DEFAULT = True
+
 Modifier
 ========
 

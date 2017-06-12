@@ -273,11 +273,11 @@ class RelationInline(SortableInlineAdminMixin, admin.TabularInline):
     extra = 0
 
 
-class ReviewInline(SortableInlineAdminMixin, TranslatableTabularInline, admin.TabularInline):
+class ReviewInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Review
     extra = 0
-    fields = ['customer', 'rating', 'body', 'active']
-    readonly_fields = ['customer', 'rating', 'body', 'created_at']
+    fields = ['customer', 'name', 'text', 'rating', 'active']
+    readonly_fields = ['customer', 'name', 'text', 'rating', 'created_at']
 
     def has_add_permission(self, request):
         return False

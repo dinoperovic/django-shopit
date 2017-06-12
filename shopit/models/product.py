@@ -9,11 +9,13 @@ from os.path import basename
 
 from cms.models.fields import PlaceholderField
 from cms.utils.i18n import get_current_language
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import NoReverseMatch, reverse
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import Count
+from django.db.models.query import QuerySet
 from django.template.defaultfilters import truncatewords
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -702,14 +704,20 @@ class Product(BaseProduct, TranslatableModel):
             relations = relations.filter(kind=kind)
         return [x.product for x in relations]
 
-    def get_reviews(self):
+    def get_reviews(self, language=None, include_inactive=False):
         """
         Returns reviews for this product, uses the group product for varaints.
         """
         if not self.is_variant:
-            if not hasattr(self, '_reviews'):
-                self.cache('_reviews', self.reviews.active())
-            return getattr(self, '_reviews')
+            reviews = getattr(self, '_reviews', None)
+            if include_inactive:
+                reviews = self.reviews.all()
+            if reviews is None:
+                reviews = self.reviews.active()
+                self.cache('_reviews', reviews)
+            if language is not None:
+                return reviews.filter(language=language)
+            return reviews
 
     def get_variant(self, attrs):
         """
@@ -1098,13 +1106,13 @@ class Relation(models.Model):
             raise ValidationError(EM['relation_base_is_product'])
 
 
-class ReviewQuerySet(TranslatableQuerySet):
+class ReviewQuerySet(QuerySet):
     def active(self):
         return self.filter(active=True)
 
 
 @python_2_unicode_compatible
-class Review(TranslatableModel):
+class Review(models.Model):
     """
     Model for product reviews.
     """
@@ -1115,12 +1123,10 @@ class Review(TranslatableModel):
         limit_choices_to={'kind__in': [Product.SINGLE, Product.GROUP]})
 
     customer = models.ForeignKey(Customer, models.CASCADE, related_name='product_reviews', verbose_name=_('Customer'))
-
-    translations = TranslatedFields(
-        body=models.TextField(_('Body'), max_length=1024),
-    )
-
+    name = models.CharField(_('Name'), max_length=128, blank=True)
+    text = models.TextField(_('Text'), max_length=1024)
     rating = models.PositiveIntegerField(_('Rating'), choices=RATINGS, default=0)
+    language = models.CharField(_('Language'), max_length=2, choices=settings.LANGUAGES, default=settings.LANGUAGES[0][0])  # noqa
 
     active = models.BooleanField(_('Active'), default=True, help_text=_('Is this review publicly visible.'))
     created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
@@ -1136,4 +1142,10 @@ class Review(TranslatableModel):
         ordering = ['-order']
 
     def __str__(self):
-        return truncatewords(self.safe_translation_getter('body', any_language=True), 3)
+        return truncatewords(self.text, 3)
+
+    def get_absolute_url(self):
+        try:
+            return reverse('shopit-product-review-detail', args=[self.product.safe_translation_getter('slug'), self.id])  # noqa
+        except NoReverseMatch:  # pragma: no cover
+            pass

@@ -162,6 +162,7 @@ USE_L10N = True
 USE_TZ = True
 LANGUAGES = [
     ('en', 'English'),
+    ('hr', 'Hrvatski'),
 ]
 PARLER_LANGUAGES = {
     1: tuple({'code': x[0]} for x in LANGUAGES),
