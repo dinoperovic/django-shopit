@@ -86,10 +86,6 @@ This will load all the neccesary urls under the `ShopitApphook`.
 
 Full documentation is availiable on [ReadTheDocs](http://djangoshop-shopit.readthedocs.org).
 
-## Changelog
-
-See [release notes](https://github.com/dinoperovic/djangoshop-shopit/releases).
-
 
 [Django]: https://www.djangoproject.com/
 [django-shop]: https://github.com/awesto/django-shop
