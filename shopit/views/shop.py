@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib import messages
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import FormView, TemplateView
@@ -63,7 +65,19 @@ class CartView(CartObjectMixin, FormView):
 
     def form_valid(self, form):
         form.save()
+        if form.cleaned_data.get('code', None):
+            msg = _('Discount code has been applied successfully.')
+        else:
+            msg = _('Cart has been updated successfully.')
+        messages.success(self.request, msg)
+        if self.request.is_ajax():
+            return JsonResponse({'success': msg})
         return redirect('shopit-cart')
+
+    def form_invalid(self, form):
+        if self.request.is_ajax():
+            return JsonResponse(dict(form.errors), status=400)
+        return super(CartView, self).form_invalid(form)
 
     def get_form_kwargs(self):
         kwargs = super(CartView, self).get_form_kwargs()

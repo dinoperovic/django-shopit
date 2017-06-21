@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 14:27+0200\n"
-"PO-Revision-Date: 2017-06-07 14:27+0200\n"
+"POT-Creation-Date: 2017-06-21 12:34+0200\n"
+"PO-Revision-Date: 2017-06-21 12:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -1050,7 +1050,7 @@ msgstr "Kod je već unešen za vašu košaricu."
 
 #: settings.py:31 settings.py:32
 msgid "Code is invalid or expired."
-msgstr "Koje nevažeči ili je istekao."
+msgstr "Kod nevažeči ili je istekao."
 
 #: settings.py:53
 msgid "Up-sell"
@@ -1633,6 +1633,14 @@ msgstr "Nemožete dodati grupni proizvod u košaricu."
 #, python-format
 msgid "Product not available for given quantity, there is %d left."
 msgstr "Proizvod nije dostupan za navedenu količinu, dostupno je %d."
+
+#: views/shop.py:69
+msgid "Discount code has been applied successfully."
+msgstr "Kod za popust je uspješno dodan."
+
+#: views/shop.py:71
+msgid "Cart has been updated successfully."
+msgstr "Košarica je uspješno ažurirana."
 
 #~ msgid "Not registered customer."
 #~ msgstr "Kupac nije registriran."
