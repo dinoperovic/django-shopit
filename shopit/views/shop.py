@@ -59,8 +59,11 @@ class CartView(CartObjectMixin, FormView):
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         if self.empty:
-            for cart_item in Cart.objects.get_from_request(request).items.all():
-                cart_item.delete()
+            cart = Cart.objects.get_from_request(request)
+            for item in cart.items.all():
+                item.delete()
+            for code in cart.get_discount_codes():
+                code.delete()
         return super(CartView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):

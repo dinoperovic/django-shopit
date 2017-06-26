@@ -15,6 +15,7 @@ Release notes for **Shopit**.
   (if you have any) before upgrading. A way for adding reviews was not provided before so this should not be the case.
 * Add setting `SHOPIT_REVIEW_ACTIVE_DEFAULT`. This decides if created reviews are active by default.
 * Handle updating shopping cart via ajax, add success messages to it.
+* Remove *CartDiscountCode's* from cart when emptying it, make last applied code appears as active.
 
 .. attention::
 
