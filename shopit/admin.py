@@ -521,6 +521,11 @@ class OrderAdmin(PrintOrderAdminMixin, DeliveryOrderAdminMixin, OrderAdminBase):
         css = {'all': ['shopit/css/djangocms-admin-style.css']}
 
 
+class CustomerInlineAdmin(CustomerInlineAdminBase):
+    readonly_fields = ['get_number', 'salutation', 'phone_number']
+    fieldsets = [(None, {'fields': ['get_number', 'salutation', 'phone_number']})]
+
+
 @admin.register(CustomerProxy)
 class CustomerAdmin(CustomerAdminBase):
-    inlines = [CustomerInlineAdminBase]
+    inlines = [CustomerInlineAdmin]

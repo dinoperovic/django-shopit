@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 from shop.models.customer import BaseCustomer
 
 
@@ -13,6 +14,7 @@ class Customer(BaseCustomer):
 
     number = models.PositiveIntegerField(_('Customer Number'), null=True, default=None, unique=True)
     salutation = models.CharField(_('Salutation'), max_length=5, choices=SALUTATION)
+    phone_number = PhoneNumberField(_('Phone number'), blank=True)
 
     class Meta:
         db_table = 'shopit_customers'

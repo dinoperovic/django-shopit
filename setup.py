@@ -45,10 +45,11 @@ setup(
     install_requires=[
         'django-shop>=0.10.2',
         'django-cms>=3.4.2',
+        'django-parler>=1.6.5',
+        'django-mptt>=0.8.6',
         'django-admin-sortable2>=0.6.4',
         'django-measurement>=2.4.0',
-        'django-mptt>=0.8.6',
-        'django-parler>=1.6.5',
+        'django-phonenumber-field>=1.3.0',
     ],
     setup_requires=['pytest-runner'] if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else [],
     tests_require=['pytest-django'],

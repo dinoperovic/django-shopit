@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 12:34+0200\n"
-"PO-Revision-Date: 2017-06-21 12:38+0200\n"
+"POT-Creation-Date: 2017-06-26 14:59+0200\n"
+"PO-Revision-Date: 2017-06-26 14:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -306,27 +306,27 @@ msgstr "Brend"
 msgid "Manufacturer"
 msgstr "Proizvođač"
 
-#: forms/account.py:21
+#: forms/account.py:22
 msgid "An account with this email address already exists."
 msgstr "Korisnički račun sa ovom email adresom već postoji."
 
-#: forms/account.py:29 forms/account.py:33 forms/account.py:61 forms/shop.py:75
+#: forms/account.py:30 forms/account.py:34 forms/account.py:62 forms/shop.py:75
 msgid "Email address"
 msgstr "Email adresa"
 
-#: forms/account.py:59
+#: forms/account.py:60
 msgid "First name"
 msgstr "Ime"
 
-#: forms/account.py:60
+#: forms/account.py:61
 msgid "Last name"
 msgstr "Prezime"
 
-#: forms/account.py:82
+#: forms/account.py:84
 msgid "Info successfully updated."
 msgstr "Informacije uspiješno ažurirane."
 
-#: forms/account.py:96
+#: forms/account.py:98
 msgid "Password successfully changed."
 msgstr "Lozinka uspiješno promijenjena."
 
@@ -506,32 +506,36 @@ msgstr "Brendovi"
 msgid "Manufacturers"
 msgstr "Proizvođači"
 
-#: models/customer.py:12
+#: models/customer.py:13
 msgid "Mrs."
 msgstr "Gđa."
 
-#: models/customer.py:12
+#: models/customer.py:13
 msgid "Mr."
 msgstr "G."
 
-#: models/customer.py:12
+#: models/customer.py:13
 msgid "(n/a)"
 msgstr "(n/a)"
 
-#: models/customer.py:14
+#: models/customer.py:15
 msgid "Customer Number"
 msgstr "Broj kupca"
 
-#: models/customer.py:15
+#: models/customer.py:16
 msgid "Salutation"
 msgstr "Naziv"
 
-#: models/customer.py:19 models/modifier.py:222 models/product.py:1125
+#: models/customer.py:17
+msgid "Phone number"
+msgstr "Broj telefona"
+
+#: models/customer.py:21 models/modifier.py:222 models/product.py:1125
 #: templates/shopit/shop/checkout.html:11
 msgid "Customer"
 msgstr "Kupac"
 
-#: models/customer.py:20
+#: models/customer.py:22
 msgid "Customers"
 msgstr "Kupci"
 
@@ -1052,11 +1056,11 @@ msgstr "Kod je već unešen za vašu košaricu."
 msgid "Code is invalid or expired."
 msgstr "Kod nevažeči ili je istekao."
 
-#: settings.py:53
+#: settings.py:56
 msgid "Up-sell"
 msgstr "Up-sell"
 
-#: settings.py:54
+#: settings.py:57
 msgid "Cross-sell"
 msgstr "Cross-sell"
 
@@ -1634,11 +1638,11 @@ msgstr "Nemožete dodati grupni proizvod u košaricu."
 msgid "Product not available for given quantity, there is %d left."
 msgstr "Proizvod nije dostupan za navedenu količinu, dostupno je %d."
 
-#: views/shop.py:69
+#: views/shop.py:72
 msgid "Discount code has been applied successfully."
 msgstr "Kod za popust je uspješno dodan."
 
-#: views/shop.py:71
+#: views/shop.py:74
 msgid "Cart has been updated successfully."
 msgstr "Košarica je uspješno ažurirana."
 

@@ -11,10 +11,11 @@ Requirements
 * Django_ 1.10, 1.9
 * django-shop_ as shop framework.
 * django-cms_ for placeholders.
+* django-parler_ to translate everything.
+* django-mptt_ for tree management.
 * django-admin-sortable2_ to sort stuff.
 * django-measurement_ to add measurements.
-* django-mptt_ for tree management.
-* django-parler_ to translate everything.
+* django-phonenumber-field_ for customer's phone number.
 
 Installation
 ============
@@ -73,3 +74,4 @@ This will load all the neccesary urls under the ``ShopitApphook``.
 .. _django-mptt: https://github.com/django-mptt/django-mptt
 .. _django-admin-sortable2: https://github.com/jrief/django-admin-sortable2
 .. _django-measurement: https://github.com/coddingtonbear/django-measurement
+.. _django-phonenumber-field: https://github.com/stefanfoulis/django-phonenumber-field

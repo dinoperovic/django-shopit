@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from shopit.models.customer import Customer
+from shopit.settings import PHONE_NUMBER_REQUIRED
 
 
 class CleanEmailMixin(object):
@@ -62,7 +63,7 @@ class AccountDetailsForm(CleanEmailMixin, forms.ModelForm):
 
     class Meta:
         model = Customer
-        fields = ['salutation', 'first_name', 'last_name', 'email']
+        fields = ['salutation', 'first_name', 'last_name', 'email', 'phone_number']
         custom_fields = ['first_name', 'last_name', 'email']
 
     def __init__(self, *args, **kwargs):
@@ -71,6 +72,7 @@ class AccountDetailsForm(CleanEmailMixin, forms.ModelForm):
         kwargs['instance'] = self.instance
         kwargs['initial'] = dict([(x, getattr(self.instance, x)) for x in self.Meta.custom_fields])
         super(AccountDetailsForm, self).__init__(*args, **kwargs)
+        self.fields['phone_number'].required = PHONE_NUMBER_REQUIRED
 
     def save(self, commit=True):
         for field in self.Meta.custom_fields:

@@ -36,6 +36,9 @@ ERROR_MESSAGES = getattr(settings, 'SHOPIT_ERROR_MESSAGES', {
 # used from ``shop.models.address.ISO_3166_CODES``.
 ADDRESS_COUNTRIES = getattr(settings, 'SHOPIT_ADDRESS_COUNTRIES', ())
 
+# A flag to control if customer's phone number is required.
+PHONE_NUMBER_REQUIRED = getattr(settings, 'SHOPIT_PHONE_NUMBER_REQUIRED', False)
+
 # A list of base serializer fields for a common product.
 PRODUCT_SERIALIZER_FIELDS = getattr(settings, 'SHOPIT_PRODUCT_SERIALIZER_FIELDS', [
     'id', 'name', 'slug', 'caption', 'code', 'kind', 'url', 'add_to_cart_url', 'price', 'is_available',

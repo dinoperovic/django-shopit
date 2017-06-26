@@ -16,10 +16,12 @@ Release notes for **Shopit**.
 * Add setting `SHOPIT_REVIEW_ACTIVE_DEFAULT`. This decides if created reviews are active by default.
 * Handle updating shopping cart via ajax, add success messages to it.
 * Remove *CartDiscountCode's* from cart when emptying it, make last applied code appears as active.
+* Add *PhoneNumberField* field to the customer, add setting `SHOPIT_PHONE_NUMBER_REQUIRED` that defaults to `False`.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model.
+    Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
+    as well as add `phone_number` field on Customer model.
 
 0.2.2
 =====

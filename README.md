@@ -30,10 +30,11 @@ Here's what you can expect:
 * [Django] 1.10, 1.9
 * [django-shop] as shop framework.
 * [django-cms] for placeholders.
+* [django-parler] to translate everything.
+* [django-mptt] for tree management.
 * [django-admin-sortable2] to sort stuff.
 * [django-measurement] to add measurements.
-* [django-mptt] for tree management.
-* [django-parler] to translate everything.
+* [django-phonenumber-field] for customer's phone number.
 
 ## Installation
 
@@ -94,3 +95,4 @@ Full documentation is availiable on [ReadTheDocs](http://djangoshop-shopit.readt
 [django-mptt]: https://github.com/django-mptt/django-mptt
 [django-admin-sortable2]: https://github.com/jrief/django-admin-sortable2
 [django-measurement]: https://github.com/coddingtonbear/django-measurement
+[django-phonenumber-field]: https://github.com/stefanfoulis/django-phonenumber-field

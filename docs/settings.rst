@@ -49,6 +49,16 @@ Country choices used in checkout address forms. If empty all countries are used 
     SHOPIT_ADDRESS_COUNTRIES = ()
 
 
+Customer
+========
+
+A flag to control if customer's phone number is required.
+
+.. code:: python
+
+    SHOPIT_PHONE_NUMBER_REQUIRED = False
+
+
 Product
 =======
 
