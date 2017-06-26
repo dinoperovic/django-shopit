@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.forms.utils import ErrorDict
 from django.utils.translation import ugettext_lazy as _
+from phonenumber_field.formfields import PhoneNumberField
 from shop.app_settings import GUEST_IS_ACTIVE_USER
 from shop.modifiers.pool import cart_modifiers_pool
 
@@ -14,7 +15,7 @@ from shopit.models.cart import CartDiscountCode
 from shopit.models.customer import Customer
 from shopit.models.modifier import DiscountCode
 from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import ADDRESS_COUNTRIES
+from shopit.settings import ADDRESS_COUNTRIES, PHONE_NUMBER_REQUIRED
 
 
 class CartDiscountCodeForm(forms.ModelForm):
@@ -73,6 +74,7 @@ class CustomerForm(CheckoutFormMixin, AccountDetailsForm):
 
 class GuestForm(CheckoutFormMixin, CleanEmailMixin, forms.ModelForm):
     email = forms.EmailField(label=_('Email address'))
+    phone_number = PhoneNumberField(label=_('Phone number'))
 
     class Meta:
         model = get_user_model()
@@ -83,6 +85,8 @@ class GuestForm(CheckoutFormMixin, CleanEmailMixin, forms.ModelForm):
         self.customer = Customer.objects.get_from_request(self.request)
         self.instance = self.customer.user
         self.fields['email'].initial = self.instance.email
+        self.fields['phone_number'].initial = self.customer.phone_number
+        self.fields['phone_number'].required = PHONE_NUMBER_REQUIRED
 
     def save(self, commit=True):
         self.customer.recognize_as_guest()
@@ -90,6 +94,7 @@ class GuestForm(CheckoutFormMixin, CleanEmailMixin, forms.ModelForm):
         if self.instance.is_active:
             password = get_user_model().objects.make_random_password(length=30)
             self.instance.set_password(password)
+        self.customer.phone_number = self.cleaned_data.get('phone_number', '')
         self.customer.save()
         return super(GuestForm, self).save(commit)
 
