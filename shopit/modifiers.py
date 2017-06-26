@@ -17,7 +17,7 @@ class ShopitCartModifier(BaseCartModifier):
     cart_discount_codes = []
 
     def pre_process_cart(self, cart, request):
-        self.cart_discount_codes = reversed(cart.get_discount_codes().values_list('code', flat=True))
+        self.cart_discount_codes = cart.get_discount_codes().order_by('-id').values_list('code', flat=True)
 
     def add_extra_cart_item_row(self, cart_item, request):
         for modifier in cart_item.product.get_modifiers():
