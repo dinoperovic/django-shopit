@@ -17,6 +17,7 @@ Release notes for **Shopit**.
 * Handle updating shopping cart via ajax, add success messages to it.
 * Remove *CartDiscountCode's* from cart when emptying it, make last applied code appears as active.
 * Add *PhoneNumberField* field to the customer, add setting `SHOPIT_PHONE_NUMBER_REQUIRED` that defaults to `False`.
+* Refactor address forms, enable using either 'shipping' or 'billing' form as primary. added setting `SHOPIT_PRIMARY_ADDRESS`.
 
 .. attention::
 

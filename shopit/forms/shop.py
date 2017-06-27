@@ -15,7 +15,7 @@ from shopit.models.cart import CartDiscountCode
 from shopit.models.customer import Customer
 from shopit.models.modifier import DiscountCode
 from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import ADDRESS_COUNTRIES, PHONE_NUMBER_REQUIRED
+from shopit.settings import ADDRESS_COUNTRIES, PHONE_NUMBER_REQUIRED, PRIMARY_ADDRESS
 
 
 class CartDiscountCodeForm(forms.ModelForm):
@@ -103,6 +103,10 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
     priority = forms.IntegerField(required=False, widget=forms.HiddenInput)
     existant = forms.ModelChoiceField(required=False, queryset=None, label=_('Use existant address'))
 
+    # Field decides if a primary address should be used instead.
+    # Primary address is set to either 'shipping' or 'billing' using `PRIMARY_ADDRESS` setting.
+    use_primary_address = forms.BooleanField(required=False, initial=True)
+
     class Meta:
         exclude = ['customer']
 
@@ -110,18 +114,44 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
         self.field_order = ['existant']  # Place `existant` field at the top.
         super(AddressForm, self).__init__(*args, **kwargs)
         self.customer = Customer.objects.get_from_request(self.request)
+
+        # Set existant addresses choices.
         addresses = self.Meta.model.objects.filter(customer=self.customer)
         self.fields['existant'].queryset = addresses
         if not addresses.exists():
             self.fields['existant'].widget = forms.HiddenInput()
+
+        # Set country choices based on `ADDRESS_COUNTRIES` setting.
         if ADDRESS_COUNTRIES:
             countries = [('', '---------')] + [x for x in ISO_3166_CODES if x in ADDRESS_COUNTRIES]
             self.fields['country'].widget = forms.Select(choices=countries)
-        cart_address = getattr(self.cart, '%s_address' % self.Meta.model.__name__.lower().rstrip('address'), None)
+
+        assert PRIMARY_ADDRESS in ['shipping', 'billing'], "PRIMARY_ADDRESS must be either 'shipping' or 'billing'."
+        if self.is_primary:
+            self.fields.pop('use_primary_address')  # remove field from primary address.
+        else:
+            self.fields['use_primary_address'].initial = \
+                getattr(self.cart, '%s_address' % self.address_type, None) is None
+            if hasattr(self, 'use_primary_address_label'):
+                self.fields['use_primary_address'].label = self.use_primary_address_label
+
+        # If current address is set to the cart, use it as existant one.
+        cart_address = getattr(self.cart, '%s_address' % self.address_type, None)
         if cart_address:
             self.fields['existant'].initial = cart_address
             for fname in [f.name for f in cart_address._meta.get_fields() if f.name in self.fields]:
                 self.fields[fname].initial = getattr(cart_address, fname, '')
+
+    def full_clean(self):
+        super(AddressForm, self).full_clean()
+        if not self.is_primary:
+            if self.is_bound and self['use_primary_address'].value():
+                self._errors = ErrorDict()
+
+    def is_valid(self):
+        if not self.is_primary:
+            return self['use_primary_address'].value() or super(AddressForm, self).is_valid()
+        return super(AddressForm, self).is_valid()
 
     def clean(self):
         existant = self.cleaned_data['existant']
@@ -137,39 +167,33 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
         return super(AddressForm, self).clean()
 
     def save(self, commit=True):
-        instance = super(AddressForm, self).save(commit=False)
-        instance.customer = self.customer
-        instance.save()
-        return instance
+        if self.is_primary or not self['use_primary_address'].value():
+            instance = super(AddressForm, self).save(commit=False)
+            instance.customer = self.customer
+            instance.save()
+            return instance
+
+    @property
+    def address_type(self):
+        return self.Meta.model.__name__.lower().rstrip('address')
+
+    @property
+    def is_primary(self):
+        return PRIMARY_ADDRESS == self.address_type
 
 
 class ShippingAddressForm(AddressForm):
+    use_primary_address_label = _('Use billing address for shipping')
+
     class Meta(AddressForm.Meta):
         model = ShippingAddress
 
 
 class BillingAddressForm(AddressForm):
-    use_shipping_address = forms.BooleanField(label=_('Use shipping address for billing'), required=False)
+    use_primary_address_label = _('Use shipping address for billing')
 
     class Meta(AddressForm.Meta):
         model = BillingAddress
-
-    def __init__(self, *args, **kwargs):
-        super(BillingAddressForm, self).__init__(*args, **kwargs)
-        if self.cart.shipping_address and not self.cart.billing_address:
-            self.fields['use_shipping_address'].initial = True
-
-    def full_clean(self):
-        super(BillingAddressForm, self).full_clean()
-        if self.is_bound and self['use_shipping_address'].value():
-            self._errors = ErrorDict()
-
-    def is_valid(self):
-        return self['use_shipping_address'].value() or super(BillingAddressForm, self).is_valid()
-
-    def save(self, commit=True):
-        if not self['use_shipping_address'].value():
-            return super(BillingAddressForm, self).save(commit)
 
 
 class PaymentMethodForm(CheckoutFormMixin, forms.Form):

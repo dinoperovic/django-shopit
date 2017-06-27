@@ -36,6 +36,11 @@ ERROR_MESSAGES = getattr(settings, 'SHOPIT_ERROR_MESSAGES', {
 # used from ``shop.models.address.ISO_3166_CODES``.
 ADDRESS_COUNTRIES = getattr(settings, 'SHOPIT_ADDRESS_COUNTRIES', ())
 
+# A primary address to be used in a checkout proccess. Can be 'shipping' or 'billing'.
+# Depending on wich address is selected, the other one will get the option to
+# use the primary one instead of having to fill it out.
+PRIMARY_ADDRESS = getattr(settings, 'SHOPIT_PRIMARY_ADDRESS', 'shipping')
+
 # A flag to control if customer's phone number is required.
 PHONE_NUMBER_REQUIRED = getattr(settings, 'SHOPIT_PHONE_NUMBER_REQUIRED', False)
 

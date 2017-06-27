@@ -49,6 +49,14 @@ Country choices used in checkout address forms. If empty all countries are used 
     SHOPIT_ADDRESS_COUNTRIES = ()
 
 
+A primary address to be used in a checkout proccess. Can be 'shipping' or 'billing'.
+Depending on wich address is selected, the other one will get the option to use the primary one instead of having to fill it out.
+
+.. code:: python
+
+    SHOPIT_PRIMARY_ADDRESS = 'shipping'
+
+
 Customer
 ========
 
