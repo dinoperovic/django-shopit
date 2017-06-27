@@ -6,6 +6,7 @@ from django.template.loader import select_template
 from django.utils import six
 from measurement.base import MeasureBase
 from measurement.measures import Distance, Mass
+from phonenumber_field.serializerfields import PhoneNumberField
 from rest_auth.serializers import PasswordResetConfirmSerializer, PasswordResetSerializer
 from rest_framework import serializers
 from shop.rest.money import MoneyField
@@ -30,13 +31,14 @@ from shopit.settings import PRODUCT_DETAIL_SERIALIZER_FIELDS, PRODUCT_SERIALIZER
 class AccountSerializer(CustomerSerializer):
     id = serializers.IntegerField(source='pk')
     username = serializers.CharField(source='get_username')
+    phone_number = PhoneNumberField()
     shipping_addresses = serializers.SerializerMethodField()
     billing_addresses = serializers.SerializerMethodField()
 
     class Meta:
         model = Customer
         fields = [
-            'id', 'username', 'salutation', 'first_name', 'last_name', 'email', 'extra',
+            'id', 'username', 'salutation', 'first_name', 'last_name', 'email', 'phone_number', 'extra',
             'shipping_addresses', 'billing_addresses']
 
     def get_shipping_addresses(self, obj):
@@ -55,6 +57,7 @@ class AccountSummarySerializer(AccountSerializer):
         fields = super(AccountSummarySerializer, self).get_fields()
         del fields['username']
         del fields['email']
+        del fields['phone_number']
         del fields['extra']
         return fields
 
