@@ -8,21 +8,21 @@ Release notes for **Shopit**.
 0.2.3
 =====
 
-* Handle NoReverseMatch for `add_to_cart_url` in a Product serializer.
-* Add missing `FlagModelForm` to `FlagAdmin`.
-* Fix Flag unicode error in `__str__`.
+* Handle NoReverseMatch for ``add_to_cart_url`` in a Product serializer.
+* Add missing ``FlagModelForm`` to ``FlagAdmin``.
+* Fix Flag unicode error in ``__str__``.
 * Re-work the reviews, making them non-translatable. Not compatible with the old reviews, make sure to save them
   (if you have any) before upgrading. A way for adding reviews was not provided before so this should not be the case.
-* Add setting `SHOPIT_REVIEW_ACTIVE_DEFAULT`. This decides if created reviews are active by default.
+* Add setting ``SHOPIT_REVIEW_ACTIVE_DEFAULT``. This decides if created reviews are active by default.
 * Handle updating shopping cart via ajax, add success messages to it.
 * Remove *CartDiscountCode's* from cart when emptying it, make last applied code appears as active.
-* Add *PhoneNumberField* field to the customer, add setting `SHOPIT_PHONE_NUMBER_REQUIRED` that defaults to `False`.
-* Refactor address forms, enable using either 'shipping' or 'billing' form as primary. added setting `SHOPIT_PRIMARY_ADDRESS`.
+* Add *PhoneNumberField* field to the customer, add setting ``SHOPIT_PHONE_NUMBER_REQUIRED`` that defaults to ``False``.
+* Refactor address forms, enable using either 'shipping' or 'billing' form as primary. added setting ``SHOPIT_PRIMARY_ADDRESS``.
 
 .. attention::
 
     Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
-    as well as add `phone_number` field on Customer model.
+    as well as add ``phone_number`` field on Customer model.
 
 0.2.2
 =====
@@ -38,7 +38,7 @@ Release notes for **Shopit**.
 0.2.0
 =====
 
-* Add support for `Django 1.10` & `DjangoSHOP 0.10.x`.
+* Add support for *Django 1.10* & *DjangoSHOP 0.10.x*.
 * Alter templates to use Bootstrap 4 by default.
 * Create example project, move tests.
 * Rename description & caption fields to start with underscore.
@@ -52,7 +52,7 @@ Release notes for **Shopit**.
 0.1.4
 =====
 
-* Add `description` field to categorization models.
+* Add *description* field to categorization models.
 * Move variant generator methods from admin to the model. Now ``create_all_variants`` and ``create_variant`` are
   available on the model.
 * Update add to cart ``get_context`` to ensure correct product translation is returned.
@@ -74,7 +74,7 @@ Release notes for **Shopit**.
 * Add price range filtering in ``get_products`` templatetag.
 * Move product filtering to a manager.
 * Allow mutiple flags to be passed to the ``get_products`` templatetag.
-* Optimize attribute filtering with `prefetch_related`.
+* Optimize attribute filtering with *prefetch_related*.
 * Enable sorting the products.
 * Don't fetch flags from categorization on a product. Categorization flags are used separately to mark categorization
   and the don't affect the products.
@@ -82,7 +82,7 @@ Release notes for **Shopit**.
 * Add option to limit ``get_categorization`` templatetag to a set of products.
 * Enable filtering categorization and flags via querystring. Change price range querystrings.
 * Add ``get_flags`` templatetag.
-* Make `Flag` model an mptt model with a parent field.
+* Make *Flag* model an mptt model with a parent field.
 * Show flags as filter_horizontal instead of CheckboxInput in product admin.
 * Show localized amounts in product admin summary field.
 * Use ``as_decimal`` when displaying price steps in template instead of floatformat.
@@ -99,7 +99,7 @@ Release notes for **Shopit**.
 * Make fields in product serializer editable through settings, set optimized defaults.
 * Fix error when mergin dictionaries in python3.
 * Remove redundant code.
-* Fix trying to generate image thumbnail on attachment when `file` is None.
+* Fix trying to generate image thumbnail on attachment when *file* is None.
 * Fix weight setter setting width instead of weight.
 
 0.1.0
