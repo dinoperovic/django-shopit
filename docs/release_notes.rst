@@ -18,6 +18,7 @@ Release notes for **Shopit**.
 * Remove *CartDiscountCode's* from cart when emptying it, make last applied code appears as active.
 * Add *PhoneNumberField* field to the customer, add setting ``SHOPIT_PHONE_NUMBER_REQUIRED`` that defaults to ``False``.
 * Refactor address forms, enable using either 'shipping' or 'billing' form as primary. added setting ``SHOPIT_PRIMARY_ADDRESS``.
+* Fix address country choices.
 
 .. attention::
 

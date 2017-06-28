@@ -125,6 +125,7 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
         if ADDRESS_COUNTRIES:
             countries = [('', '---------')] + [x for x in ISO_3166_CODES if x in ADDRESS_COUNTRIES]
             self.fields['country'].widget = forms.Select(choices=countries)
+            self.fields['country'].choices = countries
 
         assert PRIMARY_ADDRESS in ['shipping', 'billing'], "PRIMARY_ADDRESS must be either 'shipping' or 'billing'."
         if self.is_primary:
