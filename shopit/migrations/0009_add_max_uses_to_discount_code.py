@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -21,5 +22,10 @@ class Migration(migrations.Migration):
             model_name='discountcode',
             name='active',
             field=models.BooleanField(default=True, help_text='Is this discount code active.', verbose_name='Active'),
+        ),
+        migrations.AlterField(
+            model_name='cartdiscountcode',
+            name='cart',
+            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='discount_codes', to='shopit.Cart'),
         ),
     ]

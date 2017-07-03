@@ -47,7 +47,7 @@ class CartDiscountCode(models.Model):
     """
     Discount codes that are added to the cart.
     """
-    cart = models.ForeignKey(Cart, related_name='discount_codes', editable=False)
+    cart = models.ForeignKey(Cart, models.SET_NULL, null=True, related_name='discount_codes', editable=False)
     code = models.CharField(_('Code'), max_length=30)
 
     class Meta:
