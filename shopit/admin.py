@@ -123,7 +123,7 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
     fieldsets = [
         (_('Basic info'), {'fields': ['code', 'modifier']}),
         (_('Status'), {'fields': ['active']}),
-        (_('Settings'), {'fields': ['customer', 'max_uses', ('valid_from', 'valid_until'), 'num_uses']}),
+        (_('Settings'), {'fields': ['customer', 'max_uses', 'num_uses', ('valid_from', 'valid_until')]}),
         (None, {'fields': ['get_is_valid_field']}),
     ]
 
