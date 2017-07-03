@@ -13,8 +13,8 @@ from shop.modifiers.pool import cart_modifiers_pool
 
 from shopit.forms import shop as shop_forms
 from shopit.models.cart import Cart, CartItem
-from shopit.models.order import Order
 from shopit.models.modifier import DiscountCode
+from shopit.models.order import Order
 
 
 class CartObjectMixin(object):
