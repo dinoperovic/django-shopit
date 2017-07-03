@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Count, Q
+from django.db.models import Count, Q, F
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
@@ -92,13 +92,14 @@ class Modifier(TranslatableModel):
 
     def get_conditions(self):
         if not hasattr(self, '_conditions'):
-            setattr(self, '_conditions', self.conditions.all())
+            setattr(self, '_conditions', list(self.conditions.all()))
         return getattr(self, '_conditions')
 
-    def get_discount_codes(self):
-        if not hasattr(self, '_discount_codes'):
-            setattr(self, '_discount_codes', self.discount_codes.valid())
-        return getattr(self, '_discount_codes')
+    def get_discount_codes(self, include_added=False):
+        key = '_discount_codes_added' if include_added else '_discount_codes'
+        if not hasattr(self, key):
+            setattr(self, key, list(self.discount_codes.valid(include_added=include_added)))
+        return getattr(self, key)
 
     def get_added_amount(self, price, quantity=1):
         return self.percent * price / 100 if self.percent else self.amount * quantity
@@ -136,7 +137,7 @@ class Modifier(TranslatableModel):
         Make sure that at least one code is applied to the given cart.
         """
         cart_codes = CartDiscountCode.objects.filter(cart_id=cart_id).values_list('code', flat=True)
-        for code in self.get_discount_codes():
+        for code in self.get_discount_codes(include_added=True):
             if code.code in cart_codes:
                 return True
         return False
@@ -200,9 +201,17 @@ class DiscountCodeQuerySet(models.QuerySet):
     def active(self):
         return self.filter(active=True)
 
-    def valid(self):
+    def valid(self, include_added=False):
+        """
+        `include_added` decides if one extra should be added to `max_uses` for
+        validating codes already added to cart.
+        """
         now = timezone.now()
-        return self.active().filter(Q(valid_from__lte=now) & (Q(valid_until__isnull=True) | Q(valid_until__gt=now)))
+        qs = self.active().filter(Q(valid_from__lte=now) & (Q(valid_until__isnull=True) | Q(valid_until__gt=now)))
+        if include_added:
+            return qs.filter(Q(max_uses__isnull=True) | Q(num_uses__lte=F('max_uses')))
+        else:
+            return qs.filter(Q(max_uses__isnull=True) | Q(num_uses__lt=F('max_uses')))
 
 
 @python_2_unicode_compatible
@@ -224,6 +233,9 @@ class DiscountCode(models.Model):
 
     max_uses = models.PositiveIntegerField(_('Max uses'), blank=True, null=True, help_text=_(
         'Number of times this code can be used, leave empty for unlimited usage.'))
+
+    num_uses = models.PositiveIntegerField(_('Num uses'), default=0, help_text=_(
+        'Number of times this code has been already used.'))
 
     active = models.BooleanField(_('Active'), default=True, help_text=_('Is this discount code active.'))
     valid_from = models.DateTimeField(_('Valid from'), default=timezone.now)
@@ -252,6 +264,9 @@ class DiscountCode(models.Model):
             return self.valid_from <= now and self.valid_until > now
         return self.valid_from <= now
 
-    @property
-    def num_uses(self):
-        return CartDiscountCode.objects.filter(code=self.code).count()
+    def use(self, times=1):
+        """
+        Should be called when code is used to update `num_uses` field.
+        """
+        self.num_uses = self.num_uses + times
+        self.save(update_fields=['num_uses'])

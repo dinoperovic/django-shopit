@@ -24,7 +24,7 @@ Release notes for **Shopit**.
 .. attention::
 
     Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
-    as well as add ``phone_number`` field on Customer model and ``max_num`` on *DiscountCode*.
+    as well as add ``phone_number`` field on Customer model and ``max_uses``, ``num_uses`` on *DiscountCode*.
 
 0.2.2
 =====

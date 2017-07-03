@@ -14,6 +14,7 @@ from shop.modifiers.pool import cart_modifiers_pool
 from shopit.forms import shop as shop_forms
 from shopit.models.cart import Cart, CartItem
 from shopit.models.order import Order
+from shopit.models.modifier import DiscountCode
 
 
 class CartObjectMixin(object):
@@ -62,8 +63,12 @@ class CartView(CartObjectMixin, FormView):
             cart = Cart.objects.get_from_request(request)
             for item in cart.items.all():
                 item.delete()
+            codes = []
             for code in cart.get_discount_codes():
+                codes.append(code.code)
                 code.delete()
+            for dc in DiscountCode.objects.filter(code__in=codes):
+                dc.use(-1)
         return super(CartView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):

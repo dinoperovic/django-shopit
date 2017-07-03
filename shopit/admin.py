@@ -118,13 +118,13 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ['code', 'modifier', 'get_is_valid']
     list_filter = ['modifier']
     raw_id_fields = ['customer']
-    readonly_fields = ['get_is_valid_field', 'get_num_uses_field']
+    readonly_fields = ['get_is_valid_field']
 
     fieldsets = [
         (_('Basic info'), {'fields': ['code', 'modifier']}),
         (_('Status'), {'fields': ['active']}),
-        (_('Settings'), {'fields': ['customer', 'max_uses', ('valid_from', 'valid_until')]}),
-        (None, {'fields': ['get_num_uses_field', 'get_is_valid_field']}),
+        (_('Settings'), {'fields': ['customer', 'max_uses', ('valid_from', 'valid_until'), 'num_uses']}),
+        (None, {'fields': ['get_is_valid_field']}),
     ]
 
     class Media:
@@ -146,12 +146,6 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
         return format_html('%s<p class="help">%s</p>' % (html, help_text))
     get_is_valid_field.allow_tags = True
     get_is_valid_field.short_description = _('Is valid')
-
-    def get_num_uses_field(self, obj):
-        help_text = _('Number of times this code has been already used.')
-        return format_html('%s<p class="help">%s</p>' % (obj.num_uses, help_text))
-    get_is_valid_field.allow_tags = True
-    get_num_uses_field.short_description = _('Num uses')
 
 
 @admin.register(Flag)

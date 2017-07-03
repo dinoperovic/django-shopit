@@ -24,9 +24,7 @@ class Cart(BaseCart):
         return str(self.pk)
 
     def get_discount_codes(self):
-        if not hasattr(self, '_discount_codes'):
-            setattr(self, '_discount_codes', self.discount_codes.all())
-        return getattr(self, '_discount_codes')
+        return self.discount_codes.all()
 
 
 @python_2_unicode_compatible
@@ -47,7 +45,7 @@ class CartDiscountCode(models.Model):
     """
     Discount codes that are added to the cart.
     """
-    cart = models.ForeignKey(Cart, models.SET_NULL, null=True, related_name='discount_codes', editable=False)
+    cart = models.ForeignKey(Cart, models.CASCADE, related_name='discount_codes', editable=False)
     code = models.CharField(_('Code'), max_length=30)
 
     class Meta:

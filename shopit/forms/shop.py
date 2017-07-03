@@ -22,6 +22,8 @@ class CartDiscountCodeForm(forms.ModelForm):
     """
     Form that handles entering a cart modifier code.
     """
+    _discount_code = None
+
     class Meta:
         model = CartDiscountCode
         fields = ['code']
@@ -45,10 +47,12 @@ class CartDiscountCodeForm(forms.ModelForm):
                 raise forms.ValidationError(EM['cart_discount_code_invalid'])
             if dc.customer and code not in self.cart.customer.get_discount_codes().values_list('code', flat=True):
                 raise forms.ValidationError(EM['cart_discount_code_wrong_customer'])
+            self._discount_code = dc
         return code
 
     def save(self, commit=True):
-        if self.cleaned_data.get('code', None):
+        if self._discount_code is not None:
+            self._discount_code.use()  # increment `num_uses` field on DiscountCode.
             return super(CartDiscountCodeForm, self).save(commit)
 
 

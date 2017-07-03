@@ -44,7 +44,7 @@ class ShopitCartModifier(BaseCartModifier):
         Returns first code applied to the cart, that's also a valid code
         for the given modifier. Returns `None` if modifier doesn't need a code.
         """
-        discount_codes = modifier.get_discount_codes().values_list('code', flat=True)
+        discount_codes = [x.code for x in modifier.get_discount_codes(include_added=True)]
         for code in self.cart_discount_codes:
             if code in discount_codes:
                 return code
