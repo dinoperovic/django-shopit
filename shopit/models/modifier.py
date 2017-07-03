@@ -210,8 +210,7 @@ class DiscountCodeQuerySet(models.QuerySet):
         qs = self.active().filter(Q(valid_from__lte=now) & (Q(valid_until__isnull=True) | Q(valid_until__gt=now)))
         if include_added:
             return qs.filter(Q(max_uses__isnull=True) | Q(num_uses__lte=F('max_uses')))
-        else:
-            return qs.filter(Q(max_uses__isnull=True) | Q(num_uses__lt=F('max_uses')))
+        return qs.filter(Q(max_uses__isnull=True) | Q(num_uses__lt=F('max_uses')))
 
 
 @python_2_unicode_compatible
