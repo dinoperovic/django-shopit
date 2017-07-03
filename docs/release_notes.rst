@@ -19,11 +19,12 @@ Release notes for **Shopit**.
 * Add *PhoneNumberField* field to the customer, add setting ``SHOPIT_PHONE_NUMBER_REQUIRED`` that defaults to ``False``.
 * Refactor address forms, enable using either 'shipping' or 'billing' form as primary. added setting ``SHOPIT_PRIMARY_ADDRESS``.
 * Fix address country choices.
+* Add and track num uses on a *DiscountCode*, alter the admin to display new values.
 
 .. attention::
 
     Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
-    as well as add ``phone_number`` field on Customer model.
+    as well as add ``phone_number`` field on Customer model and ``max_num`` on *DiscountCode*.
 
 0.2.2
 =====

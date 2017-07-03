@@ -118,11 +118,13 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ['code', 'modifier', 'get_is_valid']
     list_filter = ['modifier']
     raw_id_fields = ['customer']
+    readonly_fields = ['get_is_valid_field', 'get_num_uses_field']
 
     fieldsets = [
-        (_('Basic info'), {'fields': ['code']}),
-        (_('Status'), {'fields': ['active', ('valid_from', 'valid_until')]}),
-        (_('Settings'), {'fields': ['modifier', 'customer']}),
+        (_('Basic info'), {'fields': ['code', 'modifier']}),
+        (_('Status'), {'fields': ['active']}),
+        (_('Settings'), {'fields': ['customer', 'max_uses', ('valid_from', 'valid_until')]}),
+        (None, {'fields': ['get_num_uses_field', 'get_is_valid_field']}),
     ]
 
     class Media:
@@ -133,6 +135,23 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
     get_is_valid.boolean = True
     get_is_valid.admin_order_field = 'valid_from'
     get_is_valid.short_description = _('Is valid')
+
+    def get_is_valid_field(self, obj):
+        if obj.is_valid:
+            html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
+        else:
+            html = '<img src="/static/admin/img/icon-no.svg" alt="False">'
+        help_text = _('Displays if code is valid by checking that: code is active, times used is less than max '
+                      'uses, is within the valid time period.')
+        return format_html('%s<p class="help">%s</p>' % (html, help_text))
+    get_is_valid_field.allow_tags = True
+    get_is_valid_field.short_description = _('Is valid')
+
+    def get_num_uses_field(self, obj):
+        help_text = _('Number of times this code has been already used.')
+        return format_html('%s<p class="help">%s</p>' % (obj.num_uses, help_text))
+    get_is_valid_field.allow_tags = True
+    get_num_uses_field.short_description = _('Num uses')
 
 
 @admin.register(Flag)

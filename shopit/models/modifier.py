@@ -222,7 +222,10 @@ class DiscountCode(models.Model):
         Customer, models.CASCADE, blank=True, null=True, related_name='discount_codes', verbose_name=_('Customer'),
         help_text=_('Limit code so that it can be used only by a specific customer.'))
 
-    active = models.BooleanField(_('Active'), default=True)
+    max_uses = models.PositiveIntegerField(_('Max uses'), blank=True, null=True, help_text=_(
+        'Number of times this code can be used, leave empty for unlimited usage.'))
+
+    active = models.BooleanField(_('Active'), default=True, help_text=_('Is this discount code active.'))
     valid_from = models.DateTimeField(_('Valid from'), default=timezone.now)
     valid_until = models.DateTimeField(_('Valid until'), blank=True, null=True)
     order = models.PositiveIntegerField(_('Sort'), default=0)
@@ -241,6 +244,14 @@ class DiscountCode(models.Model):
     @property
     def is_valid(self):
         now = timezone.now()
+        if not self.active:
+            return False
+        if self.max_uses is not None and self.num_uses >= self.max_uses:
+            return False
         if self.valid_until:
-            return self.active and self.valid_from <= now and self.valid_until > now
-        return self.active and self.valid_from <= now
+            return self.valid_from <= now and self.valid_until > now
+        return self.valid_from <= now
+
+    @property
+    def num_uses(self):
+        return CartDiscountCode.objects.filter(code=self.code).count()
