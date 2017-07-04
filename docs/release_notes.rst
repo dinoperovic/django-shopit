@@ -20,6 +20,7 @@ Release notes for **Shopit**.
 * Refactor address forms, enable using either 'shipping' or 'billing' form as primary. added setting ``SHOPIT_PRIMARY_ADDRESS``.
 * Fix address country choices.
 * Add and track num uses on a *DiscountCode*, alter the admin to display new values.
+* Enable frontend editing of categorization and product models.
 
 .. attention::
 

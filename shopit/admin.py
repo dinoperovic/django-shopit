@@ -174,7 +174,7 @@ class FlagAdmin(TranslatableAdmin, DraggableMPTTAdmin):
     get_name.short_description = _('Name')
 
 
-class CategorizationAdminBase(TranslatableAdmin, DraggableMPTTAdmin):
+class CategorizationAdminBase(FrontendEditableAdminMixin, TranslatableAdmin, DraggableMPTTAdmin):
     """
     Base admin for categorization models.
     """
@@ -182,6 +182,10 @@ class CategorizationAdminBase(TranslatableAdmin, DraggableMPTTAdmin):
     list_display_links = ['get_name']
     filter_horizontal = ['modifiers', 'flags']
     readonly_fields = ['created_at', 'updated_at']
+
+    frontend_editable_fields = [
+        'name', 'slug', 'active', 'created_at', 'updated_at', 'description', '_featured_image', 'parent',
+        'modifiers', 'flags']
 
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'slug']}),
@@ -207,6 +211,7 @@ class CategorizationAdminBase(TranslatableAdmin, DraggableMPTTAdmin):
 @admin.register(Category)
 class CategoryAdmin(CategorizationAdminBase):
     form = categorization_forms.CategoryModelForm
+    frontend_editable_fields = CategorizationAdminBase.frontend_editable_fields + ['_tax']
 
     def get_list_display(self, request):
         list_display = list(super(CategoryAdmin, self).get_list_display(request))
@@ -323,6 +328,11 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
     raw_id_fields = ['group']
     readonly_fields = ['created_at', 'updated_at', 'get_summary_field', 'get_variants_field']
     filter_horizontal = ['modifiers', 'flags', 'available_attributes']
+
+    frontend_editable_fields = [
+        'name', 'slug', 'code', 'active', 'created_at', 'updated_at', 'published', '_caption', '_description',
+        '_category', '_brand', '_manufacturer', '_unit_price', '_discount', '_tax', 'quantity', 'kind', 'discountable',
+        'modifiers', 'flags', '_width', '_height', '_depth', '_weight', 'available_attributes', 'group']
 
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'slug', 'code']}),
