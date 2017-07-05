@@ -79,10 +79,13 @@ class AccountResetView(LoginRegisterMixin, PasswordResetView):
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
-        response = super(AccountResetView, self).post(request, *args, **kwargs)
-        if response.status_code == 200:
-            messages.success(request._request, response.data['success'])
-        return response
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        msg = _("Instructions on how to reset the password have been sent to '{email}'.").format(**serializer.data)
+        messages.success(request._request, msg)
+        return Response({'success': msg}, status=status.HTTP_200_OK)
 
 
 class AccountResetConfirmView(LoginRegisterMixin, PasswordResetConfirm):
