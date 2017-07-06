@@ -21,6 +21,7 @@ Release notes for **Shopit**.
 * Fix address country choices.
 * Add and track num uses on a *DiscountCode*, alter the admin to display new values.
 * Enable frontend editing of categorization and product models.
+* Fix *AccountOrderDetail* view not returning the correct order.
 
 .. attention::
 

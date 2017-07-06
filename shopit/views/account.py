@@ -165,6 +165,7 @@ class AccountOrderView(LoginRequiredMixin, OrderView):
     latest = False
     renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
     list_serializer_class = OrderListSerializer
+    lookup_field = lookup_url_kwarg = 'pk'
 
     def dispatch(self, request, *args, **kwargs):
         """
