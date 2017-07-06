@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-05 09:29+0200\n"
-"PO-Revision-Date: 2017-07-05 09:30+0200\n"
+"POT-Creation-Date: 2017-07-06 15:14+0200\n"
+"PO-Revision-Date: 2017-07-06 15:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -1394,9 +1394,10 @@ msgstr "Hvala Vam na kupnji"
 
 #: templates/shopit/shop/thanks.html:11
 #, python-format
-msgid ""
-"Keep track of your orders <a href=\"%(account_order_list_url)s\">here</a>."
-msgstr "Pratite Vaše narudžbe <a href=“%(account_order_list_url)s”>ovdje</a>."
+#| msgid ""
+#| "Keep track of your orders <a href=\"%(account_order_list_url)s\">here</a>."
+msgid "Keep track of your orders <a href=\"%(link)s\">here</a>."
+msgstr "Pratite Vaše narudžbe <a href=“%(link)s”>ovdje</a>."
 
 #: templates/shopit/shop/thanks.html:14
 #, python-format
