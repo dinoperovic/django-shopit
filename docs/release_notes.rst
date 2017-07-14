@@ -8,7 +8,7 @@ Release notes for **Shopit**.
 0.2.3
 =====
 
-* Handle NoReverseMatch for ``add_to_cart_url`` in a Product serializer.
+* Update ``query_transform`` templatetag to remove empty values.
 * Add missing ``FlagModelForm`` to ``FlagAdmin``.
 * Fix Flag unicode error in ``__str__``.
 * Re-work the reviews, making them non-translatable. Not compatible with the old reviews, make sure to save them
@@ -22,6 +22,7 @@ Release notes for **Shopit**.
 * Add and track num uses on a *DiscountCode*, alter the admin to display new values.
 * Enable frontend editing of categorization and product models.
 * Fix *AccountOrderDetail* view not returning the correct order.
+* Handle NoReverseMatch for ``add_to_cart_url`` in a Product serializer.
 
 .. attention::
 

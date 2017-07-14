@@ -42,9 +42,16 @@ def query_transform(context, *args, **kwargs):
         args_keys = [args[i] for i in range(len(args)) if i % 2 == 0]
         args_vals = [args[i] for i in range(len(args)) if i % 2 != 0]
         for i in range(len(args_vals)):
-            get[args_keys[i]] = args_vals[i]
+            k, v = args_keys[i], args_vals[i]
+            if v == '' and k in get:
+                del get[k]
+            elif v != '':
+                get[k] = v
     for k, v in kwargs.items():
-        get[k] = v
+        if v == '' and k in get:
+            del get[k]
+        elif v != '':
+            get[k] = v
     return get.urlencode()
 
 
