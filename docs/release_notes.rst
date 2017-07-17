@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.2.3
 =====
 
+* Add ``never_cache`` decorators to AccountDetail and AccountOrder views.
 * Force setting priority on address form, order existant addresses by priority.
 * Update ``query_transform`` templatetag to remove empty values.
 * Add missing ``FlagModelForm`` to ``FlagAdmin``.

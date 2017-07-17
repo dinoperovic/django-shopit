@@ -147,6 +147,7 @@ class AccountDetailView(LoginRequiredMixin, RetrieveAPIView):
     renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
     template_name = 'shopit/account/account_detail.html'
 
+    @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         """
         Add exception to login required mixin when ajax GET request of a non
@@ -167,6 +168,7 @@ class AccountOrderView(LoginRequiredMixin, OrderView):
     list_serializer_class = OrderListSerializer
     lookup_field = lookup_url_kwarg = 'pk'
 
+    @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         """
         Redirect to latest order if needed.
