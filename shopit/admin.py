@@ -174,7 +174,8 @@ class FlagAdmin(TranslatableAdmin, DraggableMPTTAdmin):
     get_name.short_description = _('Name')
 
 
-class CategorizationAdminBase(FrontendEditableAdminMixin, TranslatableAdmin, DraggableMPTTAdmin):
+class CategorizationAdminBase(FrontendEditableAdminMixin, PlaceholderAdminMixin,
+                              TranslatableAdmin, DraggableMPTTAdmin):
     """
     Base admin for categorization models.
     """

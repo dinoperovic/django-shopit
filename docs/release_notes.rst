@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.2.3
 =====
 
+* Add ``content`` field as ``PlaceholderField`` to categorization models.
 * Add ``never_cache`` decorators to AccountDetail and AccountOrder views.
 * Force setting priority on address form, order existant addresses by priority.
 * Update ``query_transform`` templatetag to remove empty values.
@@ -29,7 +30,13 @@ Release notes for **Shopit**.
 .. attention::
 
     Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
-    as well as add ``phone_number`` field on Customer model and ``max_uses``, ``num_uses`` on *DiscountCode*.
+    as well as add ``phone_number`` field on Customer model, ``content`` field on Categorization models
+    and ``max_uses``, ``num_uses`` on *DiscountCode*.
+
+.. note::
+
+    If migrating the with categorization models already added. You'll need to save each models again for the
+    ``content`` PlaceholderField to appear.
 
 0.2.2
 =====

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from cms.models.fields import PlaceholderField
 from cms.utils.i18n import get_current_language
 from django.core.urlresolvers import NoReverseMatch, reverse
 from django.db import models
@@ -149,6 +150,7 @@ class CategorizationModel(TranslatableModelMixin, MPTTModel):
 
 class Category(CategorizationModel):
     translations = _categorization_translated_fields()
+    content = PlaceholderField('shopit_category_content')
 
     _tax = models.ForeignKey(Tax, models.SET_NULL, blank=True, null=True, verbose_name=_('Tax'), help_text=_(
         "Tax to be applied to products in this category. If empty, parent's tax will be used."))
@@ -172,6 +174,7 @@ class Category(CategorizationModel):
 
 class Brand(CategorizationModel):
     translations = _categorization_translated_fields()
+    content = PlaceholderField('shopit_brand_content')
 
     class Meta:
         db_table = 'shopit_brands'
@@ -182,6 +185,7 @@ class Brand(CategorizationModel):
 
 class Manufacturer(CategorizationModel):
     translations = _categorization_translated_fields()
+    content = PlaceholderField('shopit_manufacturer_content')
 
     class Meta:
         db_table = 'shopit_manufacturers'
