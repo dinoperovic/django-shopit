@@ -35,7 +35,7 @@ Release notes for **Shopit**.
 
 .. note::
 
-    If migrating the with categorization models already added. You'll need to save each models again for the
+    If migrating with categorization models already added. You'll need to save each models again for the
     ``content`` PlaceholderField to appear.
 
 0.2.2
