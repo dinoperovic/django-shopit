@@ -142,8 +142,7 @@ def get_flags(code=None, products=None, limit=None, level=None, depth=None, pare
     filters = {}
 
     if products is not None:
-        product_flags = [x.get_flags().values_list('code', flat=True) for x in products]
-        filters['code__in'] = list(set(itertools.chain.from_iterable(product_flags)))
+        filters['product__in'] = products
 
     if level is not None:
         if depth is not None:
@@ -155,7 +154,7 @@ def get_flags(code=None, products=None, limit=None, level=None, depth=None, pare
     if parent is not None:
         filters['parent'] = parent
 
-    return Flag.objects.active().filter(**filters)[:limit]
+    return Flag.objects.active().filter(**filters).distinct()[:limit]
 
 
 @register.simple_tag
