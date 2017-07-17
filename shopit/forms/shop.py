@@ -120,7 +120,7 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
         self.customer = Customer.objects.get_from_request(self.request)
 
         # Set existant addresses choices.
-        addresses = self.Meta.model.objects.filter(customer=self.customer)
+        addresses = self.Meta.model.objects.filter(customer=self.customer).order_by('-priority')
         self.fields['existant'].queryset = addresses
         if not addresses.exists():
             self.fields['existant'].widget = forms.HiddenInput()
@@ -175,6 +175,7 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
         if self.is_primary or not self['use_primary_address'].value():
             instance = super(AddressForm, self).save(commit=False)
             instance.customer = self.customer
+            instance.priority = self.cleaned_data['priority']
             instance.save()
             return instance
 
