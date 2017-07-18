@@ -5,6 +5,7 @@ import itertools
 import math
 
 from django import template
+from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.utils import six
 from shop.money import Money
@@ -139,10 +140,13 @@ def get_flags(code=None, products=None, limit=None, level=None, depth=None, pare
     if code is not None:
         return Flag.objects.active().filter(code=code).first()
 
-    filters = {}
+    flags = Flag.objects.active()
 
     if products is not None:
-        filters['product__in'] = products
+        flags = flags.filter(Q(product__in=products) | Q(product__group__isnull=False, product__group__in=products))
+        flags = flags.distinct()
+
+    filters = {}
 
     if level is not None:
         if depth is not None:
@@ -154,7 +158,7 @@ def get_flags(code=None, products=None, limit=None, level=None, depth=None, pare
     if parent is not None:
         filters['parent'] = parent
 
-    return Flag.objects.active().filter(**filters).distinct()[:limit]
+    return flags.filter(**filters)[:limit]
 
 
 @register.simple_tag
