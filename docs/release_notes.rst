@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.2.3
 =====
 
+* Add *never_cache* headers to review views.
 * Optimize ``get_flags`` templatetag when filtering by products.
 * Add ``content`` field as ``PlaceholderField`` to categorization models.
 * Add ``never_cache`` decorators to AccountDetail and AccountOrder views.

@@ -3,7 +3,9 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.cache import never_cache
 from parler.views import ViewUrlMixin
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -140,6 +142,10 @@ class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
     serializer_class = ReviewSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
+    @method_decorator(never_cache)
+    def get(self, request, *args, **kwargs):
+        return super(ProductReviewListView, self).get(request, *args, **kwargs)
+
     def create(self, request, *args, **kwargs):
         """
         Check that customer is registered, and that the review is not already
@@ -165,6 +171,10 @@ class ProductReviewDetailView(ProductReviewMixin, RetrieveUpdateDestroyAPIView):
     """
     serializer_class = ReviewSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+    @method_decorator(never_cache)
+    def get(self, request, *args, **kwargs):
+        return super(ProductReviewDetailView, self).get(request, *args, **kwargs)
 
     def get_object(self):
         if not hasattr(self, '_object'):
