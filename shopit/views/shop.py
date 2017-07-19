@@ -113,6 +113,10 @@ class CartView(CartObjectMixin, FormView):
 class WatchView(CartObjectMixin, TemplateView):
     template_name = 'shopit/shop/watch.html'
 
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        return super(WatchView, self).dispatch(request, *args, **kwargs)
+
 
 class CheckoutView(CartObjectMixin, FormView):
     """
