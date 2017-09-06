@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.forms.utils import ErrorDict
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
-from shop.app_settings import GUEST_IS_ACTIVE_USER
+from shop.conf import app_settings
 from shop.modifiers.pool import cart_modifiers_pool
 
 from shopit.forms.account import AccountDetailsForm, CleanEmailMixin
@@ -94,7 +94,7 @@ class GuestForm(CheckoutFormMixin, CleanEmailMixin, forms.ModelForm):
 
     def save(self, commit=True):
         self.customer.recognize_as_guest()
-        self.instance.is_active = GUEST_IS_ACTIVE_USER
+        self.instance.is_active = app_settings.SHOP_GUEST_IS_ACTIVE_USER
         if self.instance.is_active:
             password = get_user_model().objects.make_random_password(length=30)
             self.instance.set_password(password)

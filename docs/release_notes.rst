@@ -5,6 +5,12 @@ Release notes for **Shopit**.
 
 ----
 
+0.3.0
+=====
+
+* Add support for djangoSHOP 0.11.
+
+
 0.2.3
 =====
 
