@@ -8,6 +8,7 @@ Release notes for **Shopit**.
 0.3.0
 =====
 
+* Handle ``InvalidImageFormatError`` error when generating thumbnails.
 * Add support for djangoSHOP 0.11.
 
 
