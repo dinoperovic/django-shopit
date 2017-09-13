@@ -272,7 +272,7 @@ class Migration(migrations.Migration):
             name='Customer',
             fields=[
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('recognized', shop.models.customer.CustomerStateField(help_text='Designates the state the customer is recognized as.', verbose_name='Recognized as')),
+                ('recognized', shop.models.fields.ChoiceEnumField(help_text='Designates the state the customer is recognized as.', verbose_name='Recognized as')),
                 ('salutation', models.CharField(choices=[('mrs', 'Mrs.'), ('mr', 'Mr.'), ('na', '(n/a)')], max_length=5, verbose_name='Salutation')),
                 ('last_access', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Last accessed')),
                 ('extra', shop.models.fields.JSONField(editable=False, verbose_name='Extra information about this customer')),

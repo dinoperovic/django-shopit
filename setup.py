@@ -43,7 +43,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'django-shop>=0.10.2',
+        'django-shop>=0.11',
         'django-cms>=3.4.2',
         'django-parler>=1.6.5',
         'django-mptt>=0.8.6',

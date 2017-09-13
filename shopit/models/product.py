@@ -24,6 +24,7 @@ from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django_measurement.models import MeasurementField
+from easy_thumbnails.exceptions import InvalidImageFormatError
 from filer.fields.file import FilerFileField
 from measurement.measures import Distance, Mass
 from mptt.fields import TreeForeignKey
@@ -1055,9 +1056,12 @@ class Attachment(models.Model):
             'order': self.order,
         }
         if EASY_THUMBNAILS and self.kind == self.IMAGE and self.file is not None:
-            thumbnailer = get_thumbnailer(self.file)
-            for alias, options in aliases.all(target='shopit.Attachment').items():
-                attachment['url_%s' % alias] = thumbnailer.get_thumbnail(options).url
+            try:
+                thumbnailer = get_thumbnailer(self.file)
+                for alias, options in aliases.all(target='shopit.Attachment').items():
+                    attachment['url_%s' % alias] = thumbnailer.get_thumbnail(options).url
+            except InvalidImageFormatError:
+                pass
         return attachment
 
     def clean(self):
