@@ -182,82 +182,205 @@ class Product(BaseProduct, TranslatableModel):
     )
 
     translations = TranslatedFields(
-        name=models.CharField(_('Name'), max_length=128),
-        slug=models.SlugField(_('Slug'), db_index=True, help_text=_(
-            "Part that's used in url to display this product. Needs to be unique.")),
-        _caption=models.TextField(_('Caption'), max_length=255, blank=True, help_text=_(
-            "Short product caption, usually used in catalog's list view of products.")),
-        _description=models.TextField(_('Description'), blank=True, help_text=_(
-            "Description of a product, usually used as lead text in product's detail view.")),
-        meta={'unique_together': [('language_code', 'slug')]},
+        name=models.CharField(
+            _('Name'),
+            max_length=128,
+        ),
+        slug=models.SlugField(
+            _('Slug'),
+            db_index=True,
+            help_text=_("Part that's used in url to display this product. Needs to be unique."),
+        ),
+        _caption=models.TextField(
+            _('Caption'),
+            max_length=255,
+            blank=True,
+            help_text=_("Short product caption, usually used in catalog's list view of products."),
+        ),
+        _description=models.TextField(
+            _('Description'),
+            blank=True,
+            help_text=_("Description of a product, usually used as lead text in product's detail view."),
+        ),
+        meta={
+            'unique_together': [('language_code', 'slug')],
+        },
     )
 
-    code = models.CharField(_('Code'), max_length=64, unique=True, help_text=_('Unique identifier for a product.'))
+    code = models.CharField(
+        _('Code'),
+        max_length=64,
+        unique=True,
+        help_text=_('Unique identifier for a product.'),
+    )
 
     # Categorization
-    _category = TreeForeignKey(Category, models.CASCADE, blank=True, null=True, verbose_name=_('Category'))
-    _brand = TreeForeignKey(Brand, models.CASCADE, blank=True, null=True, verbose_name=_('Brand'))
-    _manufacturer = TreeForeignKey(Manufacturer, models.CASCADE, blank=True, null=True, verbose_name=_('Manufacturer'))
+    _category = TreeForeignKey(
+        Category,
+        models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name=_('Category'),
+    )
+
+    _brand = TreeForeignKey(
+        Brand,
+        models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name=_('Brand'),
+    )
+
+    _manufacturer = TreeForeignKey(
+        Manufacturer,
+        models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name=_('Manufacturer'),
+    )
 
     # Pricing
-    _unit_price = MoneyField(_('Unit price'), blank=True, null=True, help_text=_(
-        "For variants leave empty to use the Group price."))
+    _unit_price = MoneyField(
+        _('Unit price'),
+        blank=True,
+        null=True,
+        help_text=_("For variants leave empty to use the Group price."),
+    )
 
     _discount = models.DecimalField(
-        _('Discount %'), blank=True, null=True, max_digits=4, decimal_places=2,
+        _('Discount %'),
+        blank=True,
+        null=True,
+        max_digits=4,
+        decimal_places=2,
         validators=[MinValueValidator(Decimal('0.00'))],
-        help_text=_("For variants leave empty to use Group discount."))
+        help_text=_("For variants leave empty to use Group discount."),
+    )
 
     _tax = models.ForeignKey(
-        Tax, models.SET_NULL, blank=True, null=True, verbose_name=_('Tax'),
-        help_text=_("Tax to be applied to this product. Variants inherit tax percentage from their Group, and should "
-                    "leave this field empty."))
+        Tax,
+        models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name=_('Tax'),
+        help_text=_(
+            "Tax to be applied to this product. Variants inherit tax percentage from their Group, and should "
+            "leave this field empty."
+        ),
+    )
 
     # Settings
-    kind = models.PositiveSmallIntegerField(_('Kind'), choices=KINDS, default=SINGLE, help_text=_(
-        'Choose a product type. Single products are products without variations. Group products are base products '
-        'that hold variants and their common info, they cannot be added to cart. Variants are variations of a product '
-        'that must select a Group product, and set their unique set of attributes. '
-        '(See "Variant" section below)'))
+    kind = models.PositiveSmallIntegerField(
+        _('Kind'),
+        choices=KINDS,
+        default=SINGLE,
+        help_text=_(
+            'Choose a product type. Single products are products without variations. Group products are base products '
+            'that hold variants and their common info, they cannot be added to cart. Variants are variations of a '
+            'product that must select a Group product, and set their unique set of attributes. '
+            '(See "Variant" section below)'
+        ),
+    )
 
-    discountable = models.BooleanField(_('Discountable'), default=True, help_text=_(
-        'Can this product be used in an offer?'))
+    discountable = models.BooleanField(
+        _('Discountable'),
+        default=True,
+        help_text=_('Can this product be used in an offer?'),
+    )
 
     modifiers = models.ManyToManyField(
-        Modifier, blank=True, verbose_name=_('Modifiers'),
-        limit_choices_to={'kind__in': [Modifier.STANDARD, Modifier.DISCOUNT]})
+        Modifier,
+        blank=True,
+        verbose_name=_('Modifiers'),
+        limit_choices_to={'kind__in': [Modifier.STANDARD, Modifier.DISCOUNT]},
+    )
 
-    flags = models.ManyToManyField(Flag, blank=True, verbose_name=_('Flags'), help_text=_(
-        'Check flags for this product.'))
+    flags = models.ManyToManyField(
+        Flag,
+        blank=True,
+        verbose_name=_('Flags'),
+        help_text=_('Check flags for this product.'),
+    )
 
     # Measurements
-    _width = MeasurementField(_('Width'), blank=True, null=True, measurement=Distance)
-    _height = MeasurementField(_('Height'), blank=True, null=True, measurement=Distance)
-    _depth = MeasurementField(_('Depth'), blank=True, null=True, measurement=Distance)
-    _weight = MeasurementField(_('Weight'), blank=True, null=True, measurement=Mass)
+    _width = MeasurementField(
+        _('Width'),
+        blank=True,
+        null=True,
+        measurement=Distance,
+    )
+
+    _height = MeasurementField(
+        _('Height'),
+        blank=True,
+        null=True,
+        measurement=Distance,
+    )
+
+    _depth = MeasurementField(
+        _('Depth'),
+        blank=True,
+        null=True,
+        measurement=Distance,
+    )
+
+    _weight = MeasurementField(
+        _('Weight'),
+        blank=True,
+        null=True,
+        measurement=Mass,
+    )
 
     # Group
     available_attributes = models.ManyToManyField(
-        'Attribute', blank=True, related_name='products_available_attributes', verbose_name=_('Attributes'),
-        help_text=_('Select attributes that can be used in a Variant for this product.'))
+        'Attribute',
+        blank=True,
+        related_name='products_available_attributes',
+        verbose_name=_('Attributes'),
+        help_text=_('Select attributes that can be used in a Variant for this product.'),
+    )
 
     # Variant
     group = models.ForeignKey(
-        'self', models.CASCADE, blank=True, null=True, related_name='variants', verbose_name=_('Group'),
-        help_text=_('Select a Group product for this variation.'))
+        'self',
+        models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='variants',
+        verbose_name=_('Group'),
+        help_text=_('Select a Group product for this variation.'),
+    )
 
-    attributes = models.ManyToManyField('Attribute', through='AttributeValue', verbose_name=_('Attributes'))
-    published = models.DateTimeField(_('Published'), default=timezone.now)
+    attributes = models.ManyToManyField(
+        'Attribute',
+        through='AttributeValue',
+        verbose_name=_('Attributes'),
+    )
 
-    quantity = models.IntegerField(_('Quantity'), blank=True, null=True, help_text=_(
-        'Number of available products to ship. Leave empty if product is always available, or set to 0 if product '
-        'is not available.'))
+    published = models.DateTimeField(
+        _('Published'),
+        default=timezone.now,
+    )
 
-    order = models.BigIntegerField(_('Sort'), default=0)
+    quantity = models.IntegerField(
+        _('Quantity'),
+        blank=True,
+        null=True,
+        help_text=_(
+            'Number of available products to ship. Leave empty if product is always available, or set to 0 if product '
+            'is not available.'
+        ),
+    )
+
+    order = models.BigIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     content = PlaceholderField('shopit_product_content')
 
     objects = ProductManager()
+
     lookup_fields = ['code__startswith', 'translations__name__icontains']
 
     class Meta:
@@ -268,16 +391,6 @@ class Product(BaseProduct, TranslatableModel):
 
     def __str__(self):
         return self.product_name
-
-    def get_absolute_url(self, language=None):
-        if not language:
-            language = get_current_language()
-
-        with switch_language(self, language):
-            try:
-                return reverse('shopit-product-detail', args=[self.safe_translation_getter('slug')])
-            except NoReverseMatch:  # pragma: no cover
-                pass
 
     def save(self, *args, **kwargs):
         """
@@ -311,6 +424,16 @@ class Product(BaseProduct, TranslatableModel):
                     variant.clear()
                     variant.order = timestamp
                     variant.save(update_fields=['order'])
+
+    def get_absolute_url(self, language=None):
+        if not language:
+            language = get_current_language()
+
+        with switch_language(self, language):
+            try:
+                return reverse('shopit-product-detail', args=[self.safe_translation_getter('slug')])
+            except NoReverseMatch:  # pragma: no cover
+                pass
 
     @property
     def product_name(self):
@@ -875,22 +998,57 @@ class Attribute(TranslatableModel):
     TEMPLATES = ATTRIBUTE_TEMPLATES
 
     translations = TranslatedFields(
-        name=models.CharField(_('Name'), max_length=128),
+        name=models.CharField(
+            _('Name'),
+            max_length=128,
+        ),
     )
 
-    code = models.SlugField(_('Code'), max_length=128, unique=True, help_text=_(
-        "An identifier that's used to access this attribute. Must be unique."))
+    code = models.SlugField(
+        _('Code'),
+        max_length=128,
+        unique=True,
+        help_text=_("An identifier that's used to access this attribute. Must be unique."),
+    )
 
-    template = models.CharField(_('Template'), max_length=255, blank=True, null=True, choices=TEMPLATES, help_text=_(
-        'You can specify a template for rendering this attribute or leave it empty for the default (dropdown) look.'))
+    template = models.CharField(
+        _('Template'),
+        max_length=255,
+        blank=True,
+        null=True,
+        choices=TEMPLATES,
+        help_text=_(
+            'You can specify a template for rendering this attribute or leave it empty for the '
+            'default (dropdown) look.'
+        ),
+    )
 
-    nullable = models.BooleanField(_('Nullable'), default=False, help_text=_(
-        'Check this if you want to make "empty" an option for this Attribute.'))
+    nullable = models.BooleanField(
+        _('Nullable'),
+        default=False,
+        help_text=_('Check this if you want to make "empty" an option for this Attribute.'),
+    )
 
-    active = models.BooleanField(_('Active'), default=True, help_text=_('Is this attribute publicly visible.'))
-    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('Updated at'), auto_now=True)
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    active = models.BooleanField(
+        _('Active'),
+        default=True,
+        help_text=_('Is this attribute publicly visible.'),
+    )
+
+    created_at = models.DateTimeField(
+        _('Created at'),
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        _('Updated at'),
+        auto_now=True,
+    )
+
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     objects = AttributeQuerySet.as_manager()
 
@@ -938,15 +1096,36 @@ class AttributeChoice(TranslatableModel):
     """
     Choices of a particular attribute.
     """
-    attribute = models.ForeignKey(Attribute, models.CASCADE, related_name='choices', verbose_name=_('Attribute'))
-
-    translations = TranslatedFields(
-        name=models.CharField(_('Name'), max_length=128, blank=True),
+    attribute = models.ForeignKey(
+        Attribute,
+        models.CASCADE,
+        related_name='choices',
+        verbose_name=_('Attribute'),
     )
 
-    value = models.CharField(_('Value'), max_length=255)
-    file = FilerFileField(blank=True, null=True, verbose_name=_('File'))
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    translations = TranslatedFields(
+        name=models.CharField(
+            _('Name'),
+            max_length=128,
+            blank=True,
+        ),
+    )
+
+    value = models.CharField(
+        _('Value'),
+        max_length=255,
+    )
+
+    file = FilerFileField(
+        blank=True,
+        null=True,
+        verbose_name=_('File'),
+    )
+
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     class Meta:
         db_table = 'shopit_attribute_choices'
@@ -964,9 +1143,27 @@ class AttributeValue(models.Model):
     """
     Through model for Product attributes.
     """
-    attribute = models.ForeignKey(Attribute, models.CASCADE, related_name='values', verbose_name=_('Attribute'))
-    product = models.ForeignKey(Product, models.CASCADE, related_name='attribute_values', verbose_name=_('Product'))
-    choice = models.ForeignKey(AttributeChoice, models.CASCADE, blank=True, null=True, verbose_name=_('Value'))
+    attribute = models.ForeignKey(
+        Attribute,
+        models.CASCADE,
+        related_name='values',
+        verbose_name=_('Attribute'),
+    )
+
+    product = models.ForeignKey(
+        Product,
+        models.CASCADE,
+        related_name='attribute_values',
+        verbose_name=_('Product'),
+    )
+
+    choice = models.ForeignKey(
+        AttributeChoice,
+        models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name=_('Value'),
+    )
 
     class Meta:
         db_table = 'shopit_attribute_values'
@@ -1021,11 +1218,36 @@ class Attachment(models.Model):
         FILE: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'txt'],
     }
 
-    product = models.ForeignKey(Product, models.CASCADE, related_name='attachments', verbose_name=_('Product'))
-    kind = models.CharField(_('Kind'), max_length=16, choices=KINDS, default=IMAGE)
-    file = FilerFileField(on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('File'))
-    url = models.URLField(_('Url'), blank=True)
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    product = models.ForeignKey(
+        Product,
+        models.CASCADE,
+        related_name='attachments',
+        verbose_name=_('Product'),
+    )
+
+    kind = models.CharField(
+        _('Kind'),
+        max_length=16,
+        choices=KINDS,
+        default=IMAGE,
+    )
+
+    file = FilerFileField(
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name=_('File'),
+    )
+
+    url = models.URLField(
+        _('Url'),
+        blank=True,
+    )
+
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     class Meta:
         db_table = 'shopit_attachments'
@@ -1079,15 +1301,30 @@ class Relation(models.Model):
     """
     KINDS = RELATION_KINDS
 
-    base = models.ForeignKey(Product, models.CASCADE, related_name='relations')
+    base = models.ForeignKey(
+        Product,
+        models.CASCADE,
+        related_name='relations',
+    )
 
     product = models.ForeignKey(
-        Product, models.CASCADE, verbose_name=_('Product'),
-        limit_choices_to={'kind__in': [Product.SINGLE, Product.GROUP]})
+        Product,
+        models.CASCADE,
+        verbose_name=_('Product'),
+        limit_choices_to={'kind__in': [Product.SINGLE, Product.GROUP]},
+    )
 
-    kind = models.CharField(_('Kind'), max_length=128, blank=True, choices=KINDS)
+    kind = models.CharField(
+        _('Kind'),
+        max_length=128,
+        blank=True,
+        choices=KINDS,
+    )
 
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     class Meta:
         db_table = 'shopit_relations'
@@ -1123,19 +1360,64 @@ class Review(models.Model):
     RATINGS = REVIEW_RATINGS
 
     product = models.ForeignKey(
-        Product, models.CASCADE, related_name='reviews', verbose_name=_('Product'),
-        limit_choices_to={'kind__in': [Product.SINGLE, Product.GROUP]})
+        Product,
+        models.CASCADE,
+        related_name='reviews',
+        verbose_name=_('Product'),
+        limit_choices_to={'kind__in': [Product.SINGLE, Product.GROUP]},
+    )
 
-    customer = models.ForeignKey(Customer, models.CASCADE, related_name='product_reviews', verbose_name=_('Customer'))
-    name = models.CharField(_('Name'), max_length=128, blank=True)
-    text = models.TextField(_('Text'), max_length=1024)
-    rating = models.PositiveIntegerField(_('Rating'), choices=RATINGS, default=0)
-    language = models.CharField(_('Language'), max_length=2, choices=settings.LANGUAGES, default=settings.LANGUAGES[0][0])  # noqa
+    customer = models.ForeignKey(
+        Customer,
+        models.CASCADE,
+        related_name='product_reviews',
+        verbose_name=_('Customer'),
+    )
 
-    active = models.BooleanField(_('Active'), default=True, help_text=_('Is this review publicly visible.'))
-    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('Updated at'), auto_now=True)
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    name = models.CharField(
+        _('Name'),
+        max_length=128,
+        blank=True,
+    )
+
+    text = models.TextField(
+        _('Text'),
+        max_length=1024,
+    )
+
+    rating = models.PositiveIntegerField(
+        _('Rating'),
+        choices=RATINGS,
+        default=0,
+    )
+
+    language = models.CharField(
+        _('Language'),
+        max_length=2,
+        choices=settings.LANGUAGES,
+        default=settings.LANGUAGES[0][0],
+    )
+
+    active = models.BooleanField(
+        _('Active'),
+        default=True,
+        help_text=_('Is this review publicly visible.'),
+    )
+
+    created_at = models.DateTimeField(
+        _('Created at'),
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        _('Updated at'),
+        auto_now=True,
+    )
+
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     objects = ReviewQuerySet.as_manager()
 
@@ -1150,6 +1432,9 @@ class Review(models.Model):
 
     def get_absolute_url(self):
         try:
-            return reverse('shopit-product-review-detail', args=[self.product.safe_translation_getter('slug'), self.id])  # noqa
+            return reverse(
+                'shopit-product-review-detail',
+                args=[self.product.safe_translation_getter('slug'), self.id]
+            )
         except NoReverseMatch:  # pragma: no cover
             pass

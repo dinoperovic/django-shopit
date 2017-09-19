@@ -12,8 +12,19 @@ from shopit.models.address import BillingAddress, ShippingAddress
 
 @python_2_unicode_compatible
 class Cart(BaseCart):
-    shipping_address = models.ForeignKey(ShippingAddress, null=True, default=None, related_name='+')
-    billing_address = models.ForeignKey(BillingAddress, null=True, default=None, related_name='+')
+    shipping_address = models.ForeignKey(
+        ShippingAddress,
+        null=True,
+        default=None,
+        related_name='+',
+    )
+
+    billing_address = models.ForeignKey(
+        BillingAddress,
+        null=True,
+        default=None,
+        related_name='+',
+    )
 
     class Meta:
         db_table = 'shopit_carts'
@@ -45,8 +56,17 @@ class CartDiscountCode(models.Model):
     """
     Discount codes that are added to the cart.
     """
-    cart = models.ForeignKey(Cart, models.CASCADE, related_name='discount_codes', editable=False)
-    code = models.CharField(_('Code'), max_length=30)
+    cart = models.ForeignKey(
+        Cart,
+        models.CASCADE,
+        related_name='discount_codes',
+        editable=False,
+    )
+
+    code = models.CharField(
+        _('Code'),
+        max_length=30,
+    )
 
     class Meta:
         db_table = 'shopit_cart_discount_codes'

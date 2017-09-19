@@ -20,7 +20,10 @@ class Delivery(BaseDelivery):
 
 @python_2_unicode_compatible
 class DeliveryItem(BaseDeliveryItem):
-    quantity = models.IntegerField(_('Delivered quantity'), default=0)
+    quantity = models.IntegerField(
+        _('Delivered quantity'),
+        default=0,
+    )
 
     class Meta:
         db_table = 'shopit_delivery_items'

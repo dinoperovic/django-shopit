@@ -38,11 +38,22 @@ class CategorizationManager(TranslatableManager, TreeManager):
 
 def _categorization_translated_fields():
     return TranslatedFields(
-        name=models.CharField(_('Name'), max_length=128),
-        slug=models.SlugField(_('Slug'), db_index=True),
-        description=models.TextField(_('Description'), blank=True, help_text=_(
-            "Description of a categorization, usually used as lead text in categorization's detail view.")),
-        meta={'unique_together': [('language_code', 'slug')]},
+        name=models.CharField(
+            _('Name'),
+            max_length=128,
+        ),
+        slug=models.SlugField(
+            _('Slug'),
+            db_index=True,
+        ),
+        description=models.TextField(
+            _('Description'),
+            blank=True,
+            help_text=_("Description of a categorization, usually used as lead text in categorization's detail view."),
+        ),
+        meta={
+            'unique_together': [('language_code', 'slug')],
+        },
     )
 
 
@@ -55,22 +66,51 @@ class CategorizationModel(TranslatableModelMixin, MPTTModel):
             translations = _categorization_translated_fields()
     """
     _featured_image = FilerImageField(
-        on_delete=models.SET_NULL, blank=True, null=True, verbose_name=_('Featured image'), help_text=_(
-            "If left empty for childs, a parent's featured image will be used."))
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name=_('Featured image'),
+        help_text=_("If left empty for childs, a parent's featured image will be used."),
+    )
 
     parent = TreeForeignKey(
-        'self', models.CASCADE, blank=True, null=True, related_name='children', verbose_name=_('Parent'))
+        'self',
+        models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='children',
+        verbose_name=_('Parent'),
+    )
 
     modifiers = models.ManyToManyField(
-        Modifier, blank=True, verbose_name=_('Modifiers'),
-        limit_choices_to={'kind__in': [Modifier.STANDARD, Modifier.DISCOUNT]})
+        Modifier,
+        blank=True,
+        verbose_name=_('Modifiers'),
+        limit_choices_to={'kind__in': [Modifier.STANDARD, Modifier.DISCOUNT]},
+    )
 
-    flags = models.ManyToManyField(Flag, blank=True, verbose_name=_('Flags'), help_text=_(
-        'Check flags for products in this categorization.'))
+    flags = models.ManyToManyField(
+        Flag,
+        blank=True,
+        verbose_name=_('Flags'),
+        help_text=_('Check flags for products in this categorization.'),
+    )
 
-    active = models.BooleanField(_('Active'), default=True, help_text=_('Is this categorization publicly visible.'))
-    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('Updated at'), auto_now=True)
+    active = models.BooleanField(
+        _('Active'),
+        default=True,
+        help_text=_('Is this categorization publicly visible.'),
+    )
+
+    created_at = models.DateTimeField(
+        _('Created at'),
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        _('Updated at'),
+        auto_now=True,
+    )
 
     objects = CategorizationManager()
 
@@ -150,10 +190,17 @@ class CategorizationModel(TranslatableModelMixin, MPTTModel):
 
 class Category(CategorizationModel):
     translations = _categorization_translated_fields()
+
     content = PlaceholderField('shopit_category_content')
 
-    _tax = models.ForeignKey(Tax, models.SET_NULL, blank=True, null=True, verbose_name=_('Tax'), help_text=_(
-        "Tax to be applied to products in this category. If empty, parent's tax will be used."))
+    _tax = models.ForeignKey(
+        Tax,
+        models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name=_('Tax'),
+        help_text=_("Tax to be applied to products in this category. If empty, parent's tax will be used."),
+    )
 
     class Meta:
         db_table = 'shopit_categories'
@@ -174,6 +221,7 @@ class Category(CategorizationModel):
 
 class Brand(CategorizationModel):
     translations = _categorization_translated_fields()
+
     content = PlaceholderField('shopit_brand_content')
 
     class Meta:
@@ -185,6 +233,7 @@ class Brand(CategorizationModel):
 
 class Manufacturer(CategorizationModel):
     translations = _categorization_translated_fields()
+
     content = PlaceholderField('shopit_manufacturer_content')
 
     class Meta:

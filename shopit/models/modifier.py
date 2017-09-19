@@ -43,25 +43,64 @@ class Modifier(TranslatableModel):
     )
 
     translations = TranslatedFields(
-        name=models.CharField(_('Name'), max_length=128),
+        name=models.CharField(
+            _('Name'),
+            max_length=128,
+        ),
     )
 
-    code = models.SlugField(_('Code'), unique=True, help_text=_('Unique identifier for this modifier.'))
+    code = models.SlugField(
+        _('Code'),
+        unique=True,
+        help_text=_('Unique identifier for this modifier.'),
+    )
 
-    amount = MoneyField(_('Amount'), default=Money(0), help_text=('Amount that should be added. Can be negative.'))
+    amount = MoneyField(
+        _('Amount'),
+        default=Money(0),
+        help_text=('Amount that should be added. Can be negative.'),
+    )
 
     percent = models.DecimalField(
-        _('Percent'), blank=True, null=True, max_digits=4, decimal_places=2,
-        help_text=_('Percent that should be added, overrides the amount. Can be negative.'))
+        _('Percent'),
+        blank=True,
+        null=True,
+        max_digits=4,
+        decimal_places=2,
+        help_text=_('Percent that should be added, overrides the amount. Can be negative.'),
+    )
 
-    kind = models.CharField(_('Kind'), max_length=16, choices=KINDS, default=STANDARD, help_text=_(
-        'Standard affects the product regardles, Discount checks for a "Discountable" flag on a product and should be '
-        'negative, Cart will affect an entire cart.'))
+    kind = models.CharField(
+        _('Kind'),
+        max_length=16,
+        choices=KINDS,
+        default=STANDARD,
+        help_text=_(
+            'Standard affects the product regardles, Discount checks for a "Discountable" flag on a product and '
+            'should be negative, Cart will affect an entire cart.'
+        ),
+    )
 
-    active = models.BooleanField(_('Active'), default=True, help_text=_('Is this modifier publicly visible.'))
-    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('Updated at'), auto_now=True)
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    active = models.BooleanField(
+        _('Active'),
+        default=True,
+        help_text=_('Is this modifier publicly visible.'),
+    )
+
+    created_at = models.DateTimeField(
+        _('Created at'),
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        _('Updated at'),
+        auto_now=True,
+    )
+
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     objects = ModifierQuerySet.as_manager()
 
@@ -160,11 +199,32 @@ class ModifierCondition(models.Model):
     """
     CONDITIONS = modifier_conditions_pool.get_condition_choices()
 
-    modifier = models.ForeignKey(Modifier, models.CASCADE, related_name='conditions', verbose_name=_('Modifier'))
-    path = models.CharField(_('Condition'), max_length=255, blank=True, choices=CONDITIONS)
-    value = models.DecimalField(_('Value'), blank=True, null=True, max_digits=10, decimal_places=2)
+    modifier = models.ForeignKey(
+        Modifier,
+        models.CASCADE,
+        related_name='conditions',
+        verbose_name=_('Modifier'),
+    )
 
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    path = models.CharField(
+        _('Condition'),
+        max_length=255,
+        blank=True,
+        choices=CONDITIONS,
+    )
+
+    value = models.DecimalField(
+        _('Value'),
+        blank=True,
+        null=True,
+        max_digits=10,
+        decimal_places=2,
+    )
+
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     class Meta:
         db_table = 'shopit_modifier_conditions'
@@ -220,26 +280,64 @@ class DiscountCode(models.Model):
     be added to the cart.
     """
     modifier = models.ForeignKey(
-        Modifier, models.CASCADE, related_name='discount_codes', verbose_name=_('Modifier'),
-        help_text=_('Modifier that this discount code applies to.'))
+        Modifier,
+        models.CASCADE,
+        related_name='discount_codes',
+        verbose_name=_('Modifier'),
+        help_text=_('Modifier that this discount code applies to.'),
+    )
 
-    code = models.CharField(_('Code'), max_length=30, unique=True, help_text=_(
-        'Code that must be entered for the modifier to activate.'))
+    code = models.CharField(
+        _('Code'),
+        max_length=30,
+        unique=True,
+        help_text=_('Code that must be entered for the modifier to activate.'),
+    )
 
     customer = models.ForeignKey(
-        Customer, models.CASCADE, blank=True, null=True, related_name='discount_codes', verbose_name=_('Customer'),
-        help_text=_('Limit code so that it can be used only by a specific customer.'))
+        Customer,
+        models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='discount_codes',
+        verbose_name=_('Customer'),
+        help_text=_('Limit code so that it can be used only by a specific customer.'),
+    )
 
-    max_uses = models.PositiveIntegerField(_('Max uses'), blank=True, null=True, help_text=_(
-        'Number of times this code can be used, leave empty for unlimited usage.'))
+    max_uses = models.PositiveIntegerField(
+        _('Max uses'),
+        blank=True,
+        null=True,
+        help_text=_('Number of times this code can be used, leave empty for unlimited usage.'),
+    )
 
-    num_uses = models.PositiveIntegerField(_('Num uses'), default=0, help_text=_(
-        'Number of times this code has been already used.'))
+    num_uses = models.PositiveIntegerField(
+        _('Num uses'),
+        default=0,
+        help_text=_('Number of times this code has been already used.'),
+    )
 
-    active = models.BooleanField(_('Active'), default=True, help_text=_('Is this discount code active.'))
-    valid_from = models.DateTimeField(_('Valid from'), default=timezone.now)
-    valid_until = models.DateTimeField(_('Valid until'), blank=True, null=True)
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    active = models.BooleanField(
+        _('Active'),
+        default=True,
+        help_text=_('Is this discount code active.'),
+    )
+
+    valid_from = models.DateTimeField(
+        _('Valid from'),
+        default=timezone.now,
+    )
+
+    valid_until = models.DateTimeField(
+        _('Valid until'),
+        blank=True,
+        null=True,
+    )
+
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     objects = DiscountCodeQuerySet.as_manager()
 

@@ -47,9 +47,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -84,9 +82,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -121,9 +117,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -158,9 +152,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -195,9 +187,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -232,9 +222,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -269,9 +257,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -306,9 +292,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -343,9 +327,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -380,9 +362,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "default.html",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -417,9 +397,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -454,9 +432,7 @@
     "reverse_id": null,
     "navigation_extenders": "",
     "template": "INHERIT",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": false,
@@ -491,9 +467,7 @@
     "reverse_id": null,
     "navigation_extenders": null,
     "template": "default.html",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": true,
@@ -528,9 +502,7 @@
     "reverse_id": null,
     "navigation_extenders": null,
     "template": "default.html",
-    "site": [
-      "example.com"
-    ],
+    "site": 1,
     "login_required": false,
     "limit_visibility_in_menu": null,
     "is_home": true,

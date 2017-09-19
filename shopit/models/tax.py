@@ -13,14 +13,24 @@ from parler.models import TranslatableModel, TranslatedFields
 @python_2_unicode_compatible
 class Tax(TranslatableModel):
     translations = TranslatedFields(
-        name=models.CharField(_('Name'), max_length=128),
+        name=models.CharField(
+            _('Name'),
+            max_length=128,
+        ),
     )
 
     percent = models.DecimalField(
-        _('Percent'), max_digits=4, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))],
-        help_text=_('Tax percentage.'))
+        _('Percent'),
+        max_digits=4,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        help_text=_('Tax percentage.'),
+    )
 
-    order = models.PositiveIntegerField(_('Sort'), default=0)
+    order = models.PositiveIntegerField(
+        _('Sort'),
+        default=0,
+    )
 
     class Meta:
         db_table = 'shopit_taxes'

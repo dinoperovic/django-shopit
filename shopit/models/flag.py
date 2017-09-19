@@ -33,17 +33,42 @@ class Flag(TranslatableModelMixin, MPTTModel):
     Flag model.
     """
     translations = TranslatedFields(
-        name=models.CharField(_('Name'), max_length=128),
+        name=models.CharField(
+            _('Name'),
+            max_length=128,
+        ),
     )
 
-    code = models.SlugField(_('Code'), unique=True, help_text=_('Unique identifier for this flag.'))
+    code = models.SlugField(
+        _('Code'),
+        unique=True,
+        help_text=_('Unique identifier for this flag.'),
+    )
 
     parent = TreeForeignKey(
-        'self', models.CASCADE, blank=True, null=True, related_name='children', verbose_name=_('Parent'))
+        'self',
+        models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='children',
+        verbose_name=_('Parent'),
+    )
 
-    active = models.BooleanField(_('Active'), default=True, help_text=_('Is this flag publicly visible.'))
-    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('Updated at'), auto_now=True)
+    active = models.BooleanField(
+        _('Active'),
+        default=True,
+        help_text=_('Is this flag publicly visible.'),
+    )
+
+    created_at = models.DateTimeField(
+        _('Created at'),
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        _('Updated at'),
+        auto_now=True,
+    )
 
     objects = FlagManager()
 

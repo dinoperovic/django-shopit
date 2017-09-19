@@ -29,13 +29,26 @@ class OrderManager(OrderManagerBase):
 
 @python_2_unicode_compatible
 class Order(BaseOrder):
-    number = models.PositiveIntegerField(_("Order Number"), null=True, default=None, unique=True)
+    number = models.PositiveIntegerField(
+        _("Order Number"),
+        null=True,
+        default=None,
+        unique=True,
+    )
 
-    shipping_address_text = models.TextField(_("Shipping Address"), blank=True, null=True, help_text=_(
-        'Shipping address at the moment of purchase.'))
+    shipping_address_text = models.TextField(
+        _("Shipping Address"),
+        blank=True,
+        null=True,
+        help_text=_('Shipping address at the moment of purchase.'),
+    )
 
-    billing_address_text = models.TextField(_("Billing Address"), blank=True, null=True, help_text=_(
-        'Billing address at the moment of purchase.'))
+    billing_address_text = models.TextField(
+        _("Billing Address"),
+        blank=True,
+        null=True,
+        help_text=_('Billing address at the moment of purchase.'),
+    )
 
     objects = OrderManager()
 
@@ -105,7 +118,11 @@ class Order(BaseOrder):
 @python_2_unicode_compatible
 class OrderItem(BaseOrderItem):
     quantity = models.IntegerField(_('Ordered quantity'))
-    canceled = models.BooleanField(_('Item canceled'), default=False)
+
+    canceled = models.BooleanField(
+        _('Item canceled'),
+        default=False,
+    )
 
     class Meta:
         db_table = 'shopit_order_items'

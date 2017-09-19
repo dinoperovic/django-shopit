@@ -10,11 +10,29 @@ from shop.models.customer import BaseCustomer
 
 @python_2_unicode_compatible
 class Customer(BaseCustomer):
-    SALUTATION = [('mrs', _("Mrs.")), ('mr', _("Mr.")), ('na', _("(n/a)"))]
+    SALUTATION = [
+        ('mrs', _("Mrs.")),
+        ('mr', _("Mr.")),
+        ('na', _("(n/a)")),
+    ]
 
-    number = models.PositiveIntegerField(_('Customer Number'), null=True, default=None, unique=True)
-    salutation = models.CharField(_('Salutation'), max_length=5, choices=SALUTATION)
-    phone_number = PhoneNumberField(_('Phone number'), blank=True)
+    number = models.PositiveIntegerField(
+        _('Customer Number'),
+        null=True,
+        default=None,
+        unique=True,
+    )
+
+    salutation = models.CharField(
+        _('Salutation'),
+        max_length=5,
+        choices=SALUTATION,
+    )
+
+    phone_number = PhoneNumberField(
+        _('Phone number'),
+        blank=True,
+    )
 
     class Meta:
         db_table = 'shopit_customers'
