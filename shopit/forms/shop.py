@@ -104,12 +104,23 @@ class GuestForm(CheckoutFormMixin, CleanEmailMixin, forms.ModelForm):
 
 
 class AddressForm(CheckoutFormMixin, forms.ModelForm):
-    priority = forms.IntegerField(required=False, widget=forms.HiddenInput)
-    existant = forms.ModelChoiceField(required=False, queryset=None, label=_('Use existant address'))
+    priority = forms.IntegerField(
+        required=False,
+        widget=forms.HiddenInput,
+    )
+
+    existant = forms.ModelChoiceField(
+        required=False,
+        queryset=None,
+        label=_('Use existant address'),
+    )
 
     # Field decides if a primary address should be used instead.
     # Primary address is set to either 'shipping' or 'billing' using `PRIMARY_ADDRESS` setting.
-    use_primary_address = forms.BooleanField(required=False, initial=True)
+    use_primary_address = forms.BooleanField(
+        required=False,
+        initial=True,
+    )
 
     class Meta:
         exclude = ['customer']
@@ -203,7 +214,10 @@ class BillingAddressForm(AddressForm):
 
 
 class PaymentMethodForm(CheckoutFormMixin, forms.Form):
-    payment_modifier = forms.ChoiceField(label=_('Payment method'), widget=forms.RadioSelect)
+    payment_modifier = forms.ChoiceField(
+        label=_('Payment method'),
+        widget=forms.RadioSelect,
+    )
 
     def __init__(self, *args, **kwargs):
         super(PaymentMethodForm, self).__init__(*args, **kwargs)
@@ -214,7 +228,10 @@ class PaymentMethodForm(CheckoutFormMixin, forms.Form):
 
 
 class DeliveryMethodForm(CheckoutFormMixin, forms.Form):
-    shipping_modifier = forms.ChoiceField(label=_('Delivery method'), widget=forms.RadioSelect)
+    shipping_modifier = forms.ChoiceField(
+        label=_('Delivery method'),
+        widget=forms.RadioSelect,
+    )
 
     def __init__(self, *args, **kwargs):
         super(DeliveryMethodForm, self).__init__(*args, **kwargs)
@@ -226,8 +243,16 @@ class DeliveryMethodForm(CheckoutFormMixin, forms.Form):
 
 
 class ExtraAnnotationForm(CheckoutFormMixin, forms.Form):
-    annotation = forms.CharField(label=_('Extra annotation for this order'), required=False, widget=forms.Textarea)
+    annotation = forms.CharField(
+        label=_('Extra annotation for this order'),
+        required=False,
+        widget=forms.Textarea,
+    )
 
 
 class AcceptConditionForm(CheckoutFormMixin, forms.Form):
-    accept = forms.BooleanField(label=_('Accept'), required=True, widget=forms.CheckboxInput)
+    accept = forms.BooleanField(
+        label=_('Accept'),
+        required=True,
+        widget=forms.CheckboxInput,
+    )

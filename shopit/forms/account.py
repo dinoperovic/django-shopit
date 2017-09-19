@@ -57,8 +57,18 @@ class AccountRegisterForm(CleanEmailMixin, UserCreationForm):
 
 
 class AccountDetailsForm(CleanEmailMixin, forms.ModelForm):
-    first_name = forms.CharField(label=_('First name'), max_length=30, required=False)
-    last_name = forms.CharField(label=_('Last name'), max_length=30, required=False)
+    first_name = forms.CharField(
+        label=_('First name'),
+        max_length=30,
+        required=False,
+    )
+
+    last_name = forms.CharField(
+        label=_('Last name'),
+        max_length=30,
+        required=False,
+    )
+
     email = forms.EmailField(label=_('Email address'))
 
     class Meta:

@@ -8,7 +8,7 @@ Release notes for **Shopit**.
 0.3.1
 =====
 
-* Fix model field indentation to follow Django's style guide.
+* Fix field indentation in models and forms to follow Django's style guide.
 
 0.3.0
 =====
