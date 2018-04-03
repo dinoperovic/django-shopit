@@ -46,10 +46,10 @@ class AccountTest(ShopitTestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(len(mail.outbox), 1)
         url = reverse('shopit-account-reset-confirm', kwargs={
-            'uidb64': response.context[-1]['uid'],
-            'token': response.context[-1]['token'],
+            'uidb64': response.context['uid'],
+            'token': response.context['token'],
         })
-        self.assertTrue(self.client.get(url).context[-1]['validlink'])
+        self.assertTrue(self.client.get(url).context['validlink'])
         password = 'new-secret'
         response = self.client.post(url, {'new_password1': password, 'new_password2': password})
         self.assertEquals(response.status_code, 200)

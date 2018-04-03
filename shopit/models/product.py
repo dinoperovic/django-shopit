@@ -41,8 +41,9 @@ from shopit.models.customer import Customer
 from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.tax import Tax
+from shopit.settings import ATTRIBUTE_TEMPLATES
 from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import ATTRIBUTE_TEMPLATES, FILTER_ATTRIBUTES_INCLUDES_VARIANTS, RELATION_KINDS, REVIEW_RATINGS
+from shopit.settings import FILTER_ATTRIBUTES_INCLUDES_VARIANTS, RELATION_KINDS, REVIEW_RATINGS
 
 try:
     from easy_thumbnails.files import get_thumbnailer

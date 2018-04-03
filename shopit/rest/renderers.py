@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from rest_framework.compat import template_render
 from shop.rest.renderers import CMSPageRenderer
 
 
@@ -28,4 +27,4 @@ class ModifiedCMSPageRenderer(CMSPageRenderer):
 
         template_context['data'] = data
         template_context.update(renderer_context)
-        return template_render(template, template_context, request=request)
+        return template.render(template_context, request=request)

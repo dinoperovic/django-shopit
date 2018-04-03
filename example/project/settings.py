@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'djangocms_text_ckeditor',
 
     # django-shop
+    'allauth',
     'adminsortable2',
     'cmsplugin_cascade',
     'django_fsm',
@@ -223,7 +224,7 @@ SHOP_CART_MODIFIERS = [
     'shop.modifiers.defaults.SelfCollectionModifier',
 ]
 SHOP_ORDER_WORKFLOWS = [
-    'shop.payment.defaults.PayInAdvanceWorkflowMixin',
+    'shop.payment.defaults.ManualPaymentWorkflowMixin',
     'shop.payment.defaults.CancelOrderWorkflowMixin',
     'shopit.shipping.ShippingWorkflowMixin',
 ]

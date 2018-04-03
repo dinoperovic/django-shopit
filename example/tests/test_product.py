@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.sessions.backends.db import SessionStore
 from django.core.exceptions import ValidationError
 from django.test.client import RequestFactory
+from django.utils.dateparse import parse_datetime
+from django.utils.timezone import make_aware
 
 from shopit.models.cart import Cart, CartItem
 from shopit.models.categorization import Brand, Category, Manufacturer
@@ -93,7 +95,7 @@ class ProductTest(ShopitTestCase):
         self.assertTrue(test.is_group)
 
         # Test variant order is the same as group order.
-        test.published = datetime(2016, 1, 1)
+        test.published = make_aware(parse_datetime('2016-01-01 00:00:00'))
         test.save()
         self.assertEquals(test.get_variants()[0].order, test.order)
 

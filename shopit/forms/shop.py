@@ -14,8 +14,9 @@ from shopit.models.address import ISO_3166_CODES, BillingAddress, ShippingAddres
 from shopit.models.cart import CartDiscountCode
 from shopit.models.customer import Customer
 from shopit.models.modifier import DiscountCode
+from shopit.settings import ADDRESS_COUNTRIES
 from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import ADDRESS_COUNTRIES, PHONE_NUMBER_REQUIRED, PRIMARY_ADDRESS
+from shopit.settings import PHONE_NUMBER_REQUIRED, PRIMARY_ADDRESS
 
 
 class CartDiscountCodeForm(forms.ModelForm):

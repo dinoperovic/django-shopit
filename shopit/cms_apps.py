@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from shopit.settings import SINGLE_APPHOOK
 
-
 # TODO: can be simplified into, after merging https://github.com/divio/django-cms/pull/5898
 # from shopit.urls import get_urls
 

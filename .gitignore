@@ -7,6 +7,7 @@
 .coverage
 .DS_Store
 .eggs
+.pytest_cache/
 .python-version
 .tox
 __pycache__/
