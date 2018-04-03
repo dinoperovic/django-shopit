@@ -15,11 +15,11 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import FormView
 from rest_framework import status
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import GenericAPIView, RetrieveAPIView
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from shop.views.auth import AuthFormsView, LoginView, LogoutView, PasswordResetConfirm, PasswordResetView
+from shop.views.auth import LoginView, LogoutView, PasswordResetConfirm, PasswordResetView
 from shop.views.order import OrderView
 
 from shopit.forms import account as account_forms
@@ -55,7 +55,9 @@ class AccountLoginView(LoginRegisterMixin, LoginView):
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
-        return super(AccountLoginView, self).post(request, *args, **kwargs)
+        # Call super on `LoginView` instead on `AccountLoginView` to skip
+        # LoginView's post method and call the original one.
+        return super(LoginView, self).post(request, *args, **kwargs)
 
 
 class AccountLogoutView(LogoutView):
@@ -64,6 +66,12 @@ class AccountLogoutView(LogoutView):
         self.post(request, *args, **kwargs)
         messages.success(request, _('You have been successfully logged out.'))
         return redirect('shopit-account-login')
+
+    def post(self, request, *args, **kwargs):
+        response = super(AccountLogoutView, self).post(request, *args, **kwargs)
+        # Extract message from logout form.
+        response.data['success'] = response.data['logout_form']['success_message']
+        return response
 
 
 class AccountResetView(LoginRegisterMixin, PasswordResetView):
@@ -121,7 +129,7 @@ class AccountResetConfirmView(LoginRegisterMixin, PasswordResetConfirm):
         return Response({'success': msg})
 
 
-class AccountRegisterView(LoginRegisterMixin, AuthFormsView):
+class AccountRegisterView(LoginRegisterMixin, GenericAPIView):
     form_class = account_forms.AccountRegisterForm
     template_name = 'shopit/account/account_register.html'
 
@@ -133,11 +141,16 @@ class AccountRegisterView(LoginRegisterMixin, AuthFormsView):
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
         if request.customer.is_visitor():
-            request.customer = Customer.objects.get_or_create_from_request(request)
-        response = super(AccountRegisterView, self).post(request, *args, **kwargs)
-        if response.status_code == 200:
-            messages.success(self.request._request, _('You have been successfully registered.'))
-        return response
+            customer = Customer.objects.get_or_create_from_request(request)
+        else:
+            customer = request.customer
+        form = self.form_class(data=request.data, instance=customer)
+        if not form.is_valid():
+            return Response(dict(form.errors), status=status.HTTP_400_BAD_REQUEST)
+        form.save(request=request)
+        msg = _('You have been successfully registered.')
+        messages.success(request._request, msg)
+        return Response({'success': msg})
 
 
 class AccountDetailView(LoginRequiredMixin, RetrieveAPIView):

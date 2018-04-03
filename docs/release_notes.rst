@@ -5,13 +5,13 @@ Release notes for **Shopit**.
 
 ----
 
-0.3.1
+0.4.0
 =====
 
-* Fix field indentation in models and forms to follow Django's style guide.
+* Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
 * Bump ``django-cms`` requirement to 3.5.
-* Drop Django `1.9`, add `1.11` support.
-* Small bugfixes.
+* Fix field indentation in models and forms to follow Django's style guide.
+* Various bugfixes.
 
 0.3.0
 =====

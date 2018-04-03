@@ -89,7 +89,6 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.language.LanguageCookieMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'shop.middleware.CustomerMiddleware',
-    'shop.middleware.MethodOverrideMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
