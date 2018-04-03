@@ -1,5 +1,5 @@
 clean:
-	rm -rf build dist .tox .cache .eggs *.egg-info .coverage .DS_Store
+	rm -rf build dist .tox .cache .eggs *.egg-info .coverage .DS_Store .pytest_cache
 	find . -name '*.pyc' -exec rm '{}' ';'
 
 sort:

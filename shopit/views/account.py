@@ -14,7 +14,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import FormView
-from rest_auth.registration.app_settings import RegisterSerializer
 from rest_framework import status
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -123,7 +122,6 @@ class AccountResetConfirmView(LoginRegisterMixin, PasswordResetConfirm):
 
 
 class AccountRegisterView(LoginRegisterMixin, AuthFormsView):
-    serializer_class = RegisterSerializer
     form_class = account_forms.AccountRegisterForm
     template_name = 'shopit/account/account_register.html'
 

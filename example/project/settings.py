@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'djangocms_text_ckeditor',
 
     # django-shop
-    'allauth',
     'adminsortable2',
     'cmsplugin_cascade',
     'django_fsm',
