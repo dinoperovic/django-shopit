@@ -283,7 +283,8 @@ class AttributeTest(ShopitTestCase):
         self.assertEquals(self.duplicate.key, 'color_duplicate')
 
     def test_attribute_choice(self):
-        self.assertEquals(self.color.get_choices(), list(AttributeChoice.objects.all()))
+        choices = list(AttributeChoice.objects.filter(attribute=self.color))
+        self.assertEquals(self.color.get_choices(), choices)
 
     def test_attribute_value(self):
         value_null = AttributeValue(attribute=self.size, product=Product(), choice=self.size.get_choices()[0])
