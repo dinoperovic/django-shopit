@@ -13,7 +13,7 @@ from django.utils.timezone import make_aware
 from shopit.models.cart import Cart, CartItem
 from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.customer import Customer
-from shopit.models.product import Attachment, AttributeValue, Product, Review
+from shopit.models.product import Attachment, AttributeChoice, AttributeValue, Product, Review
 from shopit.models.tax import Tax
 
 from .utils import ShopitTestCase
@@ -283,11 +283,11 @@ class AttributeTest(ShopitTestCase):
         self.assertEquals(self.duplicate.key, 'color_duplicate')
 
     def test_attribute_choice(self):
-        self.assertEquals(str(self.color.get_choices()[0]), 'red')
+        self.assertEquals(self.color.get_choices(), list(AttributeChoice.objects.all()))
 
     def test_attribute_value(self):
-        value_null = AttributeValue(attribute=self.size,  product=Product(),  choice=self.size.get_choices()[0])
-        value_zero = AttributeValue(attribute=self.size,  product=Product(),  choice=self.size.get_choices()[1])
+        value_null = AttributeValue(attribute=self.size, product=Product(), choice=self.size.get_choices()[0])
+        value_zero = AttributeValue(attribute=self.size, product=Product(), choice=self.size.get_choices()[1])
         self.assertEquals(str(value_null), value_null.label)
         self.assertEquals(value_zero.value, '0')
         self.assertEquals(value_zero.file, None)
