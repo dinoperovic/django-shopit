@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Simplify urls into a single ``urls.py`` since 'https://github.com/divio/django-cms/pull/5898' was merged.
 * Separate admin modules into multiple files.
 * Move settings from ``settings.py`` to ``conf.py`` and re-format based on *djangoSHOP's* settings pattern.
 * Bump ``django-cms`` requirement to 3.5.
