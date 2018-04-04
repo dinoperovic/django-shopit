@@ -125,6 +125,22 @@ class DefaultSettings(object):
         return self._setting('SHOPIT_REVIEW_ACTIVE_DEFAULT', True)
 
     @property
+    def SHOPIT_ASYNC_PRODUCT_LIST(self):
+        """
+        A boolean that enables you to optimize ``ProductListView`` and
+        ``CategoryDetailView`` when products are fetched asynchronously (ajax).
+        """
+        return self._setting('SHOPIT_ASYNC_PRODUCT_LIST', False)
+
+    @property
+    def SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT(self):
+        """
+        A boolean to control if ``product_list`` is added to context when
+        accessing a ``ProductListView`` or ``CategoryDetailView``.
+        """
+        return self._setting('SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT', not self.SHOPIT_ASYNC_PRODUCT_LIST)
+
+    @property
     def SHOPIT_MODIFIER_CONDITIONS(self):
         """
         A list of ``ModifierCondition`` classes that will be used as choices

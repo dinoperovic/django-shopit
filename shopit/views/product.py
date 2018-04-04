@@ -36,6 +36,15 @@ class ProductListView(BaseProductListView):
     serializer_class = ProductSummarySerializer
     renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
 
+    def get(self, request, *args, **kwargs):
+        """
+        If products are loaded asynchronously, controlled by
+        `ASYNC_PRODUCT_LIST` setting, render template without any data.
+        """
+        if app_settings.ASYNC_PRODUCT_LIST:
+            return Response({})
+        return super(ProductListView, self).get(request, *args, **kwargs)
+
     def get_queryset(self):
         return Product.objects.translated().active().top_level()
 
@@ -84,8 +93,12 @@ class ProductListView(BaseProductListView):
         return ['shopit/catalog/product_list.html']
 
     def get_renderer_context(self):
+        """
+        Add `product_list` renderer context if format is 'html'. Check against
+        `ADD_PRODUCT_LIST_TO_CONTEXT` setting if allowed.
+        """
         context = super(ProductListView, self).get_renderer_context()
-        if context['request'].accepted_renderer.format == 'html':
+        if app_settings.ADD_PRODUCT_LIST_TO_CONTEXT and context['request'].accepted_renderer.format == 'html':
             queryset = self.filter_queryset(self.get_queryset())
             page = self.paginate_queryset(queryset)
             if page is not None:

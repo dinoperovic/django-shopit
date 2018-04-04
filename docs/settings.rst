@@ -122,6 +122,20 @@ Is review active by default when created.
 
     SHOPIT_REVIEW_ACTIVE_DEFAULT = True
 
+A boolean that enables you to optimize ``ProductListView`` and ``CategoryDetailView`` when products are
+fetched asynchronously (ajax).
+
+.. code:: python
+
+    SHOPIT_ASYNC_PRODUCT_LIST = False
+
+A boolean to control if ``product_list`` is added to context when accessing
+``ProductListView`` or ``CategoryDetailView``.
+
+.. code:: python
+
+    SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT = not SHOPIT_ASYNC_PRODUCT_LIST
+
 Modifier
 ========
 
