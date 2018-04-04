@@ -41,7 +41,7 @@ class ProductListView(BaseProductListView):
         If products are loaded asynchronously, controlled by
         `ASYNC_PRODUCT_LIST` setting, render template without any data.
         """
-        if app_settings.ASYNC_PRODUCT_LIST:
+        if app_settings.ASYNC_PRODUCT_LIST and request.accepted_renderer.format == 'html':
             return Response({})
         return super(ProductListView, self).get(request, *args, **kwargs)
 
