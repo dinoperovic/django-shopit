@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-import copy
-
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from cms.admin.placeholderadmin import FrontendEditableAdminMixin, PlaceholderAdminMixin
 from cms.utils.i18n import get_current_language
@@ -21,223 +19,17 @@ from django.utils.formats import date_format, localize
 from django.utils.html import format_html
 from django.utils.http import urlencode
 from django.utils.translation import ugettext_lazy as _
-from mptt.admin import DraggableMPTTAdmin, TreeRelatedFieldListFilter
+from mptt.admin import TreeRelatedFieldListFilter
 from parler.admin import TranslatableAdmin, TranslatableTabularInline
-from shop.admin.customer import CustomerAdminBase, CustomerInlineAdminBase, CustomerProxy
-from shop.admin.delivery import DeliveryOrderAdminMixin
-from shop.admin.order import OrderAdmin as OrderAdminBase
-from shop.admin.order import PrintOrderAdminMixin
 
-from shopit.forms import categorization as categorization_forms
-from shopit.forms import flag as flag_forms
-from shopit.forms import product as product_forms
-from shopit.models.categorization import Brand, Category, Manufacturer
-from shopit.models.flag import Flag
-from shopit.models.modifier import DiscountCode, Modifier, ModifierCondition
-from shopit.models.order import Order
+from shopit.forms.product import (AttributeChoiceInlineFormSet, AttributeValueInlineFormSet, AttributeValueModelForm,
+                                  ProductModelForm)
 from shopit.models.product import Attachment, Attribute, AttributeChoice, AttributeValue, Product, Relation, Review
-from shopit.models.tax import Tax
-
-
-@admin.register(Tax)
-class TaxAdmin(SortableAdminMixin, TranslatableAdmin):
-    list_display = ['name', 'percent', 'language_column']
-    fieldsets = [(_('Basic info'), {'fields': ['name', 'percent']})]
-
-    class Media:
-        css = {'all': ['shopit/css/djangocms-admin-style.css']}
-
-
-class ModifierConditionInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = ModifierCondition
-    extra = 0
-
-
-@admin.register(Modifier)
-class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
-    list_display = [
-        'name', 'code', 'get_value', 'kind', 'get_requires_code', 'get_filtering_enabled', 'active', 'language_column']
-
-    list_filter = ['kind']
-    readonly_fields = ['created_at', 'updated_at', 'get_requires_code_field', 'get_filtering_enabled_field']
-
-    fieldsets = [
-        (_('Basic info'), {'fields': ['name', 'code']}),
-        (_('Status'), {'fields': [('active', 'created_at', 'updated_at')]}),
-        (_('Amounts'), {'fields': ['amount', 'percent']}),
-        (_('Settings'), {'fields': ['kind', 'get_requires_code_field', 'get_filtering_enabled_field']}),
-    ]
-
-    inlines = [ModifierConditionInline]
-
-    class Media:
-        css = {'all': ['shopit/css/djangocms-admin-style.css']}
-
-    def get_prepopulated_fields(self, request, obj=None):
-        return {'code': ['name']}
-
-    def get_value(self, obj):
-        return '%s %%' % obj.percent if obj.percent else obj.amount
-    get_value.short_description = _('Value')
-
-    def get_requires_code(self, obj):
-        return obj.requires_code
-    get_requires_code.boolean = True
-    get_requires_code.short_description = _('Codes')
-
-    def get_filtering_enabled(self, obj):
-        return obj.is_filtering_enabled
-    get_filtering_enabled.boolean = True
-    get_filtering_enabled.short_description = _('Filtering')
-
-    def get_requires_code_field(self, obj):
-        html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
-        if not obj.requires_code:
-            html = '<img src="/static/admin/img/icon-no.svg" alt="False">'
-        help_text = _('Displays if code is required for the modifier to be valid. This value depends on '
-                      'active codes that are assigned to this modifier.')
-        return format_html('%s<p class="help">%s</p>' % (html, help_text))
-    get_requires_code_field.allow_tags = True
-    get_requires_code_field.short_description = _('Requires code')
-
-    def get_filtering_enabled_field(self, obj):
-        if obj.is_filtering_enabled:
-            html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
-        else:
-            html = '<img src="/static/admin/img/icon-no.svg" alt="False">'
-        help_text = _('Displays if modifier can be used as a filter to return products with this modifier selected. '
-                      'Filtering is enabled when modifier is not a "Cart modifier", does not require any codes & '
-                      'has no conditions to be met.')
-        return format_html('%s<p class="help">%s</p>' % (html, help_text))
-    get_filtering_enabled_field.allow_tags = True
-    get_filtering_enabled_field.short_description = _('Filtering enabled')
-
-
-@admin.register(DiscountCode)
-class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ['code', 'modifier', 'get_is_valid']
-    list_filter = ['modifier']
-    raw_id_fields = ['customer']
-    readonly_fields = ['get_is_valid_field']
-
-    fieldsets = [
-        (_('Basic info'), {'fields': ['code', 'modifier']}),
-        (_('Status'), {'fields': ['active']}),
-        (_('Settings'), {'fields': ['customer', 'max_uses', 'num_uses', ('valid_from', 'valid_until')]}),
-        (None, {'fields': ['get_is_valid_field']}),
-    ]
-
-    class Media:
-        css = {'all': ['shopit/css/djangocms-admin-style.css']}
-
-    def get_is_valid(self, obj):
-        return obj.is_valid
-    get_is_valid.boolean = True
-    get_is_valid.admin_order_field = 'valid_from'
-    get_is_valid.short_description = _('Is valid')
-
-    def get_is_valid_field(self, obj):
-        if obj.is_valid:
-            html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
-        else:
-            html = '<img src="/static/admin/img/icon-no.svg" alt="False">'
-        help_text = _('Displays if code is valid by checking that: code is active, times used is less than max '
-                      'uses, is within the valid time period.')
-        return format_html('%s<p class="help">%s</p>' % (html, help_text))
-    get_is_valid_field.allow_tags = True
-    get_is_valid_field.short_description = _('Is valid')
-
-
-@admin.register(Flag)
-class FlagAdmin(TranslatableAdmin, DraggableMPTTAdmin):
-    form = flag_forms.FlagModelForm
-    list_display = ['tree_actions', 'get_name', 'code', 'active', 'language_column']
-    list_display_links = ['get_name']
-    readonly_fields = ['created_at', 'updated_at']
-
-    fieldsets = [
-        (_('Basic info'), {'fields': ['name', 'code']}),
-        (_('Status'), {'fields': [('active', 'created_at', 'updated_at')]}),
-        (_('Settings'), {'fields': ['parent']}),
-    ]
-
-    class Media:
-        css = {'all': ['shopit/css/djangocms-admin-style.css']}
-
-    def get_prepopulated_fields(self, request, obj=None):
-        return {'code': ['name']}
-
-    def get_name(self, obj):
-        return format_html(
-            '<div style="text-indent:{}px">{}</div>',
-            obj.level * self.mptt_level_indent, obj.safe_translation_getter('name', any_language=True))
-    get_name.short_description = _('Name')
-
-
-class CategorizationAdminBase(FrontendEditableAdminMixin, PlaceholderAdminMixin,
-                              TranslatableAdmin, DraggableMPTTAdmin):
-    """
-    Base admin for categorization models.
-    """
-    list_display = ['tree_actions', 'get_name', 'slug', 'active', 'language_column']
-    list_display_links = ['get_name']
-    filter_horizontal = ['modifiers', 'flags']
-    readonly_fields = ['created_at', 'updated_at']
-
-    frontend_editable_fields = [
-        'name', 'slug', 'active', 'created_at', 'updated_at', 'description', '_featured_image', 'parent',
-        'modifiers', 'flags']
-
-    fieldsets = [
-        (_('Basic info'), {'fields': ['name', 'slug']}),
-        (_('Status'), {'fields': [('active', 'created_at', 'updated_at')]}),
-        (_('Description'), {'fields': ['description']}),
-        (_('Media'), {'fields': ['_featured_image']}),
-        (_('Settings'), {'fields': ['parent', 'modifiers', 'flags']}),
-    ]
-
-    class Media:
-        css = {'all': ['shopit/css/djangocms-admin-style.css']}
-
-    def get_prepopulated_fields(self, request, obj=None):
-        return {'slug': ['name']}
-
-    def get_name(self, obj):
-        return format_html(
-            '<div style="text-indent:{}px">{}</div>',
-            obj.level * self.mptt_level_indent, obj.safe_translation_getter('name', any_language=True))
-    get_name.short_description = _('Name')
-
-
-@admin.register(Category)
-class CategoryAdmin(CategorizationAdminBase):
-    form = categorization_forms.CategoryModelForm
-    frontend_editable_fields = CategorizationAdminBase.frontend_editable_fields + ['_tax']
-
-    def get_list_display(self, request):
-        list_display = list(super(CategoryAdmin, self).get_list_display(request))
-        list_display.insert(-2, '_tax')
-        return list_display
-
-    def get_fieldsets(self, request, obj=None):
-        fieldsets = copy.deepcopy(super(CategoryAdmin, self).get_fieldsets(request, obj))
-        fieldsets[-1][1]['fields'].append('_tax')
-        return fieldsets
-
-
-@admin.register(Brand)
-class BrandAdmin(CategorizationAdminBase):
-    form = categorization_forms.BrandModelForm
-
-
-@admin.register(Manufacturer)
-class ManufacturerAdmin(CategorizationAdminBase):
-    form = categorization_forms.ManufacturerModelForm
 
 
 class AttributeChoiceInline(SortableInlineAdminMixin, TranslatableTabularInline, admin.TabularInline):
     model = AttributeChoice
-    formset = product_forms.AttributeChoiceInlineFormSet
+    formset = AttributeChoiceInlineFormSet
     fields = ['name', 'value', 'file', 'order']
     extra = 0
 
@@ -275,8 +67,8 @@ class AttributeAdmin(SortableAdminMixin, TranslatableAdmin):
 
 class AttributeValueInline(admin.TabularInline):
     model = AttributeValue
-    form = product_forms.AttributeValueModelForm
-    formset = product_forms.AttributeValueInlineFormSet
+    form = AttributeValueModelForm
+    formset = AttributeValueInlineFormSet
     extra = 0
 
 
@@ -316,7 +108,7 @@ class ProductChangeList(ChangeList):
 
 @admin.register(Product)
 class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, TranslatableAdmin):
-    form = product_forms.ProductModelForm
+    form = ProductModelForm
     list_display = ['get_name', 'get_slug', 'code', 'get_is_group', 'get_unit_price', 'get_discount_percent',
                     'get_tax_percent', 'get_price', 'get_published', 'active', 'language_column']
 
@@ -537,19 +329,3 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
             msg = _('%s Products were successfully marked as inactive.') % rows
         self.message_user(request, msg, messages.SUCCESS)
     make_inactive.short_description = _('Mark selected Products as inactive')
-
-
-@admin.register(Order)
-class OrderAdmin(PrintOrderAdminMixin, DeliveryOrderAdminMixin, OrderAdminBase):
-    class Media:
-        css = {'all': ['shopit/css/djangocms-admin-style.css']}
-
-
-class CustomerInlineAdmin(CustomerInlineAdminBase):
-    readonly_fields = ['get_number', 'salutation', 'phone_number']
-    fieldsets = [(None, {'fields': ['get_number', 'salutation', 'phone_number']})]
-
-
-@admin.register(CustomerProxy)
-class CustomerAdmin(CustomerAdminBase):
-    inlines = [CustomerInlineAdmin]

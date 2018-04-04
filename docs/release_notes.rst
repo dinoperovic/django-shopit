@@ -9,10 +9,11 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
-* Bump ``django-cms`` requirement to 3.5.
-* Fix field indentation in models and forms to follow Django's style guide.
-* Set default prices to zero.
+* Separate admin modules into multiple files.
 * Move settings from ``settings.py`` to ``conf.py`` and re-format based on *djangoSHOP's* settings pattern.
+* Bump ``django-cms`` requirement to 3.5.
+* Set default prices to zero.
+* Fix field indentation in models and forms to follow Django's style guide.
 * Various bugfixes.
 
 .. attention::
