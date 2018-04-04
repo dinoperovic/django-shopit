@@ -18,6 +18,7 @@ from shop.serializers.defaults import AddToCartSerializer as BaseAddToCartSerial
 from shop.serializers.defaults import CustomerSerializer
 from shop.serializers.order import OrderListSerializer as BaseOrderListSerializer
 
+from shopit.conf import app_settings
 from shopit.models.address import BillingAddress, ShippingAddress
 from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.customer import Customer
@@ -25,7 +26,6 @@ from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.product import Product, Relation, Review
 from shopit.models.tax import Tax
-from shopit.settings import PRODUCT_DETAIL_SERIALIZER_FIELDS, PRODUCT_SERIALIZER_FIELDS
 
 
 class AccountSerializer(CustomerSerializer):
@@ -196,7 +196,7 @@ class ProductSerializer(BaseProductSerializer):
     """
     Base product serializer.
     """
-    FIELDS = PRODUCT_SERIALIZER_FIELDS
+    FIELDS = app_settings.PRODUCT_SERIALIZER_FIELDS
 
     url = serializers.SerializerMethodField(read_only=True)
     add_to_cart_url = serializers.SerializerMethodField(read_only=True)
@@ -287,7 +287,7 @@ class ProductSummarySerializer(ProductSerializer):
 
 
 class ProductDetailSerializer(ProductSerializer):
-    FIELDS = PRODUCT_DETAIL_SERIALIZER_FIELDS
+    FIELDS = app_settings.PRODUCT_DETAIL_SERIALIZER_FIELDS
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label', 'catalog')

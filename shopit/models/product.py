@@ -35,15 +35,14 @@ from polymorphic.query import PolymorphicQuerySet
 from shop.models.product import BaseProduct, BaseProductManager
 from shop.money.fields import MoneyField
 
+from shopit.conf import app_settings
 from shopit.models.cart import Cart
 from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.customer import Customer
 from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.tax import Tax
-from shopit.settings import ATTRIBUTE_TEMPLATES
-from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import FILTER_ATTRIBUTES_INCLUDES_VARIANTS, RELATION_KINDS, REVIEW_RATINGS
+from shopit.utils import get_error_message as em
 
 try:
     from easy_thumbnails.files import get_thumbnailer
@@ -128,7 +127,7 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
                 group_ids = list(set(variants.values_list('group_id', flat=True)))
                 self = self.filter(id__in=group_ids)
 
-                if FILTER_ATTRIBUTES_INCLUDES_VARIANTS:
+                if app_settings.FILTER_ATTRIBUTES_INCLUDES_VARIANTS:
                     self = (self | variants).order_by('-order', 'kind', 'published')
         return self
 
@@ -963,25 +962,25 @@ class Product(BaseProduct, TranslatableModel):
 
     def _clean_single(self):
         if self.group_id:
-            raise ValidationError(EM['group_has_group'])
+            raise ValidationError(em('group_has_group'))
         if self.variants.exists():
-            raise ValidationError(EM['not_group_has_variants'])
+            raise ValidationError(em('not_group_has_variants'))
 
     def _clean_group(self):
         if self.group_id:
-            raise ValidationError(EM['group_has_group'])
+            raise ValidationError(em('group_has_group'))
 
     def _clean_variant(self):
         if self._category_id or self._brand_id or self._manufacturer_id:
-            raise ValidationError(EM['variant_has_category'])
+            raise ValidationError(em('variant_has_category'))
         if self._tax_id:
-            raise ValidationError(EM['variant_has_tax'])
+            raise ValidationError(em('variant_has_tax'))
         if not self.group_id:
-            raise ValidationError(EM['variant_no_group'])
+            raise ValidationError(em('variant_no_group'))
         if self.group.is_variant:
-            raise ValidationError(EM['varinat_group_variant'])
+            raise ValidationError(em('varinat_group_variant'))
         if self.variants.exists():
-            raise ValidationError(EM['not_group_has_variants'])
+            raise ValidationError(em('not_group_has_variants'))
 
 
 class AttributeQuerySet(TranslatableQuerySet):
@@ -995,7 +994,7 @@ class Attribute(TranslatableModel):
     Used to define different types of attributes to be assigned on a Product
     variant. Eg. For a t-shirt attributes could be size, color, pattern etc.
     """
-    TEMPLATES = ATTRIBUTE_TEMPLATES
+    TEMPLATES = app_settings.ATTRIBUTE_TEMPLATES
 
     translations = TranslatedFields(
         name=models.CharField(
@@ -1289,9 +1288,9 @@ class Attachment(models.Model):
     def clean(self):
         if self.file:
             if self.file.extension not in self.EXTENSIONS[self.kind]:
-                raise ValidationError('%s (%s)' % (EM['wrong_extension'], ', '.join(self.EXTENSIONS[self.kind])))
+                raise ValidationError('%s (%s)' % (em('wrong_extension'), ', '.join(self.EXTENSIONS[self.kind])))
         elif not self.url:
-            raise ValidationError(EM['no_attachment_or_url'])
+            raise ValidationError(em('no_attachment_or_url'))
 
 
 @python_2_unicode_compatible
@@ -1299,7 +1298,7 @@ class Relation(models.Model):
     """
     Inline product relation model.
     """
-    KINDS = RELATION_KINDS
+    KINDS = app_settings.RELATION_KINDS
 
     base = models.ForeignKey(
         Product,
@@ -1342,9 +1341,9 @@ class Relation(models.Model):
 
     def clean(self):
         if self.base.is_variant or self.product.is_variant:
-            raise ValidationError(EM['variant_has_relations'])
+            raise ValidationError(em('variant_has_relations'))
         if self.base == self.product:
-            raise ValidationError(EM['relation_base_is_product'])
+            raise ValidationError(em('relation_base_is_product'))
 
 
 class ReviewQuerySet(QuerySet):
@@ -1357,7 +1356,7 @@ class Review(models.Model):
     """
     Model for product reviews.
     """
-    RATINGS = REVIEW_RATINGS
+    RATINGS = app_settings.REVIEW_RATINGS
 
     product = models.ForeignKey(
         Product,

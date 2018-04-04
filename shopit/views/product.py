@@ -15,12 +15,12 @@ from shop.views.catalog import AddToCartView as AddToCartViewBase
 from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
+from shopit.conf import app_settings
 from shopit.models.cart import Cart, CartItem
 from shopit.models.product import Attribute, Product
 from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, ReviewSerializer, WatchItemSerializer)
-from shopit.settings import REVIEW_ACTIVE_DEFAULT
 
 CATEGORIES_VAR = 'c'
 BRANDS_VAR = 'b'
@@ -157,7 +157,7 @@ class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
         if self.get_queryset(include_inactive=True).filter(customer=request.customer).exists():
             errors = {'exists': [_('Review already written for this Product.')]}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
-        data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE, active=REVIEW_ACTIVE_DEFAULT)  # noqa
+        data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE, active=app_settings.REVIEW_ACTIVE_DEFAULT)  # noqa
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save(product=self.get_product())

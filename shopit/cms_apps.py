@@ -5,7 +5,7 @@ from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 from django.utils.translation import ugettext_lazy as _
 
-from shopit.settings import SINGLE_APPHOOK
+from shopit.conf import app_settings
 
 # TODO: can be simplified into, after merging https://github.com/divio/django-cms/pull/5898
 # from shopit.urls import get_urls
@@ -18,7 +18,7 @@ class ShopitApphook(CMSApp):
     name = _('Shopit')
 
     def get_urls(self, page=None, language=None, **kwargs):
-        if SINGLE_APPHOOK:
+        if app_settings.SINGLE_APPHOOK:
             return ['shopit.urls']
         return ['shopit.urls.shop']
 
@@ -60,7 +60,7 @@ class ShopitProductsApphook(CMSApp):
 
 apphook_pool.register(ShopitApphook)
 
-if not SINGLE_APPHOOK:
+if not app_settings.SINGLE_APPHOOK:
     apphook_pool.register(ShopitAccountApphook)
     apphook_pool.register(ShopitCategoriesApphook)
     apphook_pool.register(ShopitBrandsApphook)
