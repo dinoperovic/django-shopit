@@ -11,7 +11,12 @@ Release notes for **Shopit**.
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
 * Bump ``django-cms`` requirement to 3.5.
 * Fix field indentation in models and forms to follow Django's style guide.
+* Set default prices to zero.
 * Various bugfixes.
+
+.. attention::
+
+  Requires ``python manage.py migrate shopit`` to set default price and amount Money fields.
 
 0.3.0
 =====
@@ -44,14 +49,14 @@ Release notes for **Shopit**.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
-    as well as add ``phone_number`` field on Customer model, ``content`` field on Categorization models
-    and ``max_uses``, ``num_uses`` on *DiscountCode*.
+  Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
+  as well as add ``phone_number`` field on Customer model, ``content`` field on Categorization models
+  and ``max_uses``, ``num_uses`` on *DiscountCode*.
 
 .. note::
 
-    If migrating with categorization models already added. You'll need to save each models again for the
-    ``content`` PlaceholderField to appear.
+  If migrating with categorization models already added. You'll need to save each models again for the
+  ``content`` PlaceholderField to appear.
 
 0.2.2
 =====
@@ -88,7 +93,7 @@ Release notes for **Shopit**.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to create description field on categorization models.
+  Requires ``python manage.py migrate shopit`` to create description field on categorization models.
 
 0.1.3
 =====
@@ -118,7 +123,7 @@ Release notes for **Shopit**.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to create mptt fields on a Flag model.
+  Requires ``python manage.py migrate shopit`` to create mptt fields on a Flag model.
 
 0.1.1
 =====

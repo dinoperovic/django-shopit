@@ -57,7 +57,7 @@ class Modifier(TranslatableModel):
 
     amount = MoneyField(
         _('Amount'),
-        default=Money(0),
+        default=0,
         help_text=('Amount that should be added. Can be negative.'),
     )
 

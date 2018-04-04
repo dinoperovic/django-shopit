@@ -243,8 +243,7 @@ class Product(BaseProduct, TranslatableModel):
     # Pricing
     _unit_price = MoneyField(
         _('Unit price'),
-        blank=True,
-        null=True,
+        default=0,
         help_text=_("For variants leave empty to use the Group price."),
     )
 
