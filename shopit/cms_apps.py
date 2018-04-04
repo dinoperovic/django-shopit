@@ -9,6 +9,7 @@ from shopit.conf import app_settings
 from shopit.urls import get_urls
 
 
+@apphook_pool.register
 class ShopitApphook(CMSApp):
     name = _('Shopit')
 
@@ -52,8 +53,6 @@ class ShopitProductsApphook(CMSApp):
     def get_urls(self, page=None, language=None, **kwargs):
         return get_urls('products')
 
-
-apphook_pool.register(ShopitApphook)
 
 if not app_settings.SINGLE_APPHOOK:
     apphook_pool.register(ShopitAccountApphook)
