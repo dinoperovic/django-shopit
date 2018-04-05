@@ -9,6 +9,9 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Add ability to pass in ``get_count`` as boolean through the ``request.GET`` object when in
+  ``ProductListView`` and ``CategoryDetailView``. This applies in non HTML formated response and returns the count of
+  all (filtered) products as ``{'count': 300}``.
 * Simplify urls into a single ``urls.py`` since https://github.com/divio/django-cms/pull/5898 was merged.
 * Separate admin modules into multiple files.
 * Move settings from ``settings.py`` to ``conf.py`` and re-format based on *djangoSHOP's* settings pattern.

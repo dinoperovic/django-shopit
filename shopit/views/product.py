@@ -45,6 +45,16 @@ class ProductListView(BaseProductListView):
             return Response({})
         return super(ProductListView, self).get(request, *args, **kwargs)
 
+    def list(self, request, *args, **kwargs):
+        """
+        Return all products count when `count` exists in GET, applicable
+        only when format is not html.
+        """
+        if request.GET.get('get_count', None) and request.accepted_renderer.format != 'html':
+            count = self.filter_queryset(self.get_queryset()).count()
+            return Response({'count': count})
+        return super(ProductListView, self).list(request, *args, **kwargs)
+
     def get_queryset(self):
         return Product.objects.translated().active().top_level()
 
