@@ -128,7 +128,7 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
                 self = self.filter(id__in=group_ids)
 
                 if app_settings.FILTER_ATTRIBUTES_INCLUDES_VARIANTS:
-                    self = (self | variants).order_by('-order', 'kind', 'published')
+                    self = (variants | self).order_by('-order', 'kind', 'published')
         return self
 
     def filter_price(self, price_from=None, price_to=None):
