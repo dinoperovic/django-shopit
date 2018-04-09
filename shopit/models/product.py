@@ -1280,6 +1280,7 @@ class Attachment(models.Model):
             try:
                 thumbnailer = get_thumbnailer(self.file)
                 for alias, options in aliases.all(target='shopit.Attachment').items():
+                    options.update({'subject_location': self.file.subject_location})
                     attachment['url_%s' % alias] = thumbnailer.get_thumbnail(options).url
             except InvalidImageFormatError:
                 pass
