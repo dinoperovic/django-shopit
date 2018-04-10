@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Add ``path`` to the Flag serializer.
 * Include categorization flags on a product.
 * Fix flag serializer field.
 * Use attachment ``subject_location`` when generating a thumbnail.

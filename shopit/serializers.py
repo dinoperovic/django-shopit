@@ -106,9 +106,14 @@ class TaxSerializer(serializers.ModelSerializer):
 
 
 class FlagSerializer(serializers.ModelSerializer):
+    path = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Flag
-        fields = ['id', 'name', 'code', 'parent']
+        fields = ['id', 'name', 'code', 'path']
+
+    def get_path(self, obj):
+        return '/'.join(obj.get_ancestors(include_self=True).values_list('code', flat=True))
 
 
 class ModifierSerializer(serializers.ModelSerializer):
