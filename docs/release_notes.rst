@@ -9,7 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
-* Add ``template`` field to Flag model.
+* Add ``template`` field to Flag model, adn a ``SHOPIT_FLAG_TEMPLATES`` setting.
 * Add ``path`` to the Flag serializer.
 * Include categorization flags on a product.
 * Fix flag serializer field.
