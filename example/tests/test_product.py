@@ -210,7 +210,7 @@ class ProductTest(ShopitTestCase):
         self.assertEquals(len(self.iphone7.get_variations()), 2)
 
     def test_get_attribute_choices(self):
-        iphone7_colors = [str(x) for x in self.iphone7.get_attribute_choices()['color']['choices']]
+        iphone7_colors = [x['name'] for x in self.iphone7.get_attribute_choices()['color']['choices']]
         self.assertEquals(iphone7_colors, ['black', 'white'])
 
     def test_get_combinations(self):

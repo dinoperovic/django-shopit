@@ -747,7 +747,7 @@ class Product(BaseProduct, TranslatableModel):
                 attrs = OrderedDict()
                 for attr in self.get_available_attributes():
                     data = attr.as_dict
-                    data['choices'] = [x for x in attr.get_choices() if (x.attribute.code, x.value) in used]
+                    data['choices'] = [x.as_dict for x in attr.get_choices() if (x.attribute.code, x.value) in used]
                     if data['choices']:
                         attrs[attr.code] = data
                 self.cache('_attribute_choices', attrs)
@@ -1141,6 +1141,15 @@ class AttributeChoice(TranslatableModel):
 
     def __str__(self):
         return self.safe_translation_getter('name') or self.value or '-'
+
+    @cached_property
+    def as_dict(self):
+        return {
+            'name': str(self),
+            'value': self.value,
+            'file': self.file.url if self.file else None,
+            'order': self.order,
+        }
 
 
 @python_2_unicode_compatible

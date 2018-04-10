@@ -218,6 +218,7 @@ class ProductSerializer(BaseProductSerializer):
     depth = MeasureField(measure=Distance)
     weight = MeasureField(measure=Mass)
     attributes = serializers.DictField(source='get_attributes', read_only=True)
+    attribute_choices = serializers.DictField(source='get_attribute_choices', read_only=True)
     discount_amount = MoneyField(read_only=True)
     tax_amount = MoneyField(read_only=True)
     variants = serializers.SerializerMethodField()
@@ -232,9 +233,10 @@ class ProductSerializer(BaseProductSerializer):
             'id', 'name', 'slug', 'caption', 'code', 'kind', 'url', 'add_to_cart_url', 'price', 'is_available',
             'description', 'unit_price', 'discount', 'tax', 'availability', 'category', 'brand', 'manufacturer',
             'discountable', 'modifiers', 'flags', 'width', 'height', 'depth', 'weight', 'available_attributes',
-            'group',  'attributes', 'published', 'quantity', 'order', 'active', 'created_at', 'updated_at',
-            'is_single', 'is_group', 'is_variant', 'is_discounted', 'is_taxed',  'discount_percent', 'tax_percent',
-            'discount_amount', 'tax_amount', 'variants', 'variations', 'attachments', 'relations', 'reviews',
+            'group',  'attributes', 'attribute_choices', 'published', 'quantity', 'order', 'active', 'created_at',
+            'updated_at', 'is_single', 'is_group', 'is_variant', 'is_discounted', 'is_taxed',  'discount_percent',
+            'tax_percent', 'discount_amount', 'tax_amount', 'variants', 'variations', 'attachments', 'relations',
+            'reviews',
         ]
 
     def get_fields(self):
