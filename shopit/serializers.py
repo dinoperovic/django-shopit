@@ -110,7 +110,7 @@ class FlagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Flag
-        fields = ['id', 'name', 'code', 'path']
+        fields = ['id', 'name', 'code', 'template', 'path']
 
     def get_path(self, obj):
         return '/'.join(obj.get_ancestors(include_self=True).values_list('code', flat=True))

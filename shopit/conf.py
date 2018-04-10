@@ -141,6 +141,13 @@ class DefaultSettings(object):
         return self._setting('SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT', not self.SHOPIT_ASYNC_PRODUCT_LIST)
 
     @property
+    def SHOPIT_FLAG_TEMPLATES(self):
+        """
+        Template choices used when rendering a Flag.
+        """
+        return self._setting('SHOPIT_FLAG_TEMPLATES', ())
+
+    @property
     def SHOPIT_MODIFIER_CONDITIONS(self):
         """
         A list of ``ModifierCondition`` classes that will be used as choices

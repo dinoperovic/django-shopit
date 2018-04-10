@@ -136,6 +136,15 @@ A boolean to control if ``product_list`` is added to context when accessing
 
     SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT = not SHOPIT_ASYNC_PRODUCT_LIST
 
+Flag
+====
+
+Template choices used when rendering a Flag.
+
+.. code:: python
+
+    SHOPIT_FLAG_TEMPLATES = ()
+
 Modifier
 ========
 

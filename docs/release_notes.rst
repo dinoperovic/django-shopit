@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Add ``template`` field to Flag model.
 * Add ``path`` to the Flag serializer.
 * Include categorization flags on a product.
 * Fix flag serializer field.
@@ -28,7 +29,8 @@ Release notes for **Shopit**.
 
 .. attention::
 
-  Requires ``python manage.py migrate shopit`` to set default price and amount Money fields.
+  Requires ``python manage.py migrate shopit`` to set default price and amount Money fields, and add a template
+  field to the Flag model.
 
 0.3.0
 =====

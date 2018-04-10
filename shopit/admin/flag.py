@@ -21,7 +21,7 @@ class FlagAdmin(TranslatableAdmin, DraggableMPTTAdmin):
     fieldsets = [
         (_('Basic info'), {'fields': ['name', 'code']}),
         (_('Status'), {'fields': [('active', 'created_at', 'updated_at')]}),
-        (_('Settings'), {'fields': ['parent']}),
+        (_('Settings'), {'fields': ['parent', 'template']}),
     ]
 
     class Media:
