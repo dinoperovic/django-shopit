@@ -87,7 +87,7 @@ class DefaultSettings(object):
         """
         A list of serializer fields for a product detail.
         """
-        default = self.PRODUCT_SERIALIZER_FIELDS + ['variants', 'attributes']
+        default = list(set(self.PRODUCT_SERIALIZER_FIELDS + ['variants', 'attributes']))
         return self._setting('SHOPIT_PRODUCT_DETAIL_SERIALIZER_FIELDS', default)
 
     @property
