@@ -241,8 +241,10 @@ class ProductSerializer(BaseProductSerializer):
 
     def get_fields(self):
         fields = super(ProductSerializer, self).get_fields()
-        included = list(set(self.FIELDS + self.get_included_fields()))
-        for excluded in [x for x in fields if x not in included]:
+        overriden = self.context['request'].GET.get('fields', None)
+        names = [x for x in overriden.split(',') if x in self.Meta.fields] if overriden is not None else self.FIELDS
+        names = list(set(names + self.get_included_fields()))
+        for excluded in [x for x in fields if x not in names]:
             del fields[excluded]
         return fields
 
