@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Fix flag serializer field.
 * Use attachment ``subject_location`` when generating a thumbnail.
 * Add ability to pass in ``get_count`` as boolean through the ``request.GET`` object when in
   ``ProductListView`` and ``CategoryDetailView``. This applies in non HTML formated response and returns the count of

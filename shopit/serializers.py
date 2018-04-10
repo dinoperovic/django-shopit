@@ -108,7 +108,7 @@ class TaxSerializer(serializers.ModelSerializer):
 class FlagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flag
-        fields = ['id', 'name', 'code', 'order']
+        fields = ['id', 'name', 'code', 'parent']
 
 
 class ModifierSerializer(serializers.ModelSerializer):
