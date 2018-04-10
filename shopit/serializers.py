@@ -124,12 +124,12 @@ class CategorizationSerializerBase(serializers.ModelSerializer):
     Base categorization serializer.
     Model and fields must be specified when extending.
     """
-    class Meta:
-        fields = ['id', 'name', 'slug', 'url', 'parent', 'modifiers', 'flags']
-
     url = serializers.SerializerMethodField()
     modifiers = ModifierSerializer(source='get_modifiers', many=True)
     flags = FlagSerializer(source='get_flags', many=True)
+
+    class Meta:
+        fields = ['id', 'name', 'slug', 'url', 'parent', 'modifiers', 'flags']
 
     def get_url(self, obj):
         url = obj.get_absolute_url()
