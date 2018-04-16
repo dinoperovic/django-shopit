@@ -141,6 +141,20 @@ class DefaultSettings(object):
         return self._setting('SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT', not self.SHOPIT_ASYNC_PRODUCT_LIST)
 
     @property
+    def SHOPIT_DEFAULT_PRODUCT_ORDER(self):
+        """
+        A default product list ordering.
+        Must be on of 'name|-name|price|-price'.
+        """
+        from django.core.exceptions import ImproperlyConfigured
+
+        value = self._setting('SHOPIT_DEFAULT_PRODUCT_ORDER', None)
+        print value
+        if value not in [None, 'name', '-name', 'price', '-price']:
+            raise ImproperlyConfigured("Setting `SHOPIT_DEFAULT_PRODUCT_ORDER` must be 'name|-name|price|-price'.")
+        return value
+
+    @property
     def SHOPIT_FLAG_TEMPLATES(self):
         """
         Template choices used when rendering a Flag.

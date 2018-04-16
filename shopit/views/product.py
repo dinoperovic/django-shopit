@@ -88,6 +88,8 @@ class ProductListView(BaseProductListView):
         queryset = queryset.filter_price(price_from, price_to)
 
         sort = self.request.GET.get(SORT_VAR, None)
+        if not sort and app_settings.DEFAULT_PRODUCT_ORDER:
+            sort = app_settings.DEFAULT_PRODUCT_ORDER
         sort_map = {
             'name': 'translations__name',
             '-name': '-translations__name',

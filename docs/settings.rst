@@ -136,6 +136,12 @@ A boolean to control if ``product_list`` is added to context when accessing
 
     SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT = not SHOPIT_ASYNC_PRODUCT_LIST
 
+A default product list ordering. Must be on of 'name|-name|price|-price'.
+
+.. code:: python
+
+    SHOPIT_DEFAULT_PRODUCT_ORDER = None
+
 Flag
 ====
 
