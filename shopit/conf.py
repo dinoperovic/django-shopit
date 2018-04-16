@@ -149,7 +149,6 @@ class DefaultSettings(object):
         from django.core.exceptions import ImproperlyConfigured
 
         value = self._setting('SHOPIT_DEFAULT_PRODUCT_ORDER', None)
-        print value
         if value not in [None, 'name', '-name', 'price', '-price']:
             raise ImproperlyConfigured("Setting `SHOPIT_DEFAULT_PRODUCT_ORDER` must be 'name|-name|price|-price'.")
         return value
