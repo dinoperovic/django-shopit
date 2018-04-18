@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-10 11:07+0200\n"
-"PO-Revision-Date: 2018-04-10 11:08+0200\n"
+"PO-Revision-Date: 2018-04-18 14:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -1433,7 +1433,7 @@ msgstr "lista-zelja/$"
 
 #: urls.py:27
 msgid "checkout/$"
-msgstr "checkout/$"
+msgstr "blagajna/$"
 
 #: urls.py:28
 msgid "thanks/$"
@@ -1441,27 +1441,27 @@ msgstr "hvala/$"
 
 #: urls.py:31
 msgid "shop/$"
-msgstr "shop/$"
+msgstr "ducan/$"
 
 #: urls.py:32
 msgid "shop/cart/$"
-msgstr "shop/kosarica/$"
+msgstr "ducan/kosarica/$"
 
 #: urls.py:33
 msgid "shop/cart/empty/$"
-msgstr "shop/kosarica/isprazni/$"
+msgstr "ducan/kosarica/isprazni/$"
 
 #: urls.py:34
 msgid "shop/watch/$"
-msgstr "shop/watch/$"
+msgstr "ducan/lista/$"
 
 #: urls.py:35
 msgid "shop/checkout/$"
-msgstr "shop/checkout/$"
+msgstr "ducan/blagajna/$"
 
 #: urls.py:36
 msgid "shop/thanks/$"
-msgstr "shop/hvala/$"
+msgstr "ducan/hvala/$"
 
 #: urls.py:51
 msgid "^login/$"
