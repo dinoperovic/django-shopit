@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-10 11:07+0200\n"
-"PO-Revision-Date: 2018-04-18 14:38+0200\n"
+"PO-Revision-Date: 2018-04-18 14:39+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -1387,7 +1387,7 @@ msgstr "Košarica je prazna."
 
 #: templates/shopit/shop/checkout.html:4
 msgid "Checkout"
-msgstr "Checkout"
+msgstr "Blagajna"
 
 #: templates/shopit/shop/checkout.html:11
 msgid "Guest"
