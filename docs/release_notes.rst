@@ -9,6 +9,8 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Add ability to send `validate` key when updating the cart via POST. In which
+  case the promo code gets validated without applying it to cart.
 * Add setting ``SHOPIT_DEFAULT_PRODUCT_ORDER`` to control default ordering of products.
 * Add ability to override ``ProductSerializer`` fields through the ``fields`` GET property.
 * Add ``attribute_choices`` to product serializer fields.
