@@ -43,7 +43,8 @@ class DefaultSettings(object):
             'cart_discount_code_invalid': _("Code is invalid or expired."),
             'cart_discount_code_wrong_customer': _("Code is invalid or expired."),
         }
-        return default.update(self._setting('SHOPIT_ERROR_MESSAGES', {}))
+        default.update(self._setting('SHOPIT_ERROR_MESSAGES', {}))
+        return default
 
     @property
     def SHOPIT_ADDRESS_COUNTRIES(self):
