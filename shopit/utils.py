@@ -8,4 +8,5 @@ def get_error_message(key, default=""):
     """
     Returns error message from Shopit's `ERROR_MESSAGES` setting.
     """
-    return getattr(app_settings.ERROR_MESSAGES, key, default)
+    messages = getattr(app_settings, 'ERROR_MESSAGES', {})
+    return messages.get(key, default)
