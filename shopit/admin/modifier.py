@@ -77,7 +77,7 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
 
 @admin.register(DiscountCode)
 class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ['code', 'modifier', 'get_is_valid']
+    list_display = ['code', 'modifier', 'num_uses', 'get_is_valid']
     list_filter = ['modifier']
     raw_id_fields = ['customer']
     readonly_fields = ['get_is_valid_field']
