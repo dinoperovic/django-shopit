@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* After order was populated with cart data, delete discount codes.
 * Add ability to send `validate` key when updating the cart via POST. In which
   case the promo code gets validated without applying it to cart.
 * Add setting ``SHOPIT_DEFAULT_PRODUCT_ORDER`` to control default ordering of products.

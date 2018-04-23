@@ -37,6 +37,9 @@ class Cart(BaseCart):
     def get_discount_codes(self):
         return self.discount_codes.all()
 
+    def delete_discount_codes(self):
+        self.get_discount_codes().delete()
+
 
 @python_2_unicode_compatible
 class CartItem(BaseCartItem):
