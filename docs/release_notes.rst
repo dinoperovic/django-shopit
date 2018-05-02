@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Add ability to pass in ``order_number`` to ``order`` templatetag.
 * Add ``num_uses`` to list display for Discount Code.
 * After order was populated with cart data, delete discount codes.
 * Add ability to send `validate` key when updating the cart via POST. In which

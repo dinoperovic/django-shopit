@@ -121,7 +121,7 @@ To include the templates you can write the following:
     {% cart editable=False %}
 
     # Show latest order.
-    {% order %}
+    {% order number="2018-00001" %}
 
     # show specific order.
     {% order instance %}

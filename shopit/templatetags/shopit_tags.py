@@ -273,14 +273,17 @@ def cart(context, editable=True):
 
 
 @register.inclusion_tag('shopit/includes/order.html', takes_context=True)
-def order(context, order=None):
+def order(context, order=None, number=None):
     """
-    Renders order template for the given order. Uses latest order if `order`
-    is not passed in.
+    Renders order template for the given order or given order number.
+    Uses latest order if both `order` and `number` is not passed in.
 
-    {% order %}
+    {% order number="2018-00001" %}
     """
-    if not order:
+    if not order and number:
+        order_number = Order.resolve_number(number)['number']
+        order = Order.objects.filter(number=order_number).first()
+    elif not order:
         order = Order.objects.filter_from_request(context['request']).first()
 
     return {
