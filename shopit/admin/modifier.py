@@ -39,7 +39,7 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
         return {'code': ['name']}
 
     def get_value(self, obj):
-        return '%s %%' % obj.percent if obj.percent else obj.amount
+        return '%s %%' % obj.percent if obj.percent else str(obj.amount)
     get_value.short_description = _('Value')
 
     def get_requires_code(self, obj):
