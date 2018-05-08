@@ -5,10 +5,41 @@ Release notes for **Shopit**.
 
 ----
 
-0.3.1
+0.4.0
 =====
 
+* Add support for *Django 1.11* & *DjangoSHOP 0.12.x*.
+* Handle tousand separator when displaying money in admin.
+* Add ability to pass in ``order_number`` to ``order`` templatetag.
+* Add ``num_uses`` to list display for Discount Code.
+* After order was populated with cart data, delete discount codes.
+* Add ability to send `validate` key when updating the cart via POST. In which
+  case the promo code gets validated without applying it to cart.
+* Add setting ``SHOPIT_DEFAULT_PRODUCT_ORDER`` to control default ordering of products.
+* Add ability to override ``ProductSerializer`` fields through the ``fields`` GET property.
+* Add ``attribute_choices`` to product serializer fields.
+* Add ``template`` field to Flag model, adn a ``SHOPIT_FLAG_TEMPLATES`` setting.
+* Add ``path`` to the Flag serializer.
+* Include categorization flags on a product.
+* Fix flag serializer field.
+* Use attachment ``subject_location`` when generating a thumbnail.
+* Add ability to pass in ``get_count`` as boolean through the ``request.GET`` object when in
+  ``ProductListView`` and ``CategoryDetailView``. This applies in non HTML formated response and returns the count of
+  all (filtered) products as ``{'count': 300}``.
+* Simplify urls into a single ``urls.py`` since https://github.com/divio/django-cms/pull/5898 was merged.
+* Separate admin modules into multiple files.
+* Move settings from ``settings.py`` to ``conf.py`` and re-format based on *djangoSHOP's* settings pattern.
+* Add ``SHOPIT_ASYNC_PRODUCT_LIST`` and ``SHOPIT_ADD_PRODUCT_LIST_TO_CONTEXT`` settings to optimize ``ProductListView``
+  and ``CategoryDetailView``.
+* Bump ``django-cms`` requirement to 3.5.
+* Set default prices to zero.
 * Fix field indentation in models and forms to follow Django's style guide.
+* Various bugfixes.
+
+.. attention::
+
+  Requires ``python manage.py migrate shopit`` to set default price and amount Money fields, and add a template
+  field to the Flag model.
 
 0.3.0
 =====
@@ -41,14 +72,14 @@ Release notes for **Shopit**.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
-    as well as add ``phone_number`` field on Customer model, ``content`` field on Categorization models
-    and ``max_uses``, ``num_uses`` on *DiscountCode*.
+  Requires ``python manage.py migrate shopit`` to add/remove fields on a Review model,
+  as well as add ``phone_number`` field on Customer model, ``content`` field on Categorization models
+  and ``max_uses``, ``num_uses`` on *DiscountCode*.
 
 .. note::
 
-    If migrating with categorization models already added. You'll need to save each models again for the
-    ``content`` PlaceholderField to appear.
+  If migrating with categorization models already added. You'll need to save each models again for the
+  ``content`` PlaceholderField to appear.
 
 0.2.2
 =====
@@ -85,7 +116,7 @@ Release notes for **Shopit**.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to create description field on categorization models.
+  Requires ``python manage.py migrate shopit`` to create description field on categorization models.
 
 0.1.3
 =====
@@ -115,7 +146,7 @@ Release notes for **Shopit**.
 
 .. attention::
 
-    Requires ``python manage.py migrate shopit`` to create mptt fields on a Flag model.
+  Requires ``python manage.py migrate shopit`` to create mptt fields on a Flag model.
 
 0.1.1
 =====

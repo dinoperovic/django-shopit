@@ -7,12 +7,12 @@ from django.forms.models import BaseInlineFormSet
 from django.utils.module_loading import import_string
 from parler.forms import TranslatableModelForm
 
+from shopit.conf import app_settings
 from shopit.models.product import AttributeValue, Product
-from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import TEXT_EDITOR
+from shopit.utils import get_error_message as em
 
 try:
-    TextEditor = import_string(TEXT_EDITOR)
+    TextEditor = import_string(app_settings.TEXT_EDITOR)
 except ImportError:
     from django.forms.widgets import Textarea as TextEditor
 
@@ -32,14 +32,14 @@ class ProductModelForm(TranslatableModelForm):
         if self.instance.pk is not None:
             queryset = queryset.exclude(pk=self.instance.pk)
         if queryset.exists():
-            raise forms.ValidationError(EM['duplicate_slug'])
+            raise forms.ValidationError(em('duplicate_slug'))
         return slug
 
     def clean_kind(self):
         kind = self.cleaned_data.get('kind')
         if kind != Product.GROUP:
             if self.instance.variants.exists():
-                raise forms.ValidationError(EM['not_group_has_variants'])
+                raise forms.ValidationError(em('not_group_has_variants'))
         return kind
 
     def clean_category(self):
@@ -55,7 +55,7 @@ class ProductModelForm(TranslatableModelForm):
         tax = self.cleaned_data.get('_tax')
         kind = self.cleaned_data.get('kind')
         if kind == Product.VARIANT and tax is not None:
-            raise forms.ValidationError(EM['variant_has_tax'])
+            raise forms.ValidationError(em('variant_has_tax'))
         return tax
 
     def clean_group(self):
@@ -63,28 +63,28 @@ class ProductModelForm(TranslatableModelForm):
         kind = self.cleaned_data.get('kind')
         if group is None:
             if kind == Product.VARIANT:
-                raise forms.ValidationError(EM['variant_no_group'])
+                raise forms.ValidationError(em('variant_no_group'))
         else:
             if kind != Product.VARIANT:
-                raise forms.ValidationError(EM['group_has_group'])
+                raise forms.ValidationError(em('group_has_group'))
             if group.is_variant:
-                raise forms.ValidationError(EM['varinat_group_variant'])
+                raise forms.ValidationError(em('varinat_group_variant'))
         return group
 
     def clean_available_attributes(self):
         attrs = self.cleaned_data.get('available_attributes')
         kind = self.cleaned_data.get('kind')
         if kind != Product.GROUP and attrs:
-            raise forms.ValidationError(EM['not_group_has_available_attributes'])
+            raise forms.ValidationError(em('not_group_has_available_attributes'))
         elif kind == Product.GROUP and not attrs:
-            raise forms.ValidationError(EM['group_no_available_attributes'])
+            raise forms.ValidationError(em('group_no_available_attributes'))
         return attrs
 
     def _clean_categorization(self, name):
         data = self.cleaned_data.get(name, None)
         kind = self.cleaned_data.get('kind')
         if data and kind == Product.VARIANT:
-            raise forms.ValidationError(EM['variant_has_category'])
+            raise forms.ValidationError(em('variant_has_category'))
         return data
 
 
@@ -98,11 +98,11 @@ class AttributeChoiceInlineFormSet(SortableInlineFormSet):
 
         clean_forms = [x for x in self.forms if 'value' in x.cleaned_data and not x.cleaned_data['DELETE']]
         if not clean_forms:
-            raise forms.ValidationError(EM['attribute_no_choices'])
+            raise forms.ValidationError(em('attribute_no_choices'))
 
         clean_values = [x.cleaned_data['value'] for x in clean_forms]
         if len(clean_values) != len(set(clean_values)):
-            raise forms.ValidationError(EM['attribute_duplicate_choices'])
+            raise forms.ValidationError(em('attribute_duplicate_choices'))
 
 
 class AttributeValueInlineFormSet(BaseInlineFormSet):
@@ -117,11 +117,11 @@ class AttributeValueInlineFormSet(BaseInlineFormSet):
 
         if instance.is_variant:
             if not clean_forms:
-                raise forms.ValidationError(EM['variant_no_attributes'])
+                raise forms.ValidationError(em('variant_no_attributes'))
             elif self.variant_exists(instance, clean_forms):
-                raise forms.ValidationError(EM['variant_already_exists'])
+                raise forms.ValidationError(em('variant_already_exists'))
         elif clean_forms:
-            raise forms.ValidationError(EM['not_variant_has_attributes'])
+            raise forms.ValidationError(em('not_variant_has_attributes'))
 
     def variant_exists(self, variant, forms):
         """
@@ -149,5 +149,5 @@ class AttributeValueModelForm(forms.ModelForm):
         # Make sure correct choice is selected for the attribute.
         if attribute and not attribute.nullable:
             if choice not in attribute.get_choices():
-                raise forms.ValidationError(EM['incorrect_attribute_choice'])
+                raise forms.ValidationError(em('incorrect_attribute_choice'))
         return choice

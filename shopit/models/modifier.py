@@ -10,13 +10,12 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from parler.managers import TranslatableQuerySet
 from parler.models import TranslatableModel, TranslatedFields
-from shop.money import Money
 from shop.money.fields import MoneyField
 
 from shopit.models.cart import CartDiscountCode
 from shopit.models.customer import Customer
 from shopit.modifier_conditions import modifier_conditions_pool
-from shopit.settings import ERROR_MESSAGES as EM
+from shopit.utils import get_error_message as em
 
 
 class ModifierQuerySet(TranslatableQuerySet):
@@ -57,7 +56,7 @@ class Modifier(TranslatableModel):
 
     amount = MoneyField(
         _('Amount'),
-        default=Money(0),
+        default=0,
         help_text=('Amount that should be added. Can be negative.'),
     )
 
@@ -184,7 +183,7 @@ class Modifier(TranslatableModel):
     def clean(self):
         if self.kind == self.DISCOUNT:
             if self.percent and self.percent >= 0 or not self.percent and self.amount >= 0:
-                raise ValidationError(EM['discount_not_negative'])
+                raise ValidationError(em('discount_not_negative'))
 
     @classmethod
     def get_cart_modifiers(cls):
@@ -250,7 +249,7 @@ class ModifierCondition(models.Model):
 
     def clean(self):
         if not self.path:
-            raise ValidationError(EM['modifier_no_condition_path'])
+            raise ValidationError(em('modifier_no_condition_path'))
 
     @cached_property
     def condition(self):

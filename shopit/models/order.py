@@ -103,6 +103,9 @@ class Order(BaseOrder):
             self.billing_address_text = self.shipping_address_text
         super(Order, self).populate_from_cart(cart, request)
 
+        # After order was populated with cart data, delete discount codes.
+        cart.delete_discount_codes()
+
     def is_fully_paid(self):
         return super(Order, self).is_fully_paid()
 

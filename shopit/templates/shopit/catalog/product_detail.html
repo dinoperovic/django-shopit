@@ -19,7 +19,7 @@
               <label for="id_{{ attr.code }}">{{ attr.name }}</label>
               <select id="id_{{ attr.code }}" name="{{ attr.code }}">
                 {% for option in attr.choices %}
-                  <option value="{{ option.file|default:option.value }}">{{ option }}</option>
+                  <option value="{{ option.value }}">{{ option.name }}</option>
                 {% endfor %}
               </select>
             </div>

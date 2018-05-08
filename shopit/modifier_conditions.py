@@ -5,7 +5,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 from shop.money import Money
 
-from shopit.settings import MODIFIER_CONDITIONS
+from shopit.conf import app_settings
 
 
 class ModifierCondition(object):
@@ -68,7 +68,7 @@ class ModifierConditionsPool(object):
     """
     def get_all_conditions(self):
         if not hasattr(self, '_all_conditions'):
-            setattr(self, '_all_conditions', [import_string(path)() for path in MODIFIER_CONDITIONS])
+            setattr(self, '_all_conditions', [import_string(path)() for path in app_settings.MODIFIER_CONDITIONS])
         return getattr(self, '_all_conditions')
 
     def get_condition_choices(self):
@@ -78,7 +78,7 @@ class ModifierConditionsPool(object):
         return getattr(self, '_condition_choices')
 
     def get_condition(self, path):
-        if path in MODIFIER_CONDITIONS:
+        if path in app_settings.MODIFIER_CONDITIONS:
             for condition in self.get_all_conditions():
                 if path == '%s.%s' % (condition.__module__, condition.__class__.__name__):
                     return condition

@@ -6,10 +6,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView
 
 from shopit import views
-from shopit.settings import SINGLE_APPHOOK
+from shopit.conf import app_settings
 
 
-def get_urls(name, prefixed=SINGLE_APPHOOK):  # noqa
+def get_urls(name, prefixed=app_settings.SINGLE_APPHOOK):  # noqa
     """
     Returns url patterns for the given module.
     Checks if urls are handled with single or multiple apphooks.

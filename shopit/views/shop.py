@@ -72,12 +72,16 @@ class CartView(CartObjectMixin, FormView):
         return super(CartView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.save()
-        if form.cleaned_data.get('code', None):
-            msg = _('Discount code has been applied successfully.')
+        code = form.cleaned_data.get('code', None)
+        if code and self.request.POST.get('validate', None):
+            msg = _('Discount code is valid.')
         else:
-            msg = _('Cart has been updated successfully.')
-        messages.success(self.request, msg)
+            if code:
+                form.save()
+                msg = _('Discount code has been applied successfully.')
+            else:
+                msg = _('Cart has been updated successfully.')
+            messages.success(self.request, msg)
         if self.request.is_ajax():
             return JsonResponse({'success': msg})
         return redirect('shopit-cart')

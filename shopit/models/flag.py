@@ -11,6 +11,8 @@ from mptt.querysets import TreeQuerySet
 from parler.managers import TranslatableManager, TranslatableQuerySet
 from parler.models import TranslatableModelMixin, TranslatedFields
 
+from shopit.conf import app_settings
+
 
 class FlagQuerySet(TranslatableQuerySet, TreeQuerySet):
     def active(self):
@@ -32,6 +34,8 @@ class Flag(TranslatableModelMixin, MPTTModel):
     """
     Flag model.
     """
+    TEMPLATES = app_settings.FLAG_TEMPLATES
+
     translations = TranslatedFields(
         name=models.CharField(
             _('Name'),
@@ -52,6 +56,18 @@ class Flag(TranslatableModelMixin, MPTTModel):
         null=True,
         related_name='children',
         verbose_name=_('Parent'),
+    )
+
+    template = models.CharField(
+        _('Template'),
+        max_length=255,
+        blank=True,
+        null=True,
+        choices=TEMPLATES,
+        help_text=_(
+            'You can specify a template for rendering this flag or leave it empty for the '
+            'default look.'
+        ),
     )
 
     active = models.BooleanField(

@@ -18,6 +18,7 @@ from shop.serializers.defaults import AddToCartSerializer as BaseAddToCartSerial
 from shop.serializers.defaults import CustomerSerializer
 from shop.serializers.order import OrderListSerializer as BaseOrderListSerializer
 
+from shopit.conf import app_settings
 from shopit.models.address import BillingAddress, ShippingAddress
 from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.customer import Customer
@@ -25,7 +26,6 @@ from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.product import Product, Relation, Review
 from shopit.models.tax import Tax
-from shopit.settings import PRODUCT_DETAIL_SERIALIZER_FIELDS, PRODUCT_SERIALIZER_FIELDS
 
 
 class AccountSerializer(CustomerSerializer):
@@ -106,9 +106,14 @@ class TaxSerializer(serializers.ModelSerializer):
 
 
 class FlagSerializer(serializers.ModelSerializer):
+    path = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Flag
-        fields = ['id', 'name', 'code', 'order']
+        fields = ['id', 'name', 'code', 'template', 'path']
+
+    def get_path(self, obj):
+        return '/'.join(obj.get_ancestors(include_self=True).values_list('code', flat=True))
 
 
 class ModifierSerializer(serializers.ModelSerializer):
@@ -124,12 +129,12 @@ class CategorizationSerializerBase(serializers.ModelSerializer):
     Base categorization serializer.
     Model and fields must be specified when extending.
     """
-    class Meta:
-        fields = ['id', 'name', 'slug', 'url', 'parent', 'modifiers', 'flags']
-
     url = serializers.SerializerMethodField()
     modifiers = ModifierSerializer(source='get_modifiers', many=True)
     flags = FlagSerializer(source='get_flags', many=True)
+
+    class Meta:
+        fields = ['id', 'name', 'slug', 'url', 'parent', 'modifiers', 'flags']
 
     def get_url(self, obj):
         url = obj.get_absolute_url()
@@ -196,7 +201,7 @@ class ProductSerializer(BaseProductSerializer):
     """
     Base product serializer.
     """
-    FIELDS = PRODUCT_SERIALIZER_FIELDS
+    FIELDS = app_settings.PRODUCT_SERIALIZER_FIELDS
 
     url = serializers.SerializerMethodField(read_only=True)
     add_to_cart_url = serializers.SerializerMethodField(read_only=True)
@@ -213,6 +218,7 @@ class ProductSerializer(BaseProductSerializer):
     depth = MeasureField(measure=Distance)
     weight = MeasureField(measure=Mass)
     attributes = serializers.DictField(source='get_attributes', read_only=True)
+    attribute_choices = serializers.DictField(source='get_attribute_choices', read_only=True)
     discount_amount = MoneyField(read_only=True)
     tax_amount = MoneyField(read_only=True)
     variants = serializers.SerializerMethodField()
@@ -227,15 +233,18 @@ class ProductSerializer(BaseProductSerializer):
             'id', 'name', 'slug', 'caption', 'code', 'kind', 'url', 'add_to_cart_url', 'price', 'is_available',
             'description', 'unit_price', 'discount', 'tax', 'availability', 'category', 'brand', 'manufacturer',
             'discountable', 'modifiers', 'flags', 'width', 'height', 'depth', 'weight', 'available_attributes',
-            'group',  'attributes', 'published', 'quantity', 'order', 'active', 'created_at', 'updated_at',
-            'is_single', 'is_group', 'is_variant', 'is_discounted', 'is_taxed',  'discount_percent', 'tax_percent',
-            'discount_amount', 'tax_amount', 'variants', 'variations', 'attachments', 'relations', 'reviews',
+            'group',  'attributes', 'attribute_choices', 'published', 'quantity', 'order', 'active', 'created_at',
+            'updated_at', 'is_single', 'is_group', 'is_variant', 'is_discounted', 'is_taxed',  'discount_percent',
+            'tax_percent', 'discount_amount', 'tax_amount', 'variants', 'variations', 'attachments', 'relations',
+            'reviews',
         ]
 
     def get_fields(self):
         fields = super(ProductSerializer, self).get_fields()
-        included = list(set(self.FIELDS + self.get_included_fields()))
-        for excluded in [x for x in fields if x not in included]:
+        overriden = self.context['request'].GET.get('fields', None)
+        names = [x for x in overriden.split(',') if x in self.Meta.fields] if overriden is not None else self.FIELDS
+        names = list(set(names + self.get_included_fields()))
+        for excluded in [x for x in fields if x not in names]:
             del fields[excluded]
         return fields
 
@@ -287,7 +296,7 @@ class ProductSummarySerializer(ProductSerializer):
 
 
 class ProductDetailSerializer(ProductSerializer):
-    FIELDS = PRODUCT_DETAIL_SERIALIZER_FIELDS
+    FIELDS = app_settings.PRODUCT_DETAIL_SERIALIZER_FIELDS
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label', 'catalog')

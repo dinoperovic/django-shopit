@@ -5,11 +5,11 @@ from django.utils.module_loading import import_string
 from mptt.forms import MPTTAdminForm
 from parler.forms import TranslatableModelForm
 
+from shopit.conf import app_settings
 from shopit.models.categorization import Brand, Category, Manufacturer
-from shopit.settings import TEXT_EDITOR
 
 try:
-    TextEditor = import_string(TEXT_EDITOR)
+    TextEditor = import_string(app_settings.TEXT_EDITOR)
 except ImportError:
     from django.forms.widgets import Textarea as TextEditor
 

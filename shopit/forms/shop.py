@@ -6,17 +6,16 @@ from django.contrib.auth import get_user_model
 from django.forms.utils import ErrorDict
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
-from shop.conf import app_settings
+from shop.conf import app_settings as shop_settings
 from shop.modifiers.pool import cart_modifiers_pool
 
+from shopit.conf import app_settings
 from shopit.forms.account import AccountDetailsForm, CleanEmailMixin
 from shopit.models.address import ISO_3166_CODES, BillingAddress, ShippingAddress
 from shopit.models.cart import CartDiscountCode
 from shopit.models.customer import Customer
 from shopit.models.modifier import DiscountCode
-from shopit.settings import ADDRESS_COUNTRIES
-from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import PHONE_NUMBER_REQUIRED, PRIMARY_ADDRESS
+from shopit.utils import get_error_message as em
 
 
 class CartDiscountCodeForm(forms.ModelForm):
@@ -41,13 +40,13 @@ class CartDiscountCodeForm(forms.ModelForm):
         if code:
             cart_codes = self.cart.get_discount_codes().values_list('code', flat=True)
             if code in cart_codes:
-                raise forms.ValidationError(EM['cart_discount_code_exists'])
+                raise forms.ValidationError(em('cart_discount_code_exists'))
             try:
                 dc = DiscountCode.objects.valid().get(code=code)
             except DiscountCode.DoesNotExist:
-                raise forms.ValidationError(EM['cart_discount_code_invalid'])
+                raise forms.ValidationError(em('cart_discount_code_invalid'))
             if dc.customer and code not in self.cart.customer.get_discount_codes().values_list('code', flat=True):
-                raise forms.ValidationError(EM['cart_discount_code_wrong_customer'])
+                raise forms.ValidationError(em('cart_discount_code_wrong_customer'))
             self._discount_code = dc
         return code
 
@@ -91,11 +90,11 @@ class GuestForm(CheckoutFormMixin, CleanEmailMixin, forms.ModelForm):
         self.instance = self.customer.user
         self.fields['email'].initial = self.instance.email
         self.fields['phone_number'].initial = self.customer.phone_number
-        self.fields['phone_number'].required = PHONE_NUMBER_REQUIRED
+        self.fields['phone_number'].required = app_settings.PHONE_NUMBER_REQUIRED
 
     def save(self, commit=True):
         self.customer.recognize_as_guest()
-        self.instance.is_active = app_settings.SHOP_GUEST_IS_ACTIVE_USER
+        self.instance.is_active = shop_settings.SHOP_GUEST_IS_ACTIVE_USER
         if self.instance.is_active:
             password = get_user_model().objects.make_random_password(length=30)
             self.instance.set_password(password)
@@ -138,12 +137,11 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
             self.fields['existant'].widget = forms.HiddenInput()
 
         # Set country choices based on `ADDRESS_COUNTRIES` setting.
-        if ADDRESS_COUNTRIES:
-            countries = [('', '---------')] + [x for x in ISO_3166_CODES if x in ADDRESS_COUNTRIES]
+        if app_settings.ADDRESS_COUNTRIES:
+            countries = [('', '---------')] + [x for x in ISO_3166_CODES if x in app_settings.ADDRESS_COUNTRIES]
             self.fields['country'].widget = forms.Select(choices=countries)
             self.fields['country'].choices = countries
 
-        assert PRIMARY_ADDRESS in ['shipping', 'billing'], "PRIMARY_ADDRESS must be either 'shipping' or 'billing'."
         if self.is_primary:
             self.fields.pop('use_primary_address')  # remove field from primary address.
         else:
@@ -197,7 +195,7 @@ class AddressForm(CheckoutFormMixin, forms.ModelForm):
 
     @property
     def is_primary(self):
-        return PRIMARY_ADDRESS == self.address_type
+        return app_settings.PRIMARY_ADDRESS == self.address_type
 
 
 class ShippingAddressForm(AddressForm):

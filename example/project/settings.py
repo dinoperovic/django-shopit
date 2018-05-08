@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'djangocms_text_ckeditor',
 
     # django-shop
-    'allauth',
     'adminsortable2',
     'cmsplugin_cascade',
     'django_fsm',
@@ -90,7 +89,6 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.language.LanguageCookieMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'shop.middleware.CustomerMiddleware',
-    'shop.middleware.MethodOverrideMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'

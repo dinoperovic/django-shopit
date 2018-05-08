@@ -15,12 +15,12 @@ from shop.views.catalog import AddToCartView as AddToCartViewBase
 from shop.views.catalog import ProductListView as BaseProductListView
 from shop.views.catalog import ProductRetrieveView
 
+from shopit.conf import app_settings
 from shopit.models.cart import Cart, CartItem
 from shopit.models.product import Attribute, Product
 from shopit.rest.renderers import ModifiedCMSPageRenderer
 from shopit.serializers import (AddToCartSerializer, CartItemSerializer, ProductDetailSerializer,
                                 ProductSummarySerializer, ReviewSerializer, WatchItemSerializer)
-from shopit.settings import REVIEW_ACTIVE_DEFAULT
 
 CATEGORIES_VAR = 'c'
 BRANDS_VAR = 'b'
@@ -35,6 +35,25 @@ SORT_VAR = 's'
 class ProductListView(BaseProductListView):
     serializer_class = ProductSummarySerializer
     renderer_classes = [ModifiedCMSPageRenderer] + api_settings.DEFAULT_RENDERER_CLASSES
+
+    def get(self, request, *args, **kwargs):
+        """
+        If products are loaded asynchronously, controlled by
+        `ASYNC_PRODUCT_LIST` setting, render template without any data.
+        """
+        if app_settings.ASYNC_PRODUCT_LIST and request.accepted_renderer.format == 'html':
+            return Response({})
+        return super(ProductListView, self).get(request, *args, **kwargs)
+
+    def list(self, request, *args, **kwargs):
+        """
+        Return all products count when `count` exists in GET, applicable
+        only when format is not html.
+        """
+        if request.GET.get('get_count', None) and request.accepted_renderer.format != 'html':
+            count = self.filter_queryset(self.get_queryset()).count()
+            return Response({'count': count})
+        return super(ProductListView, self).list(request, *args, **kwargs)
 
     def get_queryset(self):
         return Product.objects.translated().active().top_level()
@@ -69,6 +88,8 @@ class ProductListView(BaseProductListView):
         queryset = queryset.filter_price(price_from, price_to)
 
         sort = self.request.GET.get(SORT_VAR, None)
+        if not sort and app_settings.DEFAULT_PRODUCT_ORDER:
+            sort = app_settings.DEFAULT_PRODUCT_ORDER
         sort_map = {
             'name': 'translations__name',
             '-name': '-translations__name',
@@ -84,8 +105,12 @@ class ProductListView(BaseProductListView):
         return ['shopit/catalog/product_list.html']
 
     def get_renderer_context(self):
+        """
+        Add `product_list` renderer context if format is 'html'. Check against
+        `ADD_PRODUCT_LIST_TO_CONTEXT` setting if allowed.
+        """
         context = super(ProductListView, self).get_renderer_context()
-        if context['request'].accepted_renderer.format == 'html':
+        if app_settings.ADD_PRODUCT_LIST_TO_CONTEXT and context['request'].accepted_renderer.format == 'html':
             queryset = self.filter_queryset(self.get_queryset())
             page = self.paginate_queryset(queryset)
             if page is not None:
@@ -157,7 +182,7 @@ class ProductReviewListView(ProductReviewMixin, ListCreateAPIView):
         if self.get_queryset(include_inactive=True).filter(customer=request.customer).exists():
             errors = {'exists': [_('Review already written for this Product.')]}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
-        data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE, active=REVIEW_ACTIVE_DEFAULT)  # noqa
+        data = dict(list(request.data.items()), customer=request.customer, language=request.LANGUAGE_CODE, active=app_settings.REVIEW_ACTIVE_DEFAULT)  # noqa
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save(product=self.get_product())

@@ -32,7 +32,7 @@
         {% for attr in combo.attributes.values %}
           <td style="padding: 8px;">{{ attr.label|default:"-" }}</td>
         {% endfor %}
-        <td style="padding: 8px;">{{ combo.price|default:"-" }}</td>
+        <td style="padding: 8px;">{{ combo.price|safe|default:"-" }}</td>
         <td style="padding: 8px;">{{ combo.code|default:"-" }}</td>
         <td style="padding: 8px;">{% if combo.quantity != None %}{{ combo.quantity }}{% else %}~{% endif %}</td>
         <td style="padding: 8px;">

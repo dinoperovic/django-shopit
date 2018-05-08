@@ -35,15 +35,14 @@ from polymorphic.query import PolymorphicQuerySet
 from shop.models.product import BaseProduct, BaseProductManager
 from shop.money.fields import MoneyField
 
+from shopit.conf import app_settings
 from shopit.models.cart import Cart
 from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.customer import Customer
 from shopit.models.flag import Flag
 from shopit.models.modifier import Modifier
 from shopit.models.tax import Tax
-from shopit.settings import ATTRIBUTE_TEMPLATES
-from shopit.settings import ERROR_MESSAGES as EM
-from shopit.settings import FILTER_ATTRIBUTES_INCLUDES_VARIANTS, RELATION_KINDS, REVIEW_RATINGS
+from shopit.utils import get_error_message as em
 
 try:
     from easy_thumbnails.files import get_thumbnailer
@@ -128,8 +127,8 @@ class ProductQuerySet(PolymorphicQuerySet, TranslatableQuerySet):
                 group_ids = list(set(variants.values_list('group_id', flat=True)))
                 self = self.filter(id__in=group_ids)
 
-                if FILTER_ATTRIBUTES_INCLUDES_VARIANTS:
-                    self = (self | variants).order_by('-order', 'kind', 'published')
+                if app_settings.FILTER_ATTRIBUTES_INCLUDES_VARIANTS:
+                    self = (variants | self).order_by('-order', 'kind', 'published')
         return self
 
     def filter_price(self, price_from=None, price_to=None):
@@ -243,8 +242,7 @@ class Product(BaseProduct, TranslatableModel):
     # Pricing
     _unit_price = MoneyField(
         _('Unit price'),
-        blank=True,
-        null=True,
+        default=0,
         help_text=_("For variants leave empty to use the Group price."),
     )
 
@@ -663,6 +661,12 @@ class Product(BaseProduct, TranslatableModel):
             flags = self.flags.active()
             if self.is_variant:
                 flags = flags | self.group.get_flags(distinct=False)
+            if self.category:
+                flags = flags | self.category.get_flags(distinct=False)
+            if self.brand:
+                flags = flags | self.brand.get_flags(distinct=False)
+            if self.manufacturer:
+                flags = flags | self.manufacturer.get_flags(distinct=False)
             self.cache('_flags', flags)
         return flags.distinct() if distinct else flags
 
@@ -743,7 +747,7 @@ class Product(BaseProduct, TranslatableModel):
                 attrs = OrderedDict()
                 for attr in self.get_available_attributes():
                     data = attr.as_dict
-                    data['choices'] = [x for x in attr.get_choices() if (x.attribute.code, x.value) in used]
+                    data['choices'] = [x.as_dict for x in attr.get_choices() if (x.attribute.code, x.value) in used]
                     if data['choices']:
                         attrs[attr.code] = data
                 self.cache('_attribute_choices', attrs)
@@ -964,25 +968,25 @@ class Product(BaseProduct, TranslatableModel):
 
     def _clean_single(self):
         if self.group_id:
-            raise ValidationError(EM['group_has_group'])
+            raise ValidationError(em('group_has_group'))
         if self.variants.exists():
-            raise ValidationError(EM['not_group_has_variants'])
+            raise ValidationError(em('not_group_has_variants'))
 
     def _clean_group(self):
         if self.group_id:
-            raise ValidationError(EM['group_has_group'])
+            raise ValidationError(em('group_has_group'))
 
     def _clean_variant(self):
         if self._category_id or self._brand_id or self._manufacturer_id:
-            raise ValidationError(EM['variant_has_category'])
+            raise ValidationError(em('variant_has_category'))
         if self._tax_id:
-            raise ValidationError(EM['variant_has_tax'])
+            raise ValidationError(em('variant_has_tax'))
         if not self.group_id:
-            raise ValidationError(EM['variant_no_group'])
+            raise ValidationError(em('variant_no_group'))
         if self.group.is_variant:
-            raise ValidationError(EM['varinat_group_variant'])
+            raise ValidationError(em('varinat_group_variant'))
         if self.variants.exists():
-            raise ValidationError(EM['not_group_has_variants'])
+            raise ValidationError(em('not_group_has_variants'))
 
 
 class AttributeQuerySet(TranslatableQuerySet):
@@ -996,7 +1000,7 @@ class Attribute(TranslatableModel):
     Used to define different types of attributes to be assigned on a Product
     variant. Eg. For a t-shirt attributes could be size, color, pattern etc.
     """
-    TEMPLATES = ATTRIBUTE_TEMPLATES
+    TEMPLATES = app_settings.ATTRIBUTE_TEMPLATES
 
     translations = TranslatedFields(
         name=models.CharField(
@@ -1137,6 +1141,15 @@ class AttributeChoice(TranslatableModel):
 
     def __str__(self):
         return self.safe_translation_getter('name') or self.value or '-'
+
+    @cached_property
+    def as_dict(self):
+        return {
+            'name': str(self),
+            'value': self.value,
+            'file': self.file.url if self.file else None,
+            'order': self.order,
+        }
 
 
 @python_2_unicode_compatible
@@ -1282,6 +1295,7 @@ class Attachment(models.Model):
             try:
                 thumbnailer = get_thumbnailer(self.file)
                 for alias, options in aliases.all(target='shopit.Attachment').items():
+                    options.update({'subject_location': self.file.subject_location})
                     attachment['url_%s' % alias] = thumbnailer.get_thumbnail(options).url
             except InvalidImageFormatError:
                 pass
@@ -1290,9 +1304,9 @@ class Attachment(models.Model):
     def clean(self):
         if self.file:
             if self.file.extension not in self.EXTENSIONS[self.kind]:
-                raise ValidationError('%s (%s)' % (EM['wrong_extension'], ', '.join(self.EXTENSIONS[self.kind])))
+                raise ValidationError('%s (%s)' % (em('wrong_extension'), ', '.join(self.EXTENSIONS[self.kind])))
         elif not self.url:
-            raise ValidationError(EM['no_attachment_or_url'])
+            raise ValidationError(em('no_attachment_or_url'))
 
 
 @python_2_unicode_compatible
@@ -1300,7 +1314,7 @@ class Relation(models.Model):
     """
     Inline product relation model.
     """
-    KINDS = RELATION_KINDS
+    KINDS = app_settings.RELATION_KINDS
 
     base = models.ForeignKey(
         Product,
@@ -1343,9 +1357,9 @@ class Relation(models.Model):
 
     def clean(self):
         if self.base.is_variant or self.product.is_variant:
-            raise ValidationError(EM['variant_has_relations'])
+            raise ValidationError(em('variant_has_relations'))
         if self.base == self.product:
-            raise ValidationError(EM['relation_base_is_product'])
+            raise ValidationError(em('relation_base_is_product'))
 
 
 class ReviewQuerySet(QuerySet):
@@ -1358,7 +1372,7 @@ class Review(models.Model):
     """
     Model for product reviews.
     """
-    RATINGS = REVIEW_RATINGS
+    RATINGS = app_settings.REVIEW_RATINGS
 
     product = models.ForeignKey(
         Product,
