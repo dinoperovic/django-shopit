@@ -15,6 +15,7 @@ from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonRespon
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
+from django.utils.encoding import smart_text
 from django.utils.formats import date_format
 from django.utils.html import format_html
 from django.utils.http import urlencode
@@ -52,7 +53,7 @@ class AttributeAdmin(SortableAdminMixin, TranslatableAdmin):
         css = {'all': ['shopit/css/djangocms-admin-style.css']}
 
     def get_prepopulated_fields(self, request, obj=None):
-        return {'code': ['name']}
+        return {'code': ['name']}  # pragma: no cover
 
     def get_name(self, obj):
         return str(obj)
@@ -91,7 +92,7 @@ class ReviewInline(SortableInlineAdminMixin, admin.TabularInline):
     readonly_fields = ['customer', 'name', 'text', 'rating', 'created_at']
 
     def has_add_permission(self, request):
-        return False
+        return False  # pragma: no cover
 
 
 class ProductChangeList(ChangeList):
@@ -154,7 +155,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
         js = ['shopit/js/product_admin.js']
 
     def get_prepopulated_fields(self, request, obj=None):
-        return {'slug': ['name']}
+        return {'slug': ['name']}  # pragma: no cover
 
     def get_changelist(self, request, **kwargs):
         return ProductChangeList
@@ -169,7 +170,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
         return initial
 
     def get_urls(self):
-        urls = super(ProductAdmin, self).get_urls()
+        urls = super(ProductAdmin, self).get_urls()  # pragma: no cover
         return [
             url(r'^get-attribute-choices/$', self.admin_site.admin_view(self.get_attribute_choices),
                 name='shopit_product_get_attribute_choices'),
@@ -183,7 +184,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
                 name='shopit_product_create_all_variants'),
             url(r'^(?P<pk>\d+)/delete-invalid-variants/$', self.admin_site.admin_view(self.delete_invalid_variants),
                 name='shopit_product_delete_invalid_variants'),
-        ] + urls
+        ] + urls  # pragma: no cover
 
     def get_name(self, obj):
         if obj.is_variant:
@@ -228,10 +229,10 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
     get_published.short_description = _('Published')
 
     def get_summary_field(self, obj):
-        unit_price = '%s: %s' % (_('Unit price'), str(obj.unit_price))
+        unit_price = '%s: %s' % (_('Unit price'), smart_text(obj.unit_price))
         discount = '%s: %g%%' % (_('Discount percent'), obj.discount_percent)
         tax = '%s: %g%%' % (_('Tax percent'), obj.tax_percent)
-        price = '<strong>%s: %s</strong>' % (_('Price'), str(obj.price))
+        price = '<strong>%s: %s</strong>' % (_('Price'), smart_text(obj.price))
         return format_html('<br>'.join([unit_price, discount, tax, price]))
     get_summary_field.allow_tags = True
     get_summary_field.short_description = _('Summary')

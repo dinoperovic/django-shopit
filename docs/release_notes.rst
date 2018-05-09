@@ -5,6 +5,12 @@ Release notes for **Shopit**.
 
 ----
 
+0.4.1
+=====
+
+* Small fixes in admin.
+* Refactor tests.
+
 0.4.0
 =====
 

@@ -8,7 +8,7 @@ from shopit.models.categorization import Category
 from ..utils import ShopitTestCase
 
 
-class CategorizationModelsTest(ShopitTestCase):
+class CategorizationModelTest(ShopitTestCase):
     def setUp(self):
         self.inactive_category = self.create_categorization('category', 'Inactive', active=False)
 

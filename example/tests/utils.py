@@ -48,7 +48,7 @@ class ShopitTestCase(TestCase):
         attrs.update(kwargs)
         return Product.objects.language().create(**attrs)
 
-    def create_attribute(self, name, choices, **kwargs):
+    def create_attribute(self, name, choices=[], **kwargs):
         attrs = {'name': name, 'code': slugify(name)}
         attrs.update(kwargs)
         attr = Attribute.objects.language().create(**attrs)
@@ -108,3 +108,23 @@ class ShopitTestCase(TestCase):
         customer = Customer.objects.create(user=user)
         customer._password = password
         return customer
+
+    def get_changelist_args(self, modeladmin, **kwargs):
+        """
+        Returns changelist args for admin ChangeList.
+        """
+        m = modeladmin
+        args = (
+            kwargs.pop('list_display', m.list_display),
+            kwargs.pop('list_display_links', m.list_display_links),
+            kwargs.pop('list_filter', m.list_filter),
+            kwargs.pop('date_hierarchy', m.date_hierarchy),
+            kwargs.pop('search_fields', m.search_fields),
+            kwargs.pop('list_select_related', m.list_select_related),
+            kwargs.pop('list_per_page', m.list_per_page),
+            kwargs.pop('list_max_show_all', m.list_max_show_all),
+            kwargs.pop('list_editable', m.list_editable),
+            m,
+        )
+        assert not kwargs, "Unexpected kwarg %s" % kwargs
+        return args
