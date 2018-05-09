@@ -2,12 +2,13 @@
 from __future__ import absolute_import, unicode_literals
 
 from filer.models.imagemodels import Image
+
 from shopit.models.categorization import Category
 
-from .utils import ShopitTestCase
+from ..utils import ShopitTestCase
 
 
-class CategorizationTest(ShopitTestCase):
+class CategorizationModelsTest(ShopitTestCase):
     def setUp(self):
         self.inactive_category = self.create_categorization('category', 'Inactive', active=False)
 

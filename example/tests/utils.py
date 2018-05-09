@@ -3,9 +3,9 @@ from __future__ import absolute_import, unicode_literals
 
 from decimal import Decimal as D
 
+from django.contrib.auth import get_user_model
 from django.contrib.sessions.backends.db import SessionStore
 from django.test import TestCase, override_settings
-from django.contrib.auth import get_user_model
 from django.test.client import RequestFactory
 from django.utils.text import slugify
 from email_auth.models import User
@@ -14,7 +14,7 @@ from shop.money import Money
 from shopit.models import categorization as categorization_models
 from shopit.models.cart import Cart
 from shopit.models.flag import Flag
-from shopit.models.modifier import Modifier, ModifierCondition, DiscountCode
+from shopit.models.modifier import DiscountCode, Modifier, ModifierCondition
 from shopit.models.product import (Attachment, Attribute, AttributeChoice, AttributeValue, Customer, Product, Relation,
                                    Review)
 from shopit.models.tax import Tax

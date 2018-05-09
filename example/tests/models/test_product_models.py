@@ -12,7 +12,7 @@ from shopit.models.categorization import Brand, Category, Manufacturer
 from shopit.models.product import Attachment, AttributeChoice, AttributeValue, Product, Review
 from shopit.models.tax import Tax
 
-from .utils import ShopitTestCase
+from ..utils import ShopitTestCase
 
 
 class ProductManagerTest(ShopitTestCase):
@@ -27,7 +27,7 @@ class ProductManagerTest(ShopitTestCase):
         self.assertEquals([self.p1], list(Product.objects.top_level()))
 
 
-class ProductTest(ShopitTestCase):
+class ProductModelTest(ShopitTestCase):
     def setUp(self):
         self.create_request()
 
@@ -249,7 +249,7 @@ class ProductTest(ShopitTestCase):
         self.assertRaises(ValidationError, self.iphone7_white._clean_variant)
 
 
-class AttributeTest(ShopitTestCase):
+class AttributeModelTest(ShopitTestCase):
     def setUp(self):
         self.size = self.create_attribute('Size', range(10), nullable=True)
         self.color = self.create_attribute('Color', ['red', 'green', 'blue'])
@@ -278,7 +278,7 @@ class AttributeTest(ShopitTestCase):
         self.assertEquals(value_zero.file, None)
 
 
-class AttachmentTest(ShopitTestCase):
+class AttachmentModelTest(ShopitTestCase):
     def setUp(self):
         self.product = self.create_product('Test')
         self.image0 = self.create_attachment(self.product, url='image0')
@@ -301,7 +301,7 @@ class AttachmentTest(ShopitTestCase):
         self.assertRaises(ValidationError, Attachment(url=None).clean)
 
 
-class RelationTest(ShopitTestCase):
+class RelationModelTest(ShopitTestCase):
     def setUp(self):
         self.book = self.create_product('Book')
         self.pencil = self.create_product('Pencil')
@@ -315,6 +315,6 @@ class RelationTest(ShopitTestCase):
         self.assertRaises(ValidationError, lambda: self.create_relation(self.book, self.book))
 
 
-class ReviewTest(ShopitTestCase):
+class ReviewModelTest(ShopitTestCase):
     def test__str__(self):
         self.assertEquals(str(Review(text='Testing')), 'Testing')

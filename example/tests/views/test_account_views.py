@@ -6,10 +6,10 @@ from django.core.urlresolvers import reverse
 
 from shopit.models.customer import Customer
 
-from .utils import ShopitTestCase
+from ..utils import ShopitTestCase
 
 
-class AccountTest(ShopitTestCase):
+class AccountViewsTest(ShopitTestCase):
     def setUp(self):
         self.dino = self.create_customer('dino', password='secret')
 
