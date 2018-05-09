@@ -6,13 +6,11 @@
     --natural-foreign \
     email_auth \
     cms \
-    cmsplugin_cascade \
     djangocms_text_ckeditor \
     filer \
     shop \
     shopit \
     --exclude shop.email \
-    --exclude cmsplugin_cascade.segmentation \
     --exclude filer.clipboard \
     --exclude filer.clipboarditem \
     --exclude shopit.order \
