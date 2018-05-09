@@ -122,14 +122,14 @@ class CategorizationModel(TranslatableModelMixin, MPTTModel):
 
     def get_absolute_url(self, language=None):
         if not language:
-            language = get_current_language()
+            language = get_current_language()  # pragma: no cover
 
         url_name = 'shopit-%s-detail' % self._meta.model.__name__.lower()
 
         with switch_language(self, language):
             try:
                 return reverse(url_name, args=[self.get_path()])
-            except NoReverseMatch:
+            except NoReverseMatch:  # pragma: no cover
                 pass
 
     def get_path(self):

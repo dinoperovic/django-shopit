@@ -3,14 +3,18 @@ from __future__ import absolute_import, unicode_literals
 
 from decimal import Decimal as D
 
+from django.contrib.sessions.backends.db import SessionStore
 from django.test import TestCase, override_settings
+from django.contrib.auth import get_user_model
+from django.test.client import RequestFactory
 from django.utils.text import slugify
 from email_auth.models import User
 from shop.money import Money
 
 from shopit.models import categorization as categorization_models
+from shopit.models.cart import Cart
 from shopit.models.flag import Flag
-from shopit.models.modifier import Modifier
+from shopit.models.modifier import Modifier, ModifierCondition, DiscountCode
 from shopit.models.product import (Attachment, Attribute, AttributeChoice, AttributeValue, Customer, Product, Relation,
                                    Review)
 from shopit.models.tax import Tax
@@ -18,6 +22,21 @@ from shopit.models.tax import Tax
 
 @override_settings(ROOT_URLCONF='tests.urls')
 class ShopitTestCase(TestCase):
+    def create_request(self):
+        """Create request with user, customer and cart."""
+        self.factory = RequestFactory()
+        self.request = self.factory.get('/')
+        self.user = get_user_model().objects.create(username='user', email='user@example.com', password='resu')
+        self.request.user = self.user
+        self.request.session = SessionStore()
+        self.request.session.create()
+        self.customer = Customer.objects.get_from_request(self.request)
+        self.customer.recognize_as_registered()
+        self.customer.save()
+        self.request.customer = self.customer
+        self.cart = Cart.objects.get_from_request(self.request)
+        self.request.cart = self.cart
+
     def create_tax(self, name, percent=0, **kwargs):
         attrs = {'name': name, 'percent': D(percent)}
         attrs.update(kwargs)
@@ -65,10 +84,20 @@ class ShopitTestCase(TestCase):
         attrs.update(kwargs)
         return Modifier.objects.language().create(**attrs)
 
+    def create_modifier_condition(self, modifier, path, value=0, **kwargs):
+        attrs = {'modifier': modifier, 'path': path, 'value': value}
+        attrs.update(kwargs)
+        return ModifierCondition.objects.create(**attrs)
+
+    def create_discount_code(self, modifier, code, **kwargs):
+        attrs = {'modifier': modifier, 'code': slugify(code)}
+        attrs.update(kwargs)
+        return DiscountCode.objects.create(**attrs)
+
     def create_flag(self, name, **kwargs):
         attrs = {'name': name, 'code': slugify(name)}
         attrs.update(kwargs)
-        return Flag.objects.language().create(**kwargs)
+        return Flag.objects.language().create(**attrs)
 
     def create_customer(self, username, password=None):
         if not password:

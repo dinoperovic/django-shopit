@@ -3,16 +3,12 @@ from __future__ import absolute_import, unicode_literals
 
 from datetime import datetime
 
-from django.contrib.auth import get_user_model
-from django.contrib.sessions.backends.db import SessionStore
 from django.core.exceptions import ValidationError
-from django.test.client import RequestFactory
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import make_aware
 
-from shopit.models.cart import Cart, CartItem
+from shopit.models.cart import CartItem
 from shopit.models.categorization import Brand, Category, Manufacturer
-from shopit.models.customer import Customer
 from shopit.models.product import Attachment, AttributeChoice, AttributeValue, Product, Review
 from shopit.models.tax import Tax
 
@@ -33,19 +29,7 @@ class ProductManagerTest(ShopitTestCase):
 
 class ProductTest(ShopitTestCase):
     def setUp(self):
-        # Create request, customer and cart.
-        self.factory = RequestFactory()
-        self.request = self.factory.get('/')
-        self.user = get_user_model().objects.create(username='user', email='user@example.com', password='resu')
-        self.request.user = self.user
-        self.request.session = SessionStore()
-        self.request.session.create()
-        self.customer = Customer.objects.get_from_request(self.request)
-        self.customer.recognize_as_registered()
-        self.customer.save()
-        self.request.customer = self.customer
-        self.cart = Cart.objects.get_from_request(self.request)
-        self.request.cart = self.cart
+        self.create_request()
 
         self.tax = self.create_tax('Default Tax', 20)
         self.color = self.create_attribute('Color', ['black', 'white'])

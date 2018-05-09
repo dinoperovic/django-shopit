@@ -23,6 +23,12 @@ class ModifierQuerySet(TranslatableQuerySet):
         return self.filter(active=True)
 
     def filtering_enabled(self):
+        """
+        Returns queryset with modifiers that are allowed to be used
+        when filtering a list of products. This includes modifiers that don't
+        have any conditions or discount codes that are required. Also skips
+        the 'cart' modifiers.
+        """
         return self.filter(kind__in=[Modifier.STANDARD, Modifier.DISCOUNT]).\
             prefetch_related('discount_codes').prefetch_related('conditions').\
             annotate(num_discount_codes=Count('discount_codes'), num_conditions=Count('conditions')).\
