@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 
-class DefaultSettings(object):
+class DefaultSettings(object):  # pragma: no cover
     """
     Default settings for Shopit.
     """

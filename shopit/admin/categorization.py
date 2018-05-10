@@ -40,7 +40,7 @@ class CategorizationAdminBase(FrontendEditableAdminMixin, PlaceholderAdminMixin,
         css = {'all': ['shopit/css/djangocms-admin-style.css']}
 
     def get_prepopulated_fields(self, request, obj=None):
-        return {'slug': ['name']}
+        return {'slug': ['name']}  # pragma: no cover
 
     def get_name(self, obj):
         return format_html(

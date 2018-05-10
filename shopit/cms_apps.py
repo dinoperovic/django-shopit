@@ -14,7 +14,7 @@ class ShopitApphook(CMSApp):
     name = _('Shopit')
 
     def get_urls(self, page=None, language=None, **kwargs):
-        if app_settings.SINGLE_APPHOOK:
+        if app_settings.SINGLE_APPHOOK:  # pragma: no cover
             return ['shopit.urls']
         return get_urls('shop')
 
@@ -54,7 +54,7 @@ class ShopitProductsApphook(CMSApp):
         return get_urls('products')
 
 
-if not app_settings.SINGLE_APPHOOK:
+if not app_settings.SINGLE_APPHOOK:  # pragma: no cover
     apphook_pool.register(ShopitAccountApphook)
     apphook_pool.register(ShopitCategoriesApphook)
     apphook_pool.register(ShopitBrandsApphook)
