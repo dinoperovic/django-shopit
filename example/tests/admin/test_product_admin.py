@@ -5,7 +5,6 @@ import json
 
 from django.contrib.admin.sites import AdminSite
 from django.core.urlresolvers import reverse
-from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils.formats import date_format
 from django.utils.http import urlencode
@@ -132,7 +131,7 @@ class ProductAdminTest(ShopitTestCase):
         response = self.client.get(reverse('admin:shopit_product_add_variant', args=[self.iphone7.pk]))
         self.assertEquals(response.status_code, 302)
         # Next is third variant.
-        data = {'kind': 2, 'group': self.iphone7.pk, 'name': 'iPhone 7 #3'}
+        data = {'name': 'iPhone 7 #3', 'kind': 2, 'group': self.iphone7.pk}
         url_match = '{0}?{1}'.format(reverse('admin:shopit_product_add'), urlencode(data))
         self.assertEquals(response.url, url_match)
 
@@ -150,9 +149,8 @@ class ProductAdminTest(ShopitTestCase):
         self.assertEquals(response.status_code, 302)
         variants = self.iphone7.get_variants()
         self.assertEquals(variants.count(), 3)  # there should be 3 variants now.
-        new_variant = variants.filter(translations__name='iPhone 7 gold', translations__language_code='en').first()
         url_match = '{0}?{1}'.format(
-            reverse('admin:shopit_product_change', args=[new_variant.pk]),
+            reverse('admin:shopit_product_change', args=[4]),  # 3rd variant id.
             urlencode({'language': 'en'}),
         )
         self.assertEquals(response.url, url_match)
@@ -202,14 +200,13 @@ class ProductAdminTest(ShopitTestCase):
         url = '{0}?{1}'.format(reverse('admin:shopit_product_get_attribute_choices'), urlencode(data))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
-        self.assertIsInstance(response, JsonResponse)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEquals(data['choices'][0]['label'], 'L')
         self.assertEquals(data['choices'][1]['label'], 'XL')
         # Test empty choices when no attribute
         response = self.client.get(reverse('admin:shopit_product_get_attribute_choices'))
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(len(json.loads(response.content)['choices']), 0)
+        self.assertEquals(len(json.loads(response.content.decode('utf-8'))['choices']), 0)
 
     def test_make_active(self):
         self.admin_login()
