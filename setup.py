@@ -7,12 +7,6 @@ import shopit
 
 from setuptools import find_packages, setup
 
-try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-except ImportError:
-    long_description = open('README.md').read()
-
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
@@ -33,7 +27,8 @@ setup(
     name='djangoshop-shopit',
     version=shopit.__version__,
     description='Fully featured shop application built on djangoSHOP framework.',
-    long_description=long_description,
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/dinoperovic/djangoshop-shopit',
     license='BSD License',
     platforms=['OS Independent'],
