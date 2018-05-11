@@ -10,7 +10,7 @@ from shopit.models.categorization import Brand, Category, Manufacturer
 
 try:
     TextEditor = import_string(app_settings.TEXT_EDITOR)
-except ImportError:
+except ImportError:  # pragma: no cover
     from django.forms.widgets import Textarea as TextEditor
 
 

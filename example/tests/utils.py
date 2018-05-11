@@ -26,7 +26,9 @@ class ShopitTestCase(TestCase):
         """Create request with user, customer and cart."""
         self.factory = RequestFactory()
         self.request = self.factory.get('/')
-        self.user = get_user_model().objects.create(username='user', email='user@example.com', password='resu')
+        self.user = get_user_model().objects.create(username='user', email='user@example.com')
+        self.user.set_password('resu')
+        self.user.save()
         self.request.user = self.user
         self.request.session = SessionStore()
         self.request.session.create()

@@ -91,7 +91,7 @@ class AccountDetailsForm(CleanEmailMixin, forms.ModelForm):
         return customer
 
     def get_success_message(self):
-        return _('Info successfully updated.')
+        return _('Info successfully updated.')  # pragma: no cover
 
 
 class AccountPasswordForm(PasswordChangeForm):
@@ -105,4 +105,4 @@ class AccountPasswordForm(PasswordChangeForm):
         return user
 
     def get_success_message(self):
-        return _('Password successfully changed.')
+        return _('Password successfully changed.')  # pragma: no cover
