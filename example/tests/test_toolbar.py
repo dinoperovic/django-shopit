@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from cms.api import create_page
 from cms.cms_toolbars import ADMIN_MENU_IDENTIFIER
 from cms.middleware.toolbar import ToolbarMiddleware
-from cms.api import create_page
 
 from .utils import ShopitTestCase
 

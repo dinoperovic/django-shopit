@@ -6,8 +6,8 @@ from decimal import Decimal
 from django.contrib.admin.sites import AdminSite
 from shop.money import Money
 
-from shopit.admin.modifier import ModifierAdmin, DiscountCodeAdmin
-from shopit.models.modifier import Modifier, DiscountCode
+from shopit.admin.modifier import DiscountCodeAdmin, ModifierAdmin
+from shopit.models.modifier import DiscountCode, Modifier
 
 from ..utils import ShopitTestCase
 

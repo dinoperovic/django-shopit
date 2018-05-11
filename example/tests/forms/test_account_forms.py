@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import AnonymousUser
 
-from shopit.forms.account import AccountRegisterForm, AccountDetailsForm, AccountPasswordForm
+from shopit.forms.account import AccountDetailsForm, AccountPasswordForm, AccountRegisterForm
 from shopit.models.customer import Customer
 
 from ..utils import ShopitTestCase
