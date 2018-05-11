@@ -19,6 +19,8 @@ except ImportError:
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
+    'Framework :: Django :: 1.10',
+    'Framework :: Django :: 1.11',
     'Framework :: Django',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: BSD License',
