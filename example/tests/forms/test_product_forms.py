@@ -152,6 +152,10 @@ class AttributeValueInlineFormSetTest(ShopitTestCase):
         choice_gold = AttributeChoice.objects.filter(attribute=self.color, value='gold').first()
         form_existant = self.get_dummy_form(cleaned_data={'attribute': self.color, 'product': self.iphone7, 'choice': choice})  # noqa
         formset.forms = [form_existant]
+
+        # TODO: Fix for `formset.variants_exists` may be needed.
+        # Fails on travis.
+
         # TODO: Fails on travis only. Disable for now.
         # self.assertRaises(ValidationError, formset.clean)  # variant exists
 
@@ -174,8 +178,8 @@ class AttributeValueInlineFormSetTest(ShopitTestCase):
         self.create_product_with_variants()
         formset = self.formset_factory(instance=self.iphone7)
 
-        choice = AttributeChoice.objects.filter(attribute=self.color, value='white').first()
-        form = self.get_dummy_form(cleaned_data={'attribute': self.color, 'product': self.iphone7, 'choice': choice})
+        # choice = AttributeChoice.objects.filter(attribute=self.color, value='white').first()
+        # form = self.get_dummy_form(cleaned_data={'attribute': self.color, 'product': self.iphone7, 'choice': choice})
         # TODO: Fails on travis only. Disable for now.
         # self.assertTrue(formset.variant_exists(self.iphone7_black, [form]))
 
