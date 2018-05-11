@@ -141,6 +141,7 @@ class AttributeValueInlineFormSetTest(ShopitTestCase):
 
     def test__clean(self):
         self.create_product_with_variants()
+        self.iphone7.clear()
         formset = self.formset_factory(instance=self.iphone7_black)
 
         form1 = self.get_dummy_form(cleaned_data={'attribute': 1})
@@ -170,6 +171,7 @@ class AttributeValueInlineFormSetTest(ShopitTestCase):
 
     def test_variant_exists(self):
         self.create_product_with_variants()
+        self.iphone7.clear()
         formset = self.formset_factory(instance=self.iphone7)
 
         choice = AttributeChoice.objects.filter(attribute=self.color, value='white').first()
