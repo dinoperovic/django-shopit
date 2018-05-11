@@ -127,7 +127,8 @@ class AttributeValueInlineFormSet(BaseInlineFormSet):
         """
         Checks if variant with this attributes already exists.
         """
-        variations = [x[1] for x in variant.group.get_variations() if x[0] != variant.pk]
+        variations = [dict(x[1]) for x in variant.group.get_variations() if x[0] != variant.pk]
+
         if variations:
             attrs = {}
             for form in forms:
