@@ -14,6 +14,6 @@ Release logic:
  9. twine upload dist/djangoshop-shopit-<version>.tar.gz
 10. Done!
 """
-__version__ = '0.4.0'
+__version__ = '0.4.1'
 
 default_app_config = 'shopit.apps.ShopitConfig'
