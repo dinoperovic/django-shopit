@@ -1,8 +1,12 @@
 # Shopit
 
-[![Build Status](https://img.shields.io/travis/dinoperovic/djangoshop-shopit.svg)](https://travis-ci.org/dinoperovic/djangoshop-shopit)
-[![Codecov](https://img.shields.io/codecov/c/github/dinoperovic/djangoshop-shopit.svg)](http://codecov.io/github/dinoperovic/djangoshop-shopit)
-[![PyPI version](https://img.shields.io/pypi/v/djangoshop-shopit.svg)](https://pypi.python.org/pypi/djangoshop-shopit)
+[![Travis branch](https://img.shields.io/travis/dinoperovic/djangoshop-shopit/master.svg?style=flat-square)](https://travis-ci.org/dinoperovic/djangoshop-shopit)
+[![Codecov](https://img.shields.io/codecov/c/github/dinoperovic/djangoshop-shopit.svg?style=flat-square)](http://codecov.io/github/dinoperovic/djangoshop-shopit)
+[![PyPI](https://img.shields.io/pypi/v/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
+[![PyPI - Django Version](https://img.shields.io/pypi/djversions/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
+[![PyPI - License](https://img.shields.io/pypi/l/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
+
 
 **A fully featured shop application built on [djangoSHOP](http://www.django-shop.org) framework.**
 

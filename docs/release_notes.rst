@@ -9,6 +9,7 @@ Release notes for **Shopit**.
 =====
 
 * Small fixes in admin.
+* Fix indentation in admin help text for ``djangocms-admin-style``.
 * Refactor tests.
 
 0.4.0

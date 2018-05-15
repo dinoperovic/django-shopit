@@ -36,7 +36,7 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
         css = {'all': ['shopit/css/djangocms-admin-style.css']}
 
     def get_prepopulated_fields(self, request, obj=None):
-        return {'code': ['name']}
+        return {'code': ['name']}  # pragma: no cover
 
     def get_value(self, obj):
         return '%s %%' % obj.percent if obj.percent else str(obj.amount)
@@ -52,7 +52,7 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
     get_filtering_enabled.boolean = True
     get_filtering_enabled.short_description = _('Filtering')
 
-    def get_requires_code_field(self, obj):
+    def get_requires_code_field(self, obj):  # pragma: no cover
         html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
         if not obj.requires_code:
             html = '<img src="/static/admin/img/icon-no.svg" alt="False">'
@@ -62,7 +62,7 @@ class ModifierAdmin(SortableAdminMixin, TranslatableAdmin):
     get_requires_code_field.allow_tags = True
     get_requires_code_field.short_description = _('Requires code')
 
-    def get_filtering_enabled_field(self, obj):
+    def get_filtering_enabled_field(self, obj):  # pragma: no cover
         if obj.is_filtering_enabled:
             html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
         else:
@@ -98,7 +98,7 @@ class DiscountCodeAdmin(SortableAdminMixin, admin.ModelAdmin):
     get_is_valid.admin_order_field = 'valid_from'
     get_is_valid.short_description = _('Is valid')
 
-    def get_is_valid_field(self, obj):
+    def get_is_valid_field(self, obj):  # pragma: no cover
         if obj.is_valid:
             html = '<img src="/static/admin/img/icon-yes.svg" alt="True">'
         else:

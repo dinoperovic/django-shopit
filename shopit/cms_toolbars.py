@@ -21,7 +21,7 @@ class ShopitToolbar(CMSToolbar):
 
     def populate(self):
         admin_menu = self.toolbar.get_menu(ADMIN_MENU_IDENTIFIER)
-        if admin_menu:
+        if admin_menu:  # pragma: no cover
             position = admin_menu.get_alphabetical_insert_position(_('Shopit'), SubMenu)
             if not position:
                 position = admin_menu.find_first(Break, identifier=ADMINISTRATION_BREAK) + 1

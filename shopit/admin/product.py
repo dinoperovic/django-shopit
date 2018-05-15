@@ -264,14 +264,14 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
         product = product or get_object_or_404(Product, pk=pk)
         product = product.group or product
         if not language:
-            language = get_current_language()
+            language = get_current_language()  # pragma: no cover
         try:
             combo = product.get_combinations()[int(combo)]
             variant = product.create_variant(combo, language=language)
         except (IndexError, ObjectDoesNotExist, IntegrityError):
             return HttpResponseBadRequest()
         if message:
-            messages.success(request, _('Variant successfully created.'))
+            messages.success(request, _('Variant successfully created.'))  # pragma: no cover
         return HttpResponseRedirect(
             reverse('admin:shopit_product_change', args=[variant.pk]) + '?language=%s' % language)
 
@@ -281,7 +281,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
         variant = get_object_or_404(product.get_variants(), pk=variant)
         variant.delete()
         if message:
-            messages.success(request, _('Variant successfully deleted.'))
+            messages.success(request, _('Variant successfully deleted.'))  # pragma: no cover
         return HttpResponseRedirect(reverse('admin:shopit_product_change', args=[product.pk]))
 
     def create_all_variants(self, request, pk, language=None):
@@ -316,7 +316,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
     def make_active(self, request, queryset):
         rows = queryset.update(active=True)
         if rows == 1:
-            msg = _('1 Product was successfully marked as active.')
+            msg = _('1 Product was successfully marked as active.')  # pragma: no cover
         else:
             msg = _('%s Products were successfully marked as active.') % rows
         self.message_user(request, msg, messages.SUCCESS)
@@ -325,7 +325,7 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
     def make_inactive(self, request, queryset):
         rows = queryset.update(active=False)
         if rows == 1:
-            msg = _('1 Product was successfully marked as inactive.')
+            msg = _('1 Product was successfully marked as inactive.')  # pragma: no cover
         else:
             msg = _('%s Products were successfully marked as inactive.') % rows
         self.message_user(request, msg, messages.SUCCESS)

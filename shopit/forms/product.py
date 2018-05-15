@@ -13,7 +13,7 @@ from shopit.utils import get_error_message as em
 
 try:
     TextEditor = import_string(app_settings.TEXT_EDITOR)
-except ImportError:
+except ImportError:  # pragma: no cover
     from django.forms.widgets import Textarea as TextEditor
 
 
@@ -43,13 +43,13 @@ class ProductModelForm(TranslatableModelForm):
         return kind
 
     def clean_category(self):
-        return self._clean_categorization('category')
+        return self._clean_categorization('category')  # pragma: no cover
 
     def clean_brand(self):
-        return self._clean_categorization('brand')
+        return self._clean_categorization('brand')  # pragma: no cover
 
     def clean_manufacturer(self):
-        return self._clean_categorization('manufacturer')
+        return self._clean_categorization('manufacturer')  # pragma: no cover
 
     def clean__tax(self):
         tax = self.cleaned_data.get('_tax')
@@ -127,7 +127,8 @@ class AttributeValueInlineFormSet(BaseInlineFormSet):
         """
         Checks if variant with this attributes already exists.
         """
-        variations = [x[1] for x in variant.group.get_variations() if x[0] != variant.pk]
+        variations = [dict(x[1]) for x in variant.group.get_variations() if x[0] != variant.pk]
+
         if variations:
             attrs = {}
             for form in forms:

@@ -28,7 +28,7 @@ class FlagAdmin(TranslatableAdmin, DraggableMPTTAdmin):
         css = {'all': ['shopit/css/djangocms-admin-style.css']}
 
     def get_prepopulated_fields(self, request, obj=None):
-        return {'code': ['name']}
+        return {'code': ['name']}  # pragma: no cover
 
     def get_name(self, obj):
         return format_html(
