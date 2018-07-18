@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.4.2
+=====
+
+* Fixes #7 - "unhashable type: 'MoneyInEUR'" error in `get_price_steps` templatetag.
+
 0.4.1
 =====
 
