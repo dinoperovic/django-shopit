@@ -225,13 +225,13 @@ def get_price_steps(steps=5, products=None):
     if max_price == min_price:
         return [Money(min_price)]
 
-    price_steps = [Money(min_price)]
-    chunk = Money(int(max_price - min_price) / (steps + 1))
+    price_steps = [min_price]
+    chunk = int(max_price - min_price) / (steps + 1)
     for i in range(steps):
         price_steps.append(price_steps[-1] + chunk)
     price_steps = sorted(list(set(price_steps)))
-    price_steps.append(Money(max_price))
-
+    price_steps.append(max_price)
+    price_steps = [Money(x) for x in price_steps]
     return price_steps
 
 
