@@ -5,6 +5,12 @@ Release notes for **Shopit**.
 
 ----
 
+0.4.3
+=====
+
+* Fix encoding error in product admin `get_name` method.
+* Add `phonenumbers` library to requirements.
+
 0.4.2
 =====
 

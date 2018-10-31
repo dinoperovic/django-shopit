@@ -188,8 +188,8 @@ class ProductAdmin(FrontendEditableAdminMixin, PlaceholderAdminMixin, Translatab
 
     def get_name(self, obj):
         if obj.is_variant:
-            return '--- %s' % str(obj)
-        return str(obj)
+            return '--- %s' % smart_text(obj)
+        return smart_text(obj)
     get_name.admin_order_field = 'translations__name'
     get_name.short_description = _('Name')
 

@@ -44,6 +44,7 @@ setup(
         'django-admin-sortable2>=0.6.4',
         'django-measurement>=2.4.0',
         'django-phonenumber-field>=1.3.0',
+        'phonenumbers',
     ],
     setup_requires=['pytest-runner'] if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else [],
     tests_require=['pytest-django'],
