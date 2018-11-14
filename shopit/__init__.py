@@ -11,7 +11,7 @@ Release logic:
  6. git tag <version>
  7. git push --tags
  8. python setup.py sdist bdist_wheel
- 9. twine upload dist/django-shopit-<version>.tar.gz
+ 9. twine upload dist/*
 10. Done!
 """
 __version__ = '0.5.0'
