@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.5.0
+=====
+
+* Rename package from `djangoshop-shopit` to `django-shopit`.
+
 0.4.3
 =====
 
