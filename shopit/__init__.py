@@ -7,7 +7,7 @@ Release logic:
  2. git add shopit/__init__.py
  3. git commit -m 'Bump to <version>'
  4. git push
- 5. Make sure all tests pass on https://travis-ci.org/dinoperovic/django-shopit
+ 5. Make sure all tests pass on https://travis-ci.com/dinoperovic/django-shopit
  6. git tag <version>
  7. git push --tags
  8. python setup.py sdist bdist_wheel
