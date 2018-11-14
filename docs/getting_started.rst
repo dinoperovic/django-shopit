@@ -24,7 +24,7 @@ Install using **pip**:
 
 .. code:: bash
 
-    pip install djangoshop-shopit
+    pip install django-shopit
 
 You should follow django-cms_ & django-shop_ installation guide first, and then add the following to your settings:
 

@@ -130,7 +130,7 @@ html_theme = 'alabaster'
 #
 html_theme_options = {
     'github_user': 'dinoperovic',
-    'github_repo': 'djangoshop-shopit',
+    'github_repo': 'django-shopit',
     'github_button': True,
     'travis_button': True,
     'codecov_button': True,

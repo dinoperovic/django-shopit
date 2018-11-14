@@ -23,4 +23,4 @@ After that's done, you can login as superuser with credentials:
 
 ## Documentation
 
-For full documentation visit [ReadTheDocs](http://djangoshop-shopit.readthedocs.org).
+For full documentation visit [ReadTheDocs](http://django-shopit.readthedocs.org).

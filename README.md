@@ -1,11 +1,11 @@
 # Shopit
 
-[![Travis branch](https://img.shields.io/travis/dinoperovic/djangoshop-shopit/master.svg?style=flat-square)](https://travis-ci.org/dinoperovic/djangoshop-shopit)
-[![Codecov](https://img.shields.io/codecov/c/github/dinoperovic/djangoshop-shopit.svg?style=flat-square)](http://codecov.io/github/dinoperovic/djangoshop-shopit)
-[![PyPI](https://img.shields.io/pypi/v/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
-[![PyPI - Django Version](https://img.shields.io/pypi/djversions/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
-[![PyPI - License](https://img.shields.io/pypi/l/djangoshop-shopit.svg?style=flat-square)](https://pypi.org/project/djangoshop-shopit/)
+[![Travis branch](https://img.shields.io/travis/dinoperovic/django-shopit/master.svg?style=flat-square)](https://travis-ci.org/dinoperovic/django-shopit)
+[![Codecov](https://img.shields.io/codecov/c/github/dinoperovic/django-shopit.svg?style=flat-square)](http://codecov.io/github/dinoperovic/django-shopit)
+[![PyPI](https://img.shields.io/pypi/v/django-shopit.svg?style=flat-square)](https://pypi.org/project/django-shopit/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-shopit.svg?style=flat-square)](https://pypi.org/project/django-shopit/)
+[![PyPI - Django Version](https://img.shields.io/pypi/djversions/django-shopit.svg?style=flat-square)](https://pypi.org/project/django-shopit/)
+[![PyPI - License](https://img.shields.io/pypi/l/django-shopit.svg?style=flat-square)](https://pypi.org/project/django-shopit/)
 
 
 **A fully featured shop application built on [djangoSHOP](http://www.django-shop.org) framework.**
@@ -45,7 +45,7 @@ Here's what you can expect:
 Install using *pip*:
 
 ```bash
-pip install djangoshop-shopit
+pip install django-shopit
 ```
 
 You should follow [django-cms] & [django-shop] installation guide first, and then add the following to your settings:
@@ -89,7 +89,7 @@ This will load all the neccesary urls under the `ShopitApphook`.
 
 ## Documentation
 
-Full documentation is availiable on [ReadTheDocs](http://djangoshop-shopit.readthedocs.org).
+Full documentation is availiable on [ReadTheDocs](http://django-shopit.readthedocs.org).
 
 
 [Django]: https://www.djangoproject.com/
