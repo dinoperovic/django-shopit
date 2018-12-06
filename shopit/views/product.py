@@ -125,11 +125,12 @@ class ProductDetailView(ViewUrlMixin, ProductRetrieveView):
 
     def get(self, request, *args, **kwargs):
         response = super(ProductDetailView, self).get(request, *args, **kwargs)
-        product_id = self.get_object().pk
-        menu = request.toolbar.get_or_create_menu('shopit-menu', _('Shopit'))
-        menu.add_break()
-        menu.add_modal_item(_('Edit Product'), url=reverse('admin:shopit_product_change', args=[product_id]))
-        menu.add_sideframe_item(_('Delete Product'), url=reverse('admin:shopit_product_delete', args=[product_id]))
+        if request.accepted_renderer.format == 'html':
+            product_id = self.get_object().pk
+            menu = request.toolbar.get_or_create_menu('shopit-menu', _('Shopit'))
+            menu.add_break()
+            menu.add_modal_item(_('Edit Product'), url=reverse('admin:shopit_product_change', args=[product_id]))
+            menu.add_sideframe_item(_('Delete Product'), url=reverse('admin:shopit_product_delete', args=[product_id]))
         return response
 
     def get_object(self):

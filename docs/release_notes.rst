@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.5.1
+=====
+
+* In `ProductDetailView`, check for renderer format before adding django-cms menu related items.
+
 0.5.0
 =====
 
