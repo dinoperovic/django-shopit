@@ -5,6 +5,11 @@ Release notes for **Shopit**.
 
 ----
 
+0.5.2
+=====
+
+* Fix setup requirement.
+
 0.5.1
 =====
 

@@ -41,6 +41,7 @@ setup(
         'django-parler>=1.6.5',
         'django-mptt>=0.8.6',
         'django-admin-sortable2>=0.6.4',
+        'measurement==1.8.0',
         'django-measurement>=2.4.0',
         'djangocms-cascade==0.17.10',
         'djangorestframework==3.8.2',
