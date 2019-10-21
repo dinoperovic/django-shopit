@@ -14,6 +14,6 @@ Release logic:
  9. twine upload dist/*
 10. Done!
 """
-__version__ = '0.5.0'
+__version__ = '0.5.1'
 
 default_app_config = 'shopit.apps.ShopitConfig'
