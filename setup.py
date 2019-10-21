@@ -44,6 +44,7 @@ setup(
         'django-admin-sortable2>=0.6.4',
         'django-measurement>=2.4.0',
         'djangocms-cascade==0.17.10',
+        'djangorestframework==3.8.2',
     ],
     setup_requires=['pytest-runner'] if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else [],
     tests_require=['pytest-django'],
