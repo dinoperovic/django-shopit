@@ -5,7 +5,6 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.forms.utils import ErrorDict
 from django.utils.translation import ugettext_lazy as _
-from phonenumber_field.formfields import PhoneNumberField
 from shop.conf import app_settings as shop_settings
 from shop.modifiers.pool import cart_modifiers_pool
 
@@ -78,7 +77,7 @@ class CustomerForm(CheckoutFormMixin, AccountDetailsForm):
 
 class GuestForm(CheckoutFormMixin, CleanEmailMixin, forms.ModelForm):
     email = forms.EmailField(label=_('Email address'))
-    phone_number = PhoneNumberField(label=_('Phone number'))
+    phone_number = forms.CharField(label=_('Phone number'))
 
     class Meta:
         model = get_user_model()

@@ -6,7 +6,6 @@ from django.template.loader import select_template
 from django.utils import six
 from measurement.base import MeasureBase
 from measurement.measures import Distance, Mass
-from phonenumber_field.serializerfields import PhoneNumberField
 from rest_auth.serializers import PasswordResetConfirmSerializer, PasswordResetSerializer
 from rest_framework import serializers
 from shop.rest.money import MoneyField
@@ -31,7 +30,6 @@ from shopit.models.tax import Tax
 class AccountSerializer(CustomerSerializer):
     id = serializers.IntegerField(source='pk')
     username = serializers.CharField(source='get_username')
-    phone_number = PhoneNumberField()
     shipping_addresses = serializers.SerializerMethodField()
     billing_addresses = serializers.SerializerMethodField()
 

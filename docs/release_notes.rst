@@ -9,6 +9,8 @@ Release notes for **Shopit**.
 =====
 
 * In `ProductDetailView`, check for renderer format before adding django-cms menu related items.
+* Remove `PhoneNumberField` from the project, use simple `CharField` instead.
+* Lock requirements.
 
 0.5.0
 =====
