@@ -31,7 +31,7 @@ Here's what you can expect:
 
 ## Requirements
 
-* [Django] 1.11, 1.10
+* [Django] 1.11
 * [django-shop] as shop framework.
 * [django-cms] for placeholders.
 * [django-parler] to translate everything.

@@ -10,7 +10,6 @@ from setuptools import find_packages, setup
 
 CLASSIFIERS = [
     'Environment :: Web Environment',
-    'Framework :: Django :: 1.10',
     'Framework :: Django :: 1.11',
     'Framework :: Django',
     'Intended Audience :: Developers',

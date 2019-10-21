@@ -8,7 +8,7 @@ Get started with installing and configuring **Shopit**.
 Requirements
 ============
 
-* Django_ 1.10, 1.9
+* Django_ 1.11
 * django-shop_ as shop framework.
 * django-cms_ for placeholders.
 * django-parler_ to translate everything.
