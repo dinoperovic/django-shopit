@@ -44,7 +44,7 @@ setup(
         'measurement==1.8.0',
         'django-measurement>=2.4.0',
         'djangocms-cascade==0.17.10',
-        'djangorestframework==3.8.2',
+        'djangorestframework==3.11.2',
     ],
     setup_requires=['pytest-runner'] if {'pytest', 'test', 'ptr'}.intersection(sys.argv) else [],
     tests_require=['pytest-django'],
