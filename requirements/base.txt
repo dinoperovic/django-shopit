@@ -6,7 +6,7 @@ django-admin-sortable2>=0.6.4
 measurement==1.8.0
 django-measurement>=2.4.0
 djangocms-cascade==0.17.10
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 
 # Missing dependency in django-shop.
 django-allauth
