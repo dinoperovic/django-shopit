@@ -37,7 +37,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'django-shop==0.12.3',
-        'django-cms==3.5.3',
+        'django-cms==3.5.4',
         'django-parler>=1.6.5',
         'django-mptt>=0.8.6',
         'django-admin-sortable2>=0.6.4',
